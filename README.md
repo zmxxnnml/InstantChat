@@ -1,2 +1,2 @@
-xqwyInstantChat
-===============
+InstantChat
+===========
