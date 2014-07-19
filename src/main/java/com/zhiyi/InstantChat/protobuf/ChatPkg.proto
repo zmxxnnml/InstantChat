@@ -1,0 +1,105 @@
+option java_package = "com.zhiyi.InstantChat.protobuf";
+option java_outer_classname = "ChatPkg";
+
+message PkgC2S {
+
+	enum PkgType {
+		REG = 0;
+		HEARTBEAT = 1;
+		MESSAGE = 2;
+		PULL_REQ = 3;
+	}
+	
+	required PkgType type = 1;
+	
+	optional RegC2S reg = 2;
+	
+	optional ChatMessage message = 3;
+	
+	optional HeartBeatC2S heartbeat= 4;
+	
+	optional PullReqC2S pull_req= 5;
+}
+
+message PkgS2C {
+
+	enum PkgType {
+		MESSAGE = 1;
+	}
+	
+	required PkgType type = 1;
+	
+	repeated ChatMessage message = 4;
+}
+
+message ChatMessage {
+
+	enum MessageType {
+		TEXT = 0;
+		PICTURE = 1;
+		AUDIO = 2;
+	}
+	
+	optional int64 seq = 1;
+	
+	required int64 from_uid = 2; 
+	
+	required int64 to_uid = 3;
+	
+	optional string from_device_id = 4;
+	
+	optional string to_device_id = 5;
+	
+	required MessageType type = 6;
+	
+	required int32 date_len = 7;
+	
+	required bytes data = 8;
+	
+	optional int64 peer2server = 9;
+	
+	optional int64 server2peer = 10;
+	
+	optional bool is_read = 11;
+}
+
+message RegC2S {
+
+	required int64 uid = 1;
+	
+	optional string device_id = 2;
+	
+	optional String sec_token = 3;
+}
+
+message HeartBeatC2S {
+
+	required int64 uid = 1;
+	
+	optional string device_id = 2;
+	
+	required int64 send_time = 3;
+}
+
+message PullReqC2S {
+
+	required int64 uid = 1;
+	
+	optional string device_id = 2;
+	
+	required int64 req_start_seq = 3;
+	
+	optional int64 ack_req = 4;
+}
+
+// Stored in db for message syncing
+message Seq {
+
+	required int64 uid = 1;
+	
+	optional string device_id = 2;
+	
+	required int64 server_max_seq = 3;
+	
+	required int64 acked_max_seq = 4;
+}

@@ -1,5 +1,7 @@
 package com.zhiyi.InstantChat;
 
+import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -8,9 +10,14 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 
 public class ChatServer {
-	private static final int DEFAULT_PORT = 21423; // TODO: make it to be configured
+	// TODO: make it to be configured
+	private static final int DEFAULT_PORT = 21423;
 	
 	private int port;
 	
@@ -29,8 +36,21 @@ public class ChatServer {
             .childHandler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
-                	// TODO: Add more handlers
-                    ch.pipeline().addLast(new ChatHandler());
+                	 // Decoders
+                	ch.pipeline().addLast(
+                			"frameDecoder", new ProtobufVarint32FrameDecoder());
+                	ch.pipeline().addLast(
+                			"protobufDecoder", new ProtobufDecoder(PkgC2S.getDefaultInstance()));
+
+                	 // Encoders
+                	ch.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));
+                	ch.pipeline().addLast("protobufEncoder", new ProtobufEncoder());
+                	
+                	// In handler
+                    ch.pipeline().addLast(new MsgInHandler());
+                    
+                    // Out handler
+                    ch.pipeline().addLast(new MsgOutHandler());
                 }
             })
             .option(ChannelOption.SO_BACKLOG, 128)
@@ -54,6 +74,8 @@ public class ChatServer {
 		}
 		
 		new ChatServer(port).run();
+		
+		// TODO: add cronjob to scann dead connection
 	}
 	
 }
