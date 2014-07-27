@@ -42,9 +42,9 @@ message ChatMessage {
 	
 	optional int64 seq = 1;
 	
-	required int64 from_uid = 2; 
+	optional int64 from_uid = 2; 
 	
-	required int64 to_uid = 3;
+	optional int64 to_uid = 3;
 	
 	optional string from_device_id = 4;
 	
@@ -65,7 +65,7 @@ message ChatMessage {
 
 message RegC2S {
 
-	required int64 uid = 1;
+	optional int64 uid = 1;
 	
 	optional string device_id = 2;
 	
@@ -74,7 +74,7 @@ message RegC2S {
 
 message HeartBeatC2S {
 
-	required int64 uid = 1;
+	optional int64 uid = 1;
 	
 	optional string device_id = 2;
 	
@@ -83,11 +83,11 @@ message HeartBeatC2S {
 
 message PullReqC2S {
 
-	required int64 uid = 1;
+	optional int64 uid = 1;
 	
 	optional string device_id = 2;
 	
-	required int64 req_start_seq = 3;
+	optional int64 req_start_seq = 3;
 	
 	optional int64 ack_req = 4;
 }
@@ -95,7 +95,7 @@ message PullReqC2S {
 // Stored in db for message syncing
 message Seq {
 
-	required int64 uid = 1;
+	optional int64 uid = 1;
 	
 	optional string device_id = 2;
 	
