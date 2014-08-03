@@ -5,7 +5,7 @@ message PkgC2S {
 
 	enum PkgType {
 		REG = 0;
-		HEARTBEAT = 1;
+		HEART_BEAT = 1;
 		MESSAGE = 2;
 		PULL_REQ = 3;
 	}
@@ -16,7 +16,7 @@ message PkgC2S {
 	
 	optional ChatMessage message = 3;
 	
-	optional HeartBeatC2S heartbeat= 4;
+	optional HeartBeatC2S heart_beat= 4;
 	
 	optional PullReqC2S pull_req= 5;
 }
@@ -25,11 +25,14 @@ message PkgS2C {
 
 	enum PkgType {
 		MESSAGE = 1;
+		HEART_BEAT_ACK =2;
 	}
 	
 	required PkgType type = 1;
 	
-	repeated ChatMessage message = 4;
+	repeated ChatMessage message = 2;
+	
+	optional HeartBeatS2C heart_beat_ack = 3;
 }
 
 message ChatMessage {
@@ -60,7 +63,9 @@ message ChatMessage {
 	
 	optional int64 server2peer = 10;
 	
-	optional bool is_read = 11;
+	optional int64 send_time = 11;
+	
+	optional bool is_read = 12;
 }
 
 message RegC2S {
@@ -78,7 +83,11 @@ message HeartBeatC2S {
 	
 	optional string device_id = 2;
 	
-	required int64 send_time = 3;
+	optional int64 send_time = 3;
+}
+
+message HeartBeatS2C {
+	optional int64 send_time = 1;
 }
 
 message PullReqC2S {
@@ -89,7 +98,9 @@ message PullReqC2S {
 	
 	optional int64 req_start_seq = 3;
 	
-	optional int64 ack_req = 4;
+	optional int64 req_end_seq = 4;
+	
+	optional int64 ack_req = 5;
 }
 
 // Stored in db for message syncing
