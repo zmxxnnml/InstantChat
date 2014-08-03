@@ -1,2 +1,2 @@
 # windows:
-protoc.exe --java_oout=. ChatPkg.proto
+protoc.exe --java_oout=../../../../ ChatPkg.proto
