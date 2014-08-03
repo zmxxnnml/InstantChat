@@ -49,19 +49,19 @@ public final class ChatPkg {
      */
     com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessageOrBuilder getMessageOrBuilder();
 
-    // optional .HeartBeatC2S heartbeat = 4;
+    // optional .HeartBeatC2S heart_beat = 4;
     /**
-     * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+     * <code>optional .HeartBeatC2S heart_beat = 4;</code>
      */
-    boolean hasHeartbeat();
+    boolean hasHeartBeat();
     /**
-     * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+     * <code>optional .HeartBeatC2S heart_beat = 4;</code>
      */
-    com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S getHeartbeat();
+    com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S getHeartBeat();
     /**
-     * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+     * <code>optional .HeartBeatC2S heart_beat = 4;</code>
      */
-    com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder getHeartbeatOrBuilder();
+    com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder getHeartBeatOrBuilder();
 
     // optional .PullReqC2S pull_req = 5;
     /**
@@ -168,12 +168,12 @@ public final class ChatPkg {
             case 34: {
               com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.Builder subBuilder = null;
               if (((bitField0_ & 0x00000008) == 0x00000008)) {
-                subBuilder = heartbeat_.toBuilder();
+                subBuilder = heartBeat_.toBuilder();
               }
-              heartbeat_ = input.readMessage(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.PARSER, extensionRegistry);
+              heartBeat_ = input.readMessage(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(heartbeat_);
-                heartbeat_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(heartBeat_);
+                heartBeat_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000008;
               break;
@@ -240,9 +240,9 @@ public final class ChatPkg {
        */
       REG(0, 0),
       /**
-       * <code>HEARTBEAT = 1;</code>
+       * <code>HEART_BEAT = 1;</code>
        */
-      HEARTBEAT(1, 1),
+      HEART_BEAT(1, 1),
       /**
        * <code>MESSAGE = 2;</code>
        */
@@ -258,9 +258,9 @@ public final class ChatPkg {
        */
       public static final int REG_VALUE = 0;
       /**
-       * <code>HEARTBEAT = 1;</code>
+       * <code>HEART_BEAT = 1;</code>
        */
-      public static final int HEARTBEAT_VALUE = 1;
+      public static final int HEART_BEAT_VALUE = 1;
       /**
        * <code>MESSAGE = 2;</code>
        */
@@ -276,7 +276,7 @@ public final class ChatPkg {
       public static PkgType valueOf(int value) {
         switch (value) {
           case 0: return REG;
-          case 1: return HEARTBEAT;
+          case 1: return HEART_BEAT;
           case 2: return MESSAGE;
           case 3: return PULL_REQ;
           default: return null;
@@ -391,26 +391,26 @@ public final class ChatPkg {
       return message_;
     }
 
-    // optional .HeartBeatC2S heartbeat = 4;
-    public static final int HEARTBEAT_FIELD_NUMBER = 4;
-    private com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S heartbeat_;
+    // optional .HeartBeatC2S heart_beat = 4;
+    public static final int HEART_BEAT_FIELD_NUMBER = 4;
+    private com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S heartBeat_;
     /**
-     * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+     * <code>optional .HeartBeatC2S heart_beat = 4;</code>
      */
-    public boolean hasHeartbeat() {
+    public boolean hasHeartBeat() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+     * <code>optional .HeartBeatC2S heart_beat = 4;</code>
      */
-    public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S getHeartbeat() {
-      return heartbeat_;
+    public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S getHeartBeat() {
+      return heartBeat_;
     }
     /**
-     * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+     * <code>optional .HeartBeatC2S heart_beat = 4;</code>
      */
-    public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder getHeartbeatOrBuilder() {
-      return heartbeat_;
+    public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder getHeartBeatOrBuilder() {
+      return heartBeat_;
     }
 
     // optional .PullReqC2S pull_req = 5;
@@ -439,7 +439,7 @@ public final class ChatPkg {
       type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S.PkgType.REG;
       reg_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegC2S.getDefaultInstance();
       message_ = com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.getDefaultInstance();
-      heartbeat_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance();
+      heartBeat_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance();
       pullReq_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PullReqC2S.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
@@ -451,26 +451,8 @@ public final class ChatPkg {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (hasReg()) {
-        if (!getReg().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       if (hasMessage()) {
         if (!getMessage().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasHeartbeat()) {
-        if (!getHeartbeat().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasPullReq()) {
-        if (!getPullReq().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -492,7 +474,7 @@ public final class ChatPkg {
         output.writeMessage(3, message_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(4, heartbeat_);
+        output.writeMessage(4, heartBeat_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeMessage(5, pullReq_);
@@ -520,7 +502,7 @@ public final class ChatPkg {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, heartbeat_);
+          .computeMessageSize(4, heartBeat_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
@@ -636,7 +618,7 @@ public final class ChatPkg {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getRegFieldBuilder();
           getMessageFieldBuilder();
-          getHeartbeatFieldBuilder();
+          getHeartBeatFieldBuilder();
           getPullReqFieldBuilder();
         }
       }
@@ -660,10 +642,10 @@ public final class ChatPkg {
           messageBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
-        if (heartbeatBuilder_ == null) {
-          heartbeat_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance();
+        if (heartBeatBuilder_ == null) {
+          heartBeat_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance();
         } else {
-          heartbeatBuilder_.clear();
+          heartBeatBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
         if (pullReqBuilder_ == null) {
@@ -723,10 +705,10 @@ public final class ChatPkg {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        if (heartbeatBuilder_ == null) {
-          result.heartbeat_ = heartbeat_;
+        if (heartBeatBuilder_ == null) {
+          result.heartBeat_ = heartBeat_;
         } else {
-          result.heartbeat_ = heartbeatBuilder_.build();
+          result.heartBeat_ = heartBeatBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
@@ -761,8 +743,8 @@ public final class ChatPkg {
         if (other.hasMessage()) {
           mergeMessage(other.getMessage());
         }
-        if (other.hasHeartbeat()) {
-          mergeHeartbeat(other.getHeartbeat());
+        if (other.hasHeartBeat()) {
+          mergeHeartBeat(other.getHeartBeat());
         }
         if (other.hasPullReq()) {
           mergePullReq(other.getPullReq());
@@ -776,26 +758,8 @@ public final class ChatPkg {
           
           return false;
         }
-        if (hasReg()) {
-          if (!getReg().isInitialized()) {
-            
-            return false;
-          }
-        }
         if (hasMessage()) {
           if (!getMessage().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasHeartbeat()) {
-          if (!getHeartbeat().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasPullReq()) {
-          if (!getPullReq().isInitialized()) {
             
             return false;
           }
@@ -1092,121 +1056,121 @@ public final class ChatPkg {
         return messageBuilder_;
       }
 
-      // optional .HeartBeatC2S heartbeat = 4;
-      private com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S heartbeat_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance();
+      // optional .HeartBeatC2S heart_beat = 4;
+      private com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S heartBeat_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder> heartbeatBuilder_;
+          com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder> heartBeatBuilder_;
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
-      public boolean hasHeartbeat() {
+      public boolean hasHeartBeat() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
-      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S getHeartbeat() {
-        if (heartbeatBuilder_ == null) {
-          return heartbeat_;
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S getHeartBeat() {
+        if (heartBeatBuilder_ == null) {
+          return heartBeat_;
         } else {
-          return heartbeatBuilder_.getMessage();
+          return heartBeatBuilder_.getMessage();
         }
       }
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
-      public Builder setHeartbeat(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S value) {
-        if (heartbeatBuilder_ == null) {
+      public Builder setHeartBeat(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S value) {
+        if (heartBeatBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          heartbeat_ = value;
+          heartBeat_ = value;
           onChanged();
         } else {
-          heartbeatBuilder_.setMessage(value);
+          heartBeatBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
-      public Builder setHeartbeat(
+      public Builder setHeartBeat(
           com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.Builder builderForValue) {
-        if (heartbeatBuilder_ == null) {
-          heartbeat_ = builderForValue.build();
+        if (heartBeatBuilder_ == null) {
+          heartBeat_ = builderForValue.build();
           onChanged();
         } else {
-          heartbeatBuilder_.setMessage(builderForValue.build());
+          heartBeatBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
-      public Builder mergeHeartbeat(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S value) {
-        if (heartbeatBuilder_ == null) {
+      public Builder mergeHeartBeat(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S value) {
+        if (heartBeatBuilder_ == null) {
           if (((bitField0_ & 0x00000008) == 0x00000008) &&
-              heartbeat_ != com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance()) {
-            heartbeat_ =
-              com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.newBuilder(heartbeat_).mergeFrom(value).buildPartial();
+              heartBeat_ != com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance()) {
+            heartBeat_ =
+              com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.newBuilder(heartBeat_).mergeFrom(value).buildPartial();
           } else {
-            heartbeat_ = value;
+            heartBeat_ = value;
           }
           onChanged();
         } else {
-          heartbeatBuilder_.mergeFrom(value);
+          heartBeatBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
-      public Builder clearHeartbeat() {
-        if (heartbeatBuilder_ == null) {
-          heartbeat_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance();
+      public Builder clearHeartBeat() {
+        if (heartBeatBuilder_ == null) {
+          heartBeat_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.getDefaultInstance();
           onChanged();
         } else {
-          heartbeatBuilder_.clear();
+          heartBeatBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
-      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.Builder getHeartbeatBuilder() {
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.Builder getHeartBeatBuilder() {
         bitField0_ |= 0x00000008;
         onChanged();
-        return getHeartbeatFieldBuilder().getBuilder();
+        return getHeartBeatFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
-      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder getHeartbeatOrBuilder() {
-        if (heartbeatBuilder_ != null) {
-          return heartbeatBuilder_.getMessageOrBuilder();
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder getHeartBeatOrBuilder() {
+        if (heartBeatBuilder_ != null) {
+          return heartBeatBuilder_.getMessageOrBuilder();
         } else {
-          return heartbeat_;
+          return heartBeat_;
         }
       }
       /**
-       * <code>optional .HeartBeatC2S heartbeat = 4;</code>
+       * <code>optional .HeartBeatC2S heart_beat = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder> 
-          getHeartbeatFieldBuilder() {
-        if (heartbeatBuilder_ == null) {
-          heartbeatBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          getHeartBeatFieldBuilder() {
+        if (heartBeatBuilder_ == null) {
+          heartBeatBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2SOrBuilder>(
-                  heartbeat_,
+                  heartBeat_,
                   getParentForChildren(),
                   isClean());
-          heartbeat_ = null;
+          heartBeat_ = null;
         }
-        return heartbeatBuilder_;
+        return heartBeatBuilder_;
       }
 
       // optional .PullReqC2S pull_req = 5;
@@ -1350,30 +1314,58 @@ public final class ChatPkg {
      */
     com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType getType();
 
-    // repeated .ChatMessage message = 4;
+    // repeated .ChatMessage message = 2;
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     java.util.List<com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage> 
         getMessageList();
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage getMessage(int index);
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     int getMessageCount();
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     java.util.List<? extends com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessageOrBuilder> 
         getMessageOrBuilderList();
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessageOrBuilder getMessageOrBuilder(
         int index);
+
+    // optional .HeartBeatS2C heart_beat_ack = 3;
+    /**
+     * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+     */
+    boolean hasHeartBeatAck();
+    /**
+     * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+     */
+    com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C getHeartBeatAck();
+    /**
+     * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+     */
+    com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2COrBuilder getHeartBeatAckOrBuilder();
+
+    // optional .RegS2C reg_ack = 4;
+    /**
+     * <code>optional .RegS2C reg_ack = 4;</code>
+     */
+    boolean hasRegAck();
+    /**
+     * <code>optional .RegS2C reg_ack = 4;</code>
+     */
+    com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C getRegAck();
+    /**
+     * <code>optional .RegS2C reg_ack = 4;</code>
+     */
+    com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2COrBuilder getRegAckOrBuilder();
   }
   /**
    * Protobuf type {@code PkgS2C}
@@ -1437,12 +1429,38 @@ public final class ChatPkg {
               }
               break;
             }
-            case 34: {
+            case 18: {
               if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
                 message_ = new java.util.ArrayList<com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage>();
                 mutable_bitField0_ |= 0x00000002;
               }
               message_.add(input.readMessage(com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.PARSER, extensionRegistry));
+              break;
+            }
+            case 26: {
+              com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = heartBeatAck_.toBuilder();
+              }
+              heartBeatAck_ = input.readMessage(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(heartBeatAck_);
+                heartBeatAck_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 34: {
+              com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = regAck_.toBuilder();
+              }
+              regAck_ = input.readMessage(com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(regAck_);
+                regAck_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
               break;
             }
           }
@@ -1493,22 +1511,40 @@ public final class ChatPkg {
     public enum PkgType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>MESSAGE = 1;</code>
+       * <code>REG_ACK = 1;</code>
        */
-      MESSAGE(0, 1),
+      REG_ACK(0, 1),
+      /**
+       * <code>MESSAGE = 2;</code>
+       */
+      MESSAGE(1, 2),
+      /**
+       * <code>HEART_BEAT_ACK = 3;</code>
+       */
+      HEART_BEAT_ACK(2, 3),
       ;
 
       /**
-       * <code>MESSAGE = 1;</code>
+       * <code>REG_ACK = 1;</code>
        */
-      public static final int MESSAGE_VALUE = 1;
+      public static final int REG_ACK_VALUE = 1;
+      /**
+       * <code>MESSAGE = 2;</code>
+       */
+      public static final int MESSAGE_VALUE = 2;
+      /**
+       * <code>HEART_BEAT_ACK = 3;</code>
+       */
+      public static final int HEART_BEAT_ACK_VALUE = 3;
 
 
       public final int getNumber() { return value; }
 
       public static PkgType valueOf(int value) {
         switch (value) {
-          case 1: return MESSAGE;
+          case 1: return REG_ACK;
+          case 2: return MESSAGE;
+          case 3: return HEART_BEAT_ACK;
           default: return null;
         }
       }
@@ -1577,45 +1613,91 @@ public final class ChatPkg {
       return type_;
     }
 
-    // repeated .ChatMessage message = 4;
-    public static final int MESSAGE_FIELD_NUMBER = 4;
+    // repeated .ChatMessage message = 2;
+    public static final int MESSAGE_FIELD_NUMBER = 2;
     private java.util.List<com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage> message_;
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     public java.util.List<com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage> getMessageList() {
       return message_;
     }
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     public java.util.List<? extends com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessageOrBuilder> 
         getMessageOrBuilderList() {
       return message_;
     }
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     public int getMessageCount() {
       return message_.size();
     }
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     public com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage getMessage(int index) {
       return message_.get(index);
     }
     /**
-     * <code>repeated .ChatMessage message = 4;</code>
+     * <code>repeated .ChatMessage message = 2;</code>
      */
     public com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessageOrBuilder getMessageOrBuilder(
         int index) {
       return message_.get(index);
     }
 
+    // optional .HeartBeatS2C heart_beat_ack = 3;
+    public static final int HEART_BEAT_ACK_FIELD_NUMBER = 3;
+    private com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C heartBeatAck_;
+    /**
+     * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+     */
+    public boolean hasHeartBeatAck() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+     */
+    public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C getHeartBeatAck() {
+      return heartBeatAck_;
+    }
+    /**
+     * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+     */
+    public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2COrBuilder getHeartBeatAckOrBuilder() {
+      return heartBeatAck_;
+    }
+
+    // optional .RegS2C reg_ack = 4;
+    public static final int REG_ACK_FIELD_NUMBER = 4;
+    private com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C regAck_;
+    /**
+     * <code>optional .RegS2C reg_ack = 4;</code>
+     */
+    public boolean hasRegAck() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .RegS2C reg_ack = 4;</code>
+     */
+    public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C getRegAck() {
+      return regAck_;
+    }
+    /**
+     * <code>optional .RegS2C reg_ack = 4;</code>
+     */
+    public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2COrBuilder getRegAckOrBuilder() {
+      return regAck_;
+    }
+
     private void initFields() {
-      type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType.MESSAGE;
+      type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType.REG_ACK;
       message_ = java.util.Collections.emptyList();
+      heartBeatAck_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.getDefaultInstance();
+      regAck_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1643,7 +1725,13 @@ public final class ChatPkg {
         output.writeEnum(1, type_.getNumber());
       }
       for (int i = 0; i < message_.size(); i++) {
-        output.writeMessage(4, message_.get(i));
+        output.writeMessage(2, message_.get(i));
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(3, heartBeatAck_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(4, regAck_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1660,7 +1748,15 @@ public final class ChatPkg {
       }
       for (int i = 0; i < message_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, message_.get(i));
+          .computeMessageSize(2, message_.get(i));
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, heartBeatAck_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, regAck_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1771,6 +1867,8 @@ public final class ChatPkg {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getMessageFieldBuilder();
+          getHeartBeatAckFieldBuilder();
+          getRegAckFieldBuilder();
         }
       }
       private static Builder create() {
@@ -1779,7 +1877,7 @@ public final class ChatPkg {
 
       public Builder clear() {
         super.clear();
-        type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType.MESSAGE;
+        type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType.REG_ACK;
         bitField0_ = (bitField0_ & ~0x00000001);
         if (messageBuilder_ == null) {
           message_ = java.util.Collections.emptyList();
@@ -1787,6 +1885,18 @@ public final class ChatPkg {
         } else {
           messageBuilder_.clear();
         }
+        if (heartBeatAckBuilder_ == null) {
+          heartBeatAck_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.getDefaultInstance();
+        } else {
+          heartBeatAckBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (regAckBuilder_ == null) {
+          regAck_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.getDefaultInstance();
+        } else {
+          regAckBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -1827,6 +1937,22 @@ public final class ChatPkg {
           result.message_ = message_;
         } else {
           result.message_ = messageBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (heartBeatAckBuilder_ == null) {
+          result.heartBeatAck_ = heartBeatAck_;
+        } else {
+          result.heartBeatAck_ = heartBeatAckBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (regAckBuilder_ == null) {
+          result.regAck_ = regAck_;
+        } else {
+          result.regAck_ = regAckBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -1873,6 +1999,12 @@ public final class ChatPkg {
             }
           }
         }
+        if (other.hasHeartBeatAck()) {
+          mergeHeartBeatAck(other.getHeartBeatAck());
+        }
+        if (other.hasRegAck()) {
+          mergeRegAck(other.getRegAck());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -1911,7 +2043,7 @@ public final class ChatPkg {
       private int bitField0_;
 
       // required .PkgS2C.PkgType type = 1;
-      private com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType.MESSAGE;
+      private com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType.REG_ACK;
       /**
        * <code>required .PkgS2C.PkgType type = 1;</code>
        */
@@ -1941,12 +2073,12 @@ public final class ChatPkg {
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType.MESSAGE;
+        type_ = com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType.REG_ACK;
         onChanged();
         return this;
       }
 
-      // repeated .ChatMessage message = 4;
+      // repeated .ChatMessage message = 2;
       private java.util.List<com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage> message_ =
         java.util.Collections.emptyList();
       private void ensureMessageIsMutable() {
@@ -1960,7 +2092,7 @@ public final class ChatPkg {
           com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage, com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessageOrBuilder> messageBuilder_;
 
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public java.util.List<com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage> getMessageList() {
         if (messageBuilder_ == null) {
@@ -1970,7 +2102,7 @@ public final class ChatPkg {
         }
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public int getMessageCount() {
         if (messageBuilder_ == null) {
@@ -1980,7 +2112,7 @@ public final class ChatPkg {
         }
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage getMessage(int index) {
         if (messageBuilder_ == null) {
@@ -1990,7 +2122,7 @@ public final class ChatPkg {
         }
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder setMessage(
           int index, com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage value) {
@@ -2007,7 +2139,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder setMessage(
           int index, com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.Builder builderForValue) {
@@ -2021,7 +2153,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder addMessage(com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage value) {
         if (messageBuilder_ == null) {
@@ -2037,7 +2169,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder addMessage(
           int index, com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage value) {
@@ -2054,7 +2186,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder addMessage(
           com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.Builder builderForValue) {
@@ -2068,7 +2200,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder addMessage(
           int index, com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.Builder builderForValue) {
@@ -2082,7 +2214,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder addAllMessage(
           java.lang.Iterable<? extends com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage> values) {
@@ -2096,7 +2228,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder clearMessage() {
         if (messageBuilder_ == null) {
@@ -2109,7 +2241,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public Builder removeMessage(int index) {
         if (messageBuilder_ == null) {
@@ -2122,14 +2254,14 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.Builder getMessageBuilder(
           int index) {
         return getMessageFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessageOrBuilder getMessageOrBuilder(
           int index) {
@@ -2139,7 +2271,7 @@ public final class ChatPkg {
         }
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public java.util.List<? extends com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessageOrBuilder> 
            getMessageOrBuilderList() {
@@ -2150,14 +2282,14 @@ public final class ChatPkg {
         }
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.Builder addMessageBuilder() {
         return getMessageFieldBuilder().addBuilder(
             com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.getDefaultInstance());
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.Builder addMessageBuilder(
           int index) {
@@ -2165,7 +2297,7 @@ public final class ChatPkg {
             index, com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.getDefaultInstance());
       }
       /**
-       * <code>repeated .ChatMessage message = 4;</code>
+       * <code>repeated .ChatMessage message = 2;</code>
        */
       public java.util.List<com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage.Builder> 
            getMessageBuilderList() {
@@ -2184,6 +2316,240 @@ public final class ChatPkg {
           message_ = null;
         }
         return messageBuilder_;
+      }
+
+      // optional .HeartBeatS2C heart_beat_ack = 3;
+      private com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C heartBeatAck_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2COrBuilder> heartBeatAckBuilder_;
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      public boolean hasHeartBeatAck() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C getHeartBeatAck() {
+        if (heartBeatAckBuilder_ == null) {
+          return heartBeatAck_;
+        } else {
+          return heartBeatAckBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      public Builder setHeartBeatAck(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C value) {
+        if (heartBeatAckBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          heartBeatAck_ = value;
+          onChanged();
+        } else {
+          heartBeatAckBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      public Builder setHeartBeatAck(
+          com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.Builder builderForValue) {
+        if (heartBeatAckBuilder_ == null) {
+          heartBeatAck_ = builderForValue.build();
+          onChanged();
+        } else {
+          heartBeatAckBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      public Builder mergeHeartBeatAck(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C value) {
+        if (heartBeatAckBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              heartBeatAck_ != com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.getDefaultInstance()) {
+            heartBeatAck_ =
+              com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.newBuilder(heartBeatAck_).mergeFrom(value).buildPartial();
+          } else {
+            heartBeatAck_ = value;
+          }
+          onChanged();
+        } else {
+          heartBeatAckBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      public Builder clearHeartBeatAck() {
+        if (heartBeatAckBuilder_ == null) {
+          heartBeatAck_ = com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.getDefaultInstance();
+          onChanged();
+        } else {
+          heartBeatAckBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.Builder getHeartBeatAckBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getHeartBeatAckFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2COrBuilder getHeartBeatAckOrBuilder() {
+        if (heartBeatAckBuilder_ != null) {
+          return heartBeatAckBuilder_.getMessageOrBuilder();
+        } else {
+          return heartBeatAck_;
+        }
+      }
+      /**
+       * <code>optional .HeartBeatS2C heart_beat_ack = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2COrBuilder> 
+          getHeartBeatAckFieldBuilder() {
+        if (heartBeatAckBuilder_ == null) {
+          heartBeatAckBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2COrBuilder>(
+                  heartBeatAck_,
+                  getParentForChildren(),
+                  isClean());
+          heartBeatAck_ = null;
+        }
+        return heartBeatAckBuilder_;
+      }
+
+      // optional .RegS2C reg_ack = 4;
+      private com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C regAck_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C, com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2COrBuilder> regAckBuilder_;
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      public boolean hasRegAck() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C getRegAck() {
+        if (regAckBuilder_ == null) {
+          return regAck_;
+        } else {
+          return regAckBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      public Builder setRegAck(com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C value) {
+        if (regAckBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          regAck_ = value;
+          onChanged();
+        } else {
+          regAckBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      public Builder setRegAck(
+          com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.Builder builderForValue) {
+        if (regAckBuilder_ == null) {
+          regAck_ = builderForValue.build();
+          onChanged();
+        } else {
+          regAckBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      public Builder mergeRegAck(com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C value) {
+        if (regAckBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              regAck_ != com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.getDefaultInstance()) {
+            regAck_ =
+              com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.newBuilder(regAck_).mergeFrom(value).buildPartial();
+          } else {
+            regAck_ = value;
+          }
+          onChanged();
+        } else {
+          regAckBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      public Builder clearRegAck() {
+        if (regAckBuilder_ == null) {
+          regAck_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.getDefaultInstance();
+          onChanged();
+        } else {
+          regAckBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.Builder getRegAckBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getRegAckFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2COrBuilder getRegAckOrBuilder() {
+        if (regAckBuilder_ != null) {
+          return regAckBuilder_.getMessageOrBuilder();
+        } else {
+          return regAck_;
+        }
+      }
+      /**
+       * <code>optional .RegS2C reg_ack = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C, com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2COrBuilder> 
+          getRegAckFieldBuilder() {
+        if (regAckBuilder_ == null) {
+          regAckBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C, com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.Builder, com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2COrBuilder>(
+                  regAck_,
+                  getParentForChildren(),
+                  isClean());
+          regAck_ = null;
+        }
+        return regAckBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:PkgS2C)
@@ -2210,23 +2576,23 @@ public final class ChatPkg {
      */
     long getSeq();
 
-    // required int64 from_uid = 2;
+    // optional int64 from_uid = 2;
     /**
-     * <code>required int64 from_uid = 2;</code>
+     * <code>optional int64 from_uid = 2;</code>
      */
     boolean hasFromUid();
     /**
-     * <code>required int64 from_uid = 2;</code>
+     * <code>optional int64 from_uid = 2;</code>
      */
     long getFromUid();
 
-    // required int64 to_uid = 3;
+    // optional int64 to_uid = 3;
     /**
-     * <code>required int64 to_uid = 3;</code>
+     * <code>optional int64 to_uid = 3;</code>
      */
     boolean hasToUid();
     /**
-     * <code>required int64 to_uid = 3;</code>
+     * <code>optional int64 to_uid = 3;</code>
      */
     long getToUid();
 
@@ -2310,13 +2676,23 @@ public final class ChatPkg {
      */
     long getServer2Peer();
 
-    // optional bool is_read = 11;
+    // optional int64 send_time = 11;
     /**
-     * <code>optional bool is_read = 11;</code>
+     * <code>optional int64 send_time = 11;</code>
+     */
+    boolean hasSendTime();
+    /**
+     * <code>optional int64 send_time = 11;</code>
+     */
+    long getSendTime();
+
+    // optional bool is_read = 12;
+    /**
+     * <code>optional bool is_read = 12;</code>
      */
     boolean hasIsRead();
     /**
-     * <code>optional bool is_read = 11;</code>
+     * <code>optional bool is_read = 12;</code>
      */
     boolean getIsRead();
   }
@@ -2429,6 +2805,11 @@ public final class ChatPkg {
             }
             case 88: {
               bitField0_ |= 0x00000400;
+              sendTime_ = input.readInt64();
+              break;
+            }
+            case 96: {
+              bitField0_ |= 0x00000800;
               isRead_ = input.readBool();
               break;
             }
@@ -2579,33 +2960,33 @@ public final class ChatPkg {
       return seq_;
     }
 
-    // required int64 from_uid = 2;
+    // optional int64 from_uid = 2;
     public static final int FROM_UID_FIELD_NUMBER = 2;
     private long fromUid_;
     /**
-     * <code>required int64 from_uid = 2;</code>
+     * <code>optional int64 from_uid = 2;</code>
      */
     public boolean hasFromUid() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required int64 from_uid = 2;</code>
+     * <code>optional int64 from_uid = 2;</code>
      */
     public long getFromUid() {
       return fromUid_;
     }
 
-    // required int64 to_uid = 3;
+    // optional int64 to_uid = 3;
     public static final int TO_UID_FIELD_NUMBER = 3;
     private long toUid_;
     /**
-     * <code>required int64 to_uid = 3;</code>
+     * <code>optional int64 to_uid = 3;</code>
      */
     public boolean hasToUid() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int64 to_uid = 3;</code>
+     * <code>optional int64 to_uid = 3;</code>
      */
     public long getToUid() {
       return toUid_;
@@ -2777,17 +3158,33 @@ public final class ChatPkg {
       return server2Peer_;
     }
 
-    // optional bool is_read = 11;
-    public static final int IS_READ_FIELD_NUMBER = 11;
-    private boolean isRead_;
+    // optional int64 send_time = 11;
+    public static final int SEND_TIME_FIELD_NUMBER = 11;
+    private long sendTime_;
     /**
-     * <code>optional bool is_read = 11;</code>
+     * <code>optional int64 send_time = 11;</code>
      */
-    public boolean hasIsRead() {
+    public boolean hasSendTime() {
       return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
-     * <code>optional bool is_read = 11;</code>
+     * <code>optional int64 send_time = 11;</code>
+     */
+    public long getSendTime() {
+      return sendTime_;
+    }
+
+    // optional bool is_read = 12;
+    public static final int IS_READ_FIELD_NUMBER = 12;
+    private boolean isRead_;
+    /**
+     * <code>optional bool is_read = 12;</code>
+     */
+    public boolean hasIsRead() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    /**
+     * <code>optional bool is_read = 12;</code>
      */
     public boolean getIsRead() {
       return isRead_;
@@ -2804,6 +3201,7 @@ public final class ChatPkg {
       data_ = com.google.protobuf.ByteString.EMPTY;
       peer2Server_ = 0L;
       server2Peer_ = 0L;
+      sendTime_ = 0L;
       isRead_ = false;
     }
     private byte memoizedIsInitialized = -1;
@@ -2811,14 +3209,6 @@ public final class ChatPkg {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasFromUid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasToUid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasType()) {
         memoizedIsInitialized = 0;
         return false;
@@ -2869,7 +3259,10 @@ public final class ChatPkg {
         output.writeInt64(10, server2Peer_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeBool(11, isRead_);
+        output.writeInt64(11, sendTime_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeBool(12, isRead_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2922,7 +3315,11 @@ public final class ChatPkg {
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(11, isRead_);
+          .computeInt64Size(11, sendTime_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(12, isRead_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3060,8 +3457,10 @@ public final class ChatPkg {
         bitField0_ = (bitField0_ & ~0x00000100);
         server2Peer_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000200);
-        isRead_ = false;
+        sendTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000400);
+        isRead_ = false;
+        bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
 
@@ -3133,6 +3532,10 @@ public final class ChatPkg {
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000400;
         }
+        result.sendTime_ = sendTime_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000800;
+        }
         result.isRead_ = isRead_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -3184,6 +3587,9 @@ public final class ChatPkg {
         if (other.hasServer2Peer()) {
           setServer2Peer(other.getServer2Peer());
         }
+        if (other.hasSendTime()) {
+          setSendTime(other.getSendTime());
+        }
         if (other.hasIsRead()) {
           setIsRead(other.getIsRead());
         }
@@ -3192,14 +3598,6 @@ public final class ChatPkg {
       }
 
       public final boolean isInitialized() {
-        if (!hasFromUid()) {
-          
-          return false;
-        }
-        if (!hasToUid()) {
-          
-          return false;
-        }
         if (!hasType()) {
           
           return false;
@@ -3267,22 +3665,22 @@ public final class ChatPkg {
         return this;
       }
 
-      // required int64 from_uid = 2;
+      // optional int64 from_uid = 2;
       private long fromUid_ ;
       /**
-       * <code>required int64 from_uid = 2;</code>
+       * <code>optional int64 from_uid = 2;</code>
        */
       public boolean hasFromUid() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required int64 from_uid = 2;</code>
+       * <code>optional int64 from_uid = 2;</code>
        */
       public long getFromUid() {
         return fromUid_;
       }
       /**
-       * <code>required int64 from_uid = 2;</code>
+       * <code>optional int64 from_uid = 2;</code>
        */
       public Builder setFromUid(long value) {
         bitField0_ |= 0x00000002;
@@ -3291,7 +3689,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>required int64 from_uid = 2;</code>
+       * <code>optional int64 from_uid = 2;</code>
        */
       public Builder clearFromUid() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -3300,22 +3698,22 @@ public final class ChatPkg {
         return this;
       }
 
-      // required int64 to_uid = 3;
+      // optional int64 to_uid = 3;
       private long toUid_ ;
       /**
-       * <code>required int64 to_uid = 3;</code>
+       * <code>optional int64 to_uid = 3;</code>
        */
       public boolean hasToUid() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required int64 to_uid = 3;</code>
+       * <code>optional int64 to_uid = 3;</code>
        */
       public long getToUid() {
         return toUid_;
       }
       /**
-       * <code>required int64 to_uid = 3;</code>
+       * <code>optional int64 to_uid = 3;</code>
        */
       public Builder setToUid(long value) {
         bitField0_ |= 0x00000004;
@@ -3324,7 +3722,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>required int64 to_uid = 3;</code>
+       * <code>optional int64 to_uid = 3;</code>
        */
       public Builder clearToUid() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -3652,34 +4050,67 @@ public final class ChatPkg {
         return this;
       }
 
-      // optional bool is_read = 11;
-      private boolean isRead_ ;
+      // optional int64 send_time = 11;
+      private long sendTime_ ;
       /**
-       * <code>optional bool is_read = 11;</code>
+       * <code>optional int64 send_time = 11;</code>
        */
-      public boolean hasIsRead() {
+      public boolean hasSendTime() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>optional bool is_read = 11;</code>
+       * <code>optional int64 send_time = 11;</code>
+       */
+      public long getSendTime() {
+        return sendTime_;
+      }
+      /**
+       * <code>optional int64 send_time = 11;</code>
+       */
+      public Builder setSendTime(long value) {
+        bitField0_ |= 0x00000400;
+        sendTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 send_time = 11;</code>
+       */
+      public Builder clearSendTime() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        sendTime_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // optional bool is_read = 12;
+      private boolean isRead_ ;
+      /**
+       * <code>optional bool is_read = 12;</code>
+       */
+      public boolean hasIsRead() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      /**
+       * <code>optional bool is_read = 12;</code>
        */
       public boolean getIsRead() {
         return isRead_;
       }
       /**
-       * <code>optional bool is_read = 11;</code>
+       * <code>optional bool is_read = 12;</code>
        */
       public Builder setIsRead(boolean value) {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         isRead_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bool is_read = 11;</code>
+       * <code>optional bool is_read = 12;</code>
        */
       public Builder clearIsRead() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000800);
         isRead_ = false;
         onChanged();
         return this;
@@ -3699,13 +4130,13 @@ public final class ChatPkg {
   public interface RegC2SOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required int64 uid = 1;
+    // optional int64 uid = 1;
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     boolean hasUid();
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     long getUid();
 
@@ -3845,17 +4276,17 @@ public final class ChatPkg {
     }
 
     private int bitField0_;
-    // required int64 uid = 1;
+    // optional int64 uid = 1;
     public static final int UID_FIELD_NUMBER = 1;
     private long uid_;
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public boolean hasUid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public long getUid() {
       return uid_;
@@ -3957,10 +4388,6 @@ public final class ChatPkg {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasUid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -4194,10 +4621,6 @@ public final class ChatPkg {
       }
 
       public final boolean isInitialized() {
-        if (!hasUid()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -4220,22 +4643,22 @@ public final class ChatPkg {
       }
       private int bitField0_;
 
-      // required int64 uid = 1;
+      // optional int64 uid = 1;
       private long uid_ ;
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public boolean hasUid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public long getUid() {
         return uid_;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public Builder setUid(long value) {
         bitField0_ |= 0x00000001;
@@ -4244,7 +4667,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public Builder clearUid() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -4412,16 +4835,530 @@ public final class ChatPkg {
     // @@protoc_insertion_point(class_scope:RegC2S)
   }
 
+  public interface RegS2COrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .RegS2C.RetCode code = 1;
+    /**
+     * <code>optional .RegS2C.RetCode code = 1;</code>
+     */
+    boolean hasCode();
+    /**
+     * <code>optional .RegS2C.RetCode code = 1;</code>
+     */
+    com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode getCode();
+  }
+  /**
+   * Protobuf type {@code RegS2C}
+   */
+  public static final class RegS2C extends
+      com.google.protobuf.GeneratedMessage
+      implements RegS2COrBuilder {
+    // Use RegS2C.newBuilder() to construct.
+    private RegS2C(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private RegS2C(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final RegS2C defaultInstance;
+    public static RegS2C getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public RegS2C getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RegS2C(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode value = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                code_ = value;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_RegS2C_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_RegS2C_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.class, com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<RegS2C> PARSER =
+        new com.google.protobuf.AbstractParser<RegS2C>() {
+      public RegS2C parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RegS2C(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RegS2C> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code RegS2C.RetCode}
+     */
+    public enum RetCode
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>SUCCESS = 0;</code>
+       */
+      SUCCESS(0, 0),
+      /**
+       * <code>USER_NOT_EXISING = 1;</code>
+       */
+      USER_NOT_EXISING(1, 1),
+      /**
+       * <code>DEVICE_NOT_EXISTING = 2;</code>
+       */
+      DEVICE_NOT_EXISTING(2, 2),
+      /**
+       * <code>INVALID_SEC_TOKEN = 3;</code>
+       */
+      INVALID_SEC_TOKEN(3, 3),
+      /**
+       * <code>INTERNAL_ERROR = 4;</code>
+       */
+      INTERNAL_ERROR(4, 4),
+      ;
+
+      /**
+       * <code>SUCCESS = 0;</code>
+       */
+      public static final int SUCCESS_VALUE = 0;
+      /**
+       * <code>USER_NOT_EXISING = 1;</code>
+       */
+      public static final int USER_NOT_EXISING_VALUE = 1;
+      /**
+       * <code>DEVICE_NOT_EXISTING = 2;</code>
+       */
+      public static final int DEVICE_NOT_EXISTING_VALUE = 2;
+      /**
+       * <code>INVALID_SEC_TOKEN = 3;</code>
+       */
+      public static final int INVALID_SEC_TOKEN_VALUE = 3;
+      /**
+       * <code>INTERNAL_ERROR = 4;</code>
+       */
+      public static final int INTERNAL_ERROR_VALUE = 4;
+
+
+      public final int getNumber() { return value; }
+
+      public static RetCode valueOf(int value) {
+        switch (value) {
+          case 0: return SUCCESS;
+          case 1: return USER_NOT_EXISING;
+          case 2: return DEVICE_NOT_EXISTING;
+          case 3: return INVALID_SEC_TOKEN;
+          case 4: return INTERNAL_ERROR;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<RetCode>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<RetCode>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<RetCode>() {
+              public RetCode findValueByNumber(int number) {
+                return RetCode.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final RetCode[] VALUES = values();
+
+      public static RetCode valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private RetCode(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:RegS2C.RetCode)
+    }
+
+    private int bitField0_;
+    // optional .RegS2C.RetCode code = 1;
+    public static final int CODE_FIELD_NUMBER = 1;
+    private com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode code_;
+    /**
+     * <code>optional .RegS2C.RetCode code = 1;</code>
+     */
+    public boolean hasCode() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .RegS2C.RetCode code = 1;</code>
+     */
+    public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode getCode() {
+      return code_;
+    }
+
+    private void initFields() {
+      code_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode.SUCCESS;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, code_.getNumber());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, code_.getNumber());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code RegS2C}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2COrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_RegS2C_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_RegS2C_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.class, com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.Builder.class);
+      }
+
+      // Construct using com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        code_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode.SUCCESS;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_RegS2C_descriptor;
+      }
+
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C getDefaultInstanceForType() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.getDefaultInstance();
+      }
+
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C build() {
+        com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C buildPartial() {
+        com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C result = new com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.code_ = code_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C) {
+          return mergeFrom((com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C other) {
+        if (other == com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.getDefaultInstance()) return this;
+        if (other.hasCode()) {
+          setCode(other.getCode());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .RegS2C.RetCode code = 1;
+      private com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode code_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode.SUCCESS;
+      /**
+       * <code>optional .RegS2C.RetCode code = 1;</code>
+       */
+      public boolean hasCode() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .RegS2C.RetCode code = 1;</code>
+       */
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode getCode() {
+        return code_;
+      }
+      /**
+       * <code>optional .RegS2C.RetCode code = 1;</code>
+       */
+      public Builder setCode(com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        code_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .RegS2C.RetCode code = 1;</code>
+       */
+      public Builder clearCode() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        code_ = com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode.SUCCESS;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:RegS2C)
+    }
+
+    static {
+      defaultInstance = new RegS2C(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:RegS2C)
+  }
+
   public interface HeartBeatC2SOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required int64 uid = 1;
+    // optional int64 uid = 1;
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     boolean hasUid();
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     long getUid();
 
@@ -4440,13 +5377,13 @@ public final class ChatPkg {
     com.google.protobuf.ByteString
         getDeviceIdBytes();
 
-    // required int64 send_time = 3;
+    // optional int64 send_time = 3;
     /**
-     * <code>required int64 send_time = 3;</code>
+     * <code>optional int64 send_time = 3;</code>
      */
     boolean hasSendTime();
     /**
-     * <code>required int64 send_time = 3;</code>
+     * <code>optional int64 send_time = 3;</code>
      */
     long getSendTime();
   }
@@ -4556,17 +5493,17 @@ public final class ChatPkg {
     }
 
     private int bitField0_;
-    // required int64 uid = 1;
+    // optional int64 uid = 1;
     public static final int UID_FIELD_NUMBER = 1;
     private long uid_;
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public boolean hasUid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public long getUid() {
       return uid_;
@@ -4615,17 +5552,17 @@ public final class ChatPkg {
       }
     }
 
-    // required int64 send_time = 3;
+    // optional int64 send_time = 3;
     public static final int SEND_TIME_FIELD_NUMBER = 3;
     private long sendTime_;
     /**
-     * <code>required int64 send_time = 3;</code>
+     * <code>optional int64 send_time = 3;</code>
      */
     public boolean hasSendTime() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int64 send_time = 3;</code>
+     * <code>optional int64 send_time = 3;</code>
      */
     public long getSendTime() {
       return sendTime_;
@@ -4641,14 +5578,6 @@ public final class ChatPkg {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasUid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasSendTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -4880,14 +5809,6 @@ public final class ChatPkg {
       }
 
       public final boolean isInitialized() {
-        if (!hasUid()) {
-          
-          return false;
-        }
-        if (!hasSendTime()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -4910,22 +5831,22 @@ public final class ChatPkg {
       }
       private int bitField0_;
 
-      // required int64 uid = 1;
+      // optional int64 uid = 1;
       private long uid_ ;
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public boolean hasUid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public long getUid() {
         return uid_;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public Builder setUid(long value) {
         bitField0_ |= 0x00000001;
@@ -4934,7 +5855,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public Builder clearUid() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -5017,22 +5938,22 @@ public final class ChatPkg {
         return this;
       }
 
-      // required int64 send_time = 3;
+      // optional int64 send_time = 3;
       private long sendTime_ ;
       /**
-       * <code>required int64 send_time = 3;</code>
+       * <code>optional int64 send_time = 3;</code>
        */
       public boolean hasSendTime() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required int64 send_time = 3;</code>
+       * <code>optional int64 send_time = 3;</code>
        */
       public long getSendTime() {
         return sendTime_;
       }
       /**
-       * <code>required int64 send_time = 3;</code>
+       * <code>optional int64 send_time = 3;</code>
        */
       public Builder setSendTime(long value) {
         bitField0_ |= 0x00000004;
@@ -5041,7 +5962,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>required int64 send_time = 3;</code>
+       * <code>optional int64 send_time = 3;</code>
        */
       public Builder clearSendTime() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -5061,16 +5982,412 @@ public final class ChatPkg {
     // @@protoc_insertion_point(class_scope:HeartBeatC2S)
   }
 
+  public interface HeartBeatS2COrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional int64 send_time = 1;
+    /**
+     * <code>optional int64 send_time = 1;</code>
+     */
+    boolean hasSendTime();
+    /**
+     * <code>optional int64 send_time = 1;</code>
+     */
+    long getSendTime();
+  }
+  /**
+   * Protobuf type {@code HeartBeatS2C}
+   */
+  public static final class HeartBeatS2C extends
+      com.google.protobuf.GeneratedMessage
+      implements HeartBeatS2COrBuilder {
+    // Use HeartBeatS2C.newBuilder() to construct.
+    private HeartBeatS2C(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private HeartBeatS2C(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final HeartBeatS2C defaultInstance;
+    public static HeartBeatS2C getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public HeartBeatS2C getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private HeartBeatS2C(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              sendTime_ = input.readInt64();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_HeartBeatS2C_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_HeartBeatS2C_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.class, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<HeartBeatS2C> PARSER =
+        new com.google.protobuf.AbstractParser<HeartBeatS2C>() {
+      public HeartBeatS2C parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new HeartBeatS2C(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<HeartBeatS2C> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional int64 send_time = 1;
+    public static final int SEND_TIME_FIELD_NUMBER = 1;
+    private long sendTime_;
+    /**
+     * <code>optional int64 send_time = 1;</code>
+     */
+    public boolean hasSendTime() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional int64 send_time = 1;</code>
+     */
+    public long getSendTime() {
+      return sendTime_;
+    }
+
+    private void initFields() {
+      sendTime_ = 0L;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt64(1, sendTime_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, sendTime_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code HeartBeatS2C}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2COrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_HeartBeatS2C_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_HeartBeatS2C_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.class, com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.Builder.class);
+      }
+
+      // Construct using com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        sendTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.internal_static_HeartBeatS2C_descriptor;
+      }
+
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C getDefaultInstanceForType() {
+        return com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.getDefaultInstance();
+      }
+
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C build() {
+        com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C buildPartial() {
+        com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C result = new com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.sendTime_ = sendTime_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C) {
+          return mergeFrom((com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C other) {
+        if (other == com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C.getDefaultInstance()) return this;
+        if (other.hasSendTime()) {
+          setSendTime(other.getSendTime());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional int64 send_time = 1;
+      private long sendTime_ ;
+      /**
+       * <code>optional int64 send_time = 1;</code>
+       */
+      public boolean hasSendTime() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional int64 send_time = 1;</code>
+       */
+      public long getSendTime() {
+        return sendTime_;
+      }
+      /**
+       * <code>optional int64 send_time = 1;</code>
+       */
+      public Builder setSendTime(long value) {
+        bitField0_ |= 0x00000001;
+        sendTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 send_time = 1;</code>
+       */
+      public Builder clearSendTime() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        sendTime_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:HeartBeatS2C)
+    }
+
+    static {
+      defaultInstance = new HeartBeatS2C(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:HeartBeatS2C)
+  }
+
   public interface PullReqC2SOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required int64 uid = 1;
+    // optional int64 uid = 1;
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     boolean hasUid();
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     long getUid();
 
@@ -5089,23 +6406,33 @@ public final class ChatPkg {
     com.google.protobuf.ByteString
         getDeviceIdBytes();
 
-    // required int64 req_start_seq = 3;
+    // optional int64 req_start_seq = 3;
     /**
-     * <code>required int64 req_start_seq = 3;</code>
+     * <code>optional int64 req_start_seq = 3;</code>
      */
     boolean hasReqStartSeq();
     /**
-     * <code>required int64 req_start_seq = 3;</code>
+     * <code>optional int64 req_start_seq = 3;</code>
      */
     long getReqStartSeq();
 
-    // optional int64 ack_req = 4;
+    // optional int64 req_end_seq = 4;
     /**
-     * <code>optional int64 ack_req = 4;</code>
+     * <code>optional int64 req_end_seq = 4;</code>
+     */
+    boolean hasReqEndSeq();
+    /**
+     * <code>optional int64 req_end_seq = 4;</code>
+     */
+    long getReqEndSeq();
+
+    // optional int64 ack_req = 5;
+    /**
+     * <code>optional int64 ack_req = 5;</code>
      */
     boolean hasAckReq();
     /**
-     * <code>optional int64 ack_req = 4;</code>
+     * <code>optional int64 ack_req = 5;</code>
      */
     long getAckReq();
   }
@@ -5177,6 +6504,11 @@ public final class ChatPkg {
             }
             case 32: {
               bitField0_ |= 0x00000008;
+              reqEndSeq_ = input.readInt64();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
               ackReq_ = input.readInt64();
               break;
             }
@@ -5220,17 +6552,17 @@ public final class ChatPkg {
     }
 
     private int bitField0_;
-    // required int64 uid = 1;
+    // optional int64 uid = 1;
     public static final int UID_FIELD_NUMBER = 1;
     private long uid_;
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public boolean hasUid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public long getUid() {
       return uid_;
@@ -5279,33 +6611,49 @@ public final class ChatPkg {
       }
     }
 
-    // required int64 req_start_seq = 3;
+    // optional int64 req_start_seq = 3;
     public static final int REQ_START_SEQ_FIELD_NUMBER = 3;
     private long reqStartSeq_;
     /**
-     * <code>required int64 req_start_seq = 3;</code>
+     * <code>optional int64 req_start_seq = 3;</code>
      */
     public boolean hasReqStartSeq() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int64 req_start_seq = 3;</code>
+     * <code>optional int64 req_start_seq = 3;</code>
      */
     public long getReqStartSeq() {
       return reqStartSeq_;
     }
 
-    // optional int64 ack_req = 4;
-    public static final int ACK_REQ_FIELD_NUMBER = 4;
-    private long ackReq_;
+    // optional int64 req_end_seq = 4;
+    public static final int REQ_END_SEQ_FIELD_NUMBER = 4;
+    private long reqEndSeq_;
     /**
-     * <code>optional int64 ack_req = 4;</code>
+     * <code>optional int64 req_end_seq = 4;</code>
      */
-    public boolean hasAckReq() {
+    public boolean hasReqEndSeq() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional int64 ack_req = 4;</code>
+     * <code>optional int64 req_end_seq = 4;</code>
+     */
+    public long getReqEndSeq() {
+      return reqEndSeq_;
+    }
+
+    // optional int64 ack_req = 5;
+    public static final int ACK_REQ_FIELD_NUMBER = 5;
+    private long ackReq_;
+    /**
+     * <code>optional int64 ack_req = 5;</code>
+     */
+    public boolean hasAckReq() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int64 ack_req = 5;</code>
      */
     public long getAckReq() {
       return ackReq_;
@@ -5315,6 +6663,7 @@ public final class ChatPkg {
       uid_ = 0L;
       deviceId_ = "";
       reqStartSeq_ = 0L;
+      reqEndSeq_ = 0L;
       ackReq_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
@@ -5322,14 +6671,6 @@ public final class ChatPkg {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasUid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasReqStartSeq()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -5347,7 +6688,10 @@ public final class ChatPkg {
         output.writeInt64(3, reqStartSeq_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt64(4, ackReq_);
+        output.writeInt64(4, reqEndSeq_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt64(5, ackReq_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -5372,7 +6716,11 @@ public final class ChatPkg {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, ackReq_);
+          .computeInt64Size(4, reqEndSeq_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(5, ackReq_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5496,8 +6844,10 @@ public final class ChatPkg {
         bitField0_ = (bitField0_ & ~0x00000002);
         reqStartSeq_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
-        ackReq_ = 0L;
+        reqEndSeq_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
+        ackReq_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -5541,6 +6891,10 @@ public final class ChatPkg {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
+        result.reqEndSeq_ = reqEndSeq_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
         result.ackReq_ = ackReq_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -5569,6 +6923,9 @@ public final class ChatPkg {
         if (other.hasReqStartSeq()) {
           setReqStartSeq(other.getReqStartSeq());
         }
+        if (other.hasReqEndSeq()) {
+          setReqEndSeq(other.getReqEndSeq());
+        }
         if (other.hasAckReq()) {
           setAckReq(other.getAckReq());
         }
@@ -5577,14 +6934,6 @@ public final class ChatPkg {
       }
 
       public final boolean isInitialized() {
-        if (!hasUid()) {
-          
-          return false;
-        }
-        if (!hasReqStartSeq()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -5607,22 +6956,22 @@ public final class ChatPkg {
       }
       private int bitField0_;
 
-      // required int64 uid = 1;
+      // optional int64 uid = 1;
       private long uid_ ;
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public boolean hasUid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public long getUid() {
         return uid_;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public Builder setUid(long value) {
         bitField0_ |= 0x00000001;
@@ -5631,7 +6980,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public Builder clearUid() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -5714,22 +7063,22 @@ public final class ChatPkg {
         return this;
       }
 
-      // required int64 req_start_seq = 3;
+      // optional int64 req_start_seq = 3;
       private long reqStartSeq_ ;
       /**
-       * <code>required int64 req_start_seq = 3;</code>
+       * <code>optional int64 req_start_seq = 3;</code>
        */
       public boolean hasReqStartSeq() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required int64 req_start_seq = 3;</code>
+       * <code>optional int64 req_start_seq = 3;</code>
        */
       public long getReqStartSeq() {
         return reqStartSeq_;
       }
       /**
-       * <code>required int64 req_start_seq = 3;</code>
+       * <code>optional int64 req_start_seq = 3;</code>
        */
       public Builder setReqStartSeq(long value) {
         bitField0_ |= 0x00000004;
@@ -5738,7 +7087,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>required int64 req_start_seq = 3;</code>
+       * <code>optional int64 req_start_seq = 3;</code>
        */
       public Builder clearReqStartSeq() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -5747,34 +7096,67 @@ public final class ChatPkg {
         return this;
       }
 
-      // optional int64 ack_req = 4;
-      private long ackReq_ ;
+      // optional int64 req_end_seq = 4;
+      private long reqEndSeq_ ;
       /**
-       * <code>optional int64 ack_req = 4;</code>
+       * <code>optional int64 req_end_seq = 4;</code>
        */
-      public boolean hasAckReq() {
+      public boolean hasReqEndSeq() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional int64 ack_req = 4;</code>
+       * <code>optional int64 req_end_seq = 4;</code>
+       */
+      public long getReqEndSeq() {
+        return reqEndSeq_;
+      }
+      /**
+       * <code>optional int64 req_end_seq = 4;</code>
+       */
+      public Builder setReqEndSeq(long value) {
+        bitField0_ |= 0x00000008;
+        reqEndSeq_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 req_end_seq = 4;</code>
+       */
+      public Builder clearReqEndSeq() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        reqEndSeq_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // optional int64 ack_req = 5;
+      private long ackReq_ ;
+      /**
+       * <code>optional int64 ack_req = 5;</code>
+       */
+      public boolean hasAckReq() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional int64 ack_req = 5;</code>
        */
       public long getAckReq() {
         return ackReq_;
       }
       /**
-       * <code>optional int64 ack_req = 4;</code>
+       * <code>optional int64 ack_req = 5;</code>
        */
       public Builder setAckReq(long value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         ackReq_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 ack_req = 4;</code>
+       * <code>optional int64 ack_req = 5;</code>
        */
       public Builder clearAckReq() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         ackReq_ = 0L;
         onChanged();
         return this;
@@ -5794,13 +7176,13 @@ public final class ChatPkg {
   public interface SeqOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required int64 uid = 1;
+    // optional int64 uid = 1;
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     boolean hasUid();
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     long getUid();
 
@@ -5954,17 +7336,17 @@ public final class ChatPkg {
     }
 
     private int bitField0_;
-    // required int64 uid = 1;
+    // optional int64 uid = 1;
     public static final int UID_FIELD_NUMBER = 1;
     private long uid_;
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public boolean hasUid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int64 uid = 1;</code>
+     * <code>optional int64 uid = 1;</code>
      */
     public long getUid() {
       return uid_;
@@ -6056,10 +7438,6 @@ public final class ChatPkg {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasUid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasServerMaxSeq()) {
         memoizedIsInitialized = 0;
         return false;
@@ -6319,10 +7697,6 @@ public final class ChatPkg {
       }
 
       public final boolean isInitialized() {
-        if (!hasUid()) {
-          
-          return false;
-        }
         if (!hasServerMaxSeq()) {
           
           return false;
@@ -6353,22 +7727,22 @@ public final class ChatPkg {
       }
       private int bitField0_;
 
-      // required int64 uid = 1;
+      // optional int64 uid = 1;
       private long uid_ ;
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public boolean hasUid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public long getUid() {
         return uid_;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public Builder setUid(long value) {
         bitField0_ |= 0x00000001;
@@ -6377,7 +7751,7 @@ public final class ChatPkg {
         return this;
       }
       /**
-       * <code>required int64 uid = 1;</code>
+       * <code>optional int64 uid = 1;</code>
        */
       public Builder clearUid() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -6558,10 +7932,20 @@ public final class ChatPkg {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_RegC2S_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_RegS2C_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_RegS2C_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_HeartBeatC2S_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_HeartBeatC2S_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_HeartBeatS2C_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_HeartBeatS2C_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_PullReqC2S_descriptor;
   private static
@@ -6581,31 +7965,39 @@ public final class ChatPkg {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rChatPkg.proto\"\333\001\n\006PkgC2S\022\035\n\004type\030\001 \002(\016" +
+      "\n\rChatPkg.proto\"\335\001\n\006PkgC2S\022\035\n\004type\030\001 \002(\016" +
       "2\017.PkgC2S.PkgType\022\024\n\003reg\030\002 \001(\0132\007.RegC2S\022" +
-      "\035\n\007message\030\003 \001(\0132\014.ChatMessage\022 \n\theartb" +
-      "eat\030\004 \001(\0132\r.HeartBeatC2S\022\035\n\010pull_req\030\005 \001" +
-      "(\0132\013.PullReqC2S\"<\n\007PkgType\022\007\n\003REG\020\000\022\r\n\tH" +
-      "EARTBEAT\020\001\022\013\n\007MESSAGE\020\002\022\014\n\010PULL_REQ\020\003\"^\n" +
-      "\006PkgS2C\022\035\n\004type\030\001 \002(\0162\017.PkgS2C.PkgType\022\035" +
-      "\n\007message\030\004 \003(\0132\014.ChatMessage\"\026\n\007PkgType" +
-      "\022\013\n\007MESSAGE\020\001\"\236\002\n\013ChatMessage\022\013\n\003seq\030\001 \001" +
-      "(\003\022\020\n\010from_uid\030\002 \002(\003\022\016\n\006to_uid\030\003 \002(\003\022\026\n\016",
-      "from_device_id\030\004 \001(\t\022\024\n\014to_device_id\030\005 \001" +
-      "(\t\022&\n\004type\030\006 \002(\0162\030.ChatMessage.MessageTy" +
-      "pe\022\020\n\010date_len\030\007 \002(\005\022\014\n\004data\030\010 \002(\014\022\023\n\013pe" +
-      "er2server\030\t \001(\003\022\023\n\013server2peer\030\n \001(\003\022\017\n\007" +
-      "is_read\030\013 \001(\010\"/\n\013MessageType\022\010\n\004TEXT\020\000\022\013" +
+      "\035\n\007message\030\003 \001(\0132\014.ChatMessage\022!\n\nheart_" +
+      "beat\030\004 \001(\0132\r.HeartBeatC2S\022\035\n\010pull_req\030\005 " +
+      "\001(\0132\013.PullReqC2S\"=\n\007PkgType\022\007\n\003REG\020\000\022\016\n\n" +
+      "HEART_BEAT\020\001\022\013\n\007MESSAGE\020\002\022\014\n\010PULL_REQ\020\003\"" +
+      "\300\001\n\006PkgS2C\022\035\n\004type\030\001 \002(\0162\017.PkgS2C.PkgTyp" +
+      "e\022\035\n\007message\030\002 \003(\0132\014.ChatMessage\022%\n\016hear" +
+      "t_beat_ack\030\003 \001(\0132\r.HeartBeatS2C\022\030\n\007reg_a" +
+      "ck\030\004 \001(\0132\007.RegS2C\"7\n\007PkgType\022\013\n\007REG_ACK\020",
+      "\001\022\013\n\007MESSAGE\020\002\022\022\n\016HEART_BEAT_ACK\020\003\"\261\002\n\013C" +
+      "hatMessage\022\013\n\003seq\030\001 \001(\003\022\020\n\010from_uid\030\002 \001(" +
+      "\003\022\016\n\006to_uid\030\003 \001(\003\022\026\n\016from_device_id\030\004 \001(" +
+      "\t\022\024\n\014to_device_id\030\005 \001(\t\022&\n\004type\030\006 \002(\0162\030." +
+      "ChatMessage.MessageType\022\020\n\010date_len\030\007 \002(" +
+      "\005\022\014\n\004data\030\010 \002(\014\022\023\n\013peer2server\030\t \001(\003\022\023\n\013" +
+      "server2peer\030\n \001(\003\022\021\n\tsend_time\030\013 \001(\003\022\017\n\007" +
+      "is_read\030\014 \001(\010\"/\n\013MessageType\022\010\n\004TEXT\020\000\022\013" +
       "\n\007PICTURE\020\001\022\t\n\005AUDIO\020\002\";\n\006RegC2S\022\013\n\003uid\030" +
-      "\001 \002(\003\022\021\n\tdevice_id\030\002 \001(\t\022\021\n\tsec_token\030\003 " +
-      "\001(\t\"A\n\014HeartBeatC2S\022\013\n\003uid\030\001 \002(\003\022\021\n\tdevi" +
-      "ce_id\030\002 \001(\t\022\021\n\tsend_time\030\003 \002(\003\"T\n\nPullRe" +
-      "qC2S\022\013\n\003uid\030\001 \002(\003\022\021\n\tdevice_id\030\002 \001(\t\022\025\n\r",
-      "req_start_seq\030\003 \002(\003\022\017\n\007ack_req\030\004 \001(\003\"T\n\003" +
-      "Seq\022\013\n\003uid\030\001 \002(\003\022\021\n\tdevice_id\030\002 \001(\t\022\026\n\016s" +
-      "erver_max_seq\030\003 \002(\003\022\025\n\racked_max_seq\030\004 \002" +
-      "(\003B)\n\036com.zhiyi.InstantChat.protobufB\007Ch" +
-      "atPkg"
+      "\001 \001(\003\022\021\n\tdevice_id\030\002 \001(\t\022\021\n\tsec_token\030\003 ",
+      "\001(\t\"\231\001\n\006RegS2C\022\035\n\004code\030\001 \001(\0162\017.RegS2C.Re" +
+      "tCode\"p\n\007RetCode\022\013\n\007SUCCESS\020\000\022\024\n\020USER_NO" +
+      "T_EXISING\020\001\022\027\n\023DEVICE_NOT_EXISTING\020\002\022\025\n\021" +
+      "INVALID_SEC_TOKEN\020\003\022\022\n\016INTERNAL_ERROR\020\004\"" +
+      "A\n\014HeartBeatC2S\022\013\n\003uid\030\001 \001(\003\022\021\n\tdevice_i" +
+      "d\030\002 \001(\t\022\021\n\tsend_time\030\003 \001(\003\"!\n\014HeartBeatS" +
+      "2C\022\021\n\tsend_time\030\001 \001(\003\"i\n\nPullReqC2S\022\013\n\003u" +
+      "id\030\001 \001(\003\022\021\n\tdevice_id\030\002 \001(\t\022\025\n\rreq_start" +
+      "_seq\030\003 \001(\003\022\023\n\013req_end_seq\030\004 \001(\003\022\017\n\007ack_r" +
+      "eq\030\005 \001(\003\"T\n\003Seq\022\013\n\003uid\030\001 \001(\003\022\021\n\tdevice_i",
+      "d\030\002 \001(\t\022\026\n\016server_max_seq\030\003 \002(\003\022\025\n\racked" +
+      "_max_seq\030\004 \002(\003B)\n\036com.zhiyi.InstantChat." +
+      "protobufB\007ChatPkg"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6617,39 +8009,51 @@ public final class ChatPkg {
           internal_static_PkgC2S_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PkgC2S_descriptor,
-              new java.lang.String[] { "Type", "Reg", "Message", "Heartbeat", "PullReq", });
+              new java.lang.String[] { "Type", "Reg", "Message", "HeartBeat", "PullReq", });
           internal_static_PkgS2C_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_PkgS2C_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PkgS2C_descriptor,
-              new java.lang.String[] { "Type", "Message", });
+              new java.lang.String[] { "Type", "Message", "HeartBeatAck", "RegAck", });
           internal_static_ChatMessage_descriptor =
             getDescriptor().getMessageTypes().get(2);
           internal_static_ChatMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ChatMessage_descriptor,
-              new java.lang.String[] { "Seq", "FromUid", "ToUid", "FromDeviceId", "ToDeviceId", "Type", "DateLen", "Data", "Peer2Server", "Server2Peer", "IsRead", });
+              new java.lang.String[] { "Seq", "FromUid", "ToUid", "FromDeviceId", "ToDeviceId", "Type", "DateLen", "Data", "Peer2Server", "Server2Peer", "SendTime", "IsRead", });
           internal_static_RegC2S_descriptor =
             getDescriptor().getMessageTypes().get(3);
           internal_static_RegC2S_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_RegC2S_descriptor,
               new java.lang.String[] { "Uid", "DeviceId", "SecToken", });
-          internal_static_HeartBeatC2S_descriptor =
+          internal_static_RegS2C_descriptor =
             getDescriptor().getMessageTypes().get(4);
+          internal_static_RegS2C_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_RegS2C_descriptor,
+              new java.lang.String[] { "Code", });
+          internal_static_HeartBeatC2S_descriptor =
+            getDescriptor().getMessageTypes().get(5);
           internal_static_HeartBeatC2S_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_HeartBeatC2S_descriptor,
               new java.lang.String[] { "Uid", "DeviceId", "SendTime", });
+          internal_static_HeartBeatS2C_descriptor =
+            getDescriptor().getMessageTypes().get(6);
+          internal_static_HeartBeatS2C_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_HeartBeatS2C_descriptor,
+              new java.lang.String[] { "SendTime", });
           internal_static_PullReqC2S_descriptor =
-            getDescriptor().getMessageTypes().get(5);
+            getDescriptor().getMessageTypes().get(7);
           internal_static_PullReqC2S_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PullReqC2S_descriptor,
-              new java.lang.String[] { "Uid", "DeviceId", "ReqStartSeq", "AckReq", });
+              new java.lang.String[] { "Uid", "DeviceId", "ReqStartSeq", "ReqEndSeq", "AckReq", });
           internal_static_Seq_descriptor =
-            getDescriptor().getMessageTypes().get(6);
+            getDescriptor().getMessageTypes().get(8);
           internal_static_Seq_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Seq_descriptor,

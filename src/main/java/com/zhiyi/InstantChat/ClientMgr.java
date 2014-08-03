@@ -15,6 +15,8 @@ public class ClientMgr {
 	private static ConcurrentHashMap<String, Client> clients =
 			new ConcurrentHashMap<String, Client>();
 	
+	private ClientMgr() {}
+	
 	private static class ClientMgrHolder {
 		public static final ClientMgr instance= new ClientMgr();
 	}

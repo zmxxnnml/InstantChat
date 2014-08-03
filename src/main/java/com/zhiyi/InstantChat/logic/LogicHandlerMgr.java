@@ -9,7 +9,7 @@ public class LogicHandlerMgr {
 		if (pkgType == PkgType.REG) {
 			return new AuthHandler();
 		}
-		if (pkgType == PkgType.HEARTBEAT) {
+		if (pkgType == PkgType.HEART_BEAT) {
 			return new HeartBeatHandler();
 		}
 		if (pkgType == PkgType.PULL_REQ) {
