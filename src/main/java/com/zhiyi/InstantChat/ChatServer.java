@@ -75,7 +75,10 @@ public class ChatServer {
 		
 		new ChatServer(port).run();
 		
-		// TODO: add cronjob to scann dead connection
+		// TODO: add cronjob to scan dead connection
+		
+		// TODO: add cronjob to scan pending(unauthorized) connection
+		
 	}
 	
 }
