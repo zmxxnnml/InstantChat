@@ -1,5 +1,8 @@
 package com.zhiyi.InstantChat.logic;
 
+import com.zhiyi.InstantChat.base.DateUtil;
+import com.zhiyi.InstantChat.client.AppClient;
+import com.zhiyi.InstantChat.client.OnlineClientMgr;
 import com.zhiyi.InstantChat.inter.AppServInteractor;
 import com.zhiyi.InstantChat.inter.exception.DeviceNotExistingException;
 import com.zhiyi.InstantChat.inter.exception.InternalException;
@@ -25,21 +28,40 @@ public class AuthHandler extends BaseHandler {
 		String deviceId = regc2s.getDeviceId();
 		String secToken = regc2s.getSecToken();
 		
+		boolean isAuthorized = true;
 		RegS2C.Builder regAckBuilder = RegS2C.newBuilder();
 		regAckBuilder.setCode(RetCode.SUCCESS);
 		try {
 			AppServInteractor.getInstance().authenticateAppClient(uid, deviceId, secToken);
 		} catch (InternalException e) {
 			regAckBuilder.setCode(RetCode.INTERNAL_ERROR);
+			isAuthorized = false;
 		} catch (DeviceNotExistingException e) {
 			regAckBuilder.setCode(RetCode.DEVICE_NOT_EXISTING);
+			isAuthorized = false;
 		} catch (UserNotExistingException e) {
 			regAckBuilder.setCode(RetCode.USER_NOT_EXISING);
+			isAuthorized = false;
 		} catch (InvalidSecTokenException e) {
 			regAckBuilder.setCode(RetCode.INVALID_SEC_TOKEN);
+			isAuthorized = false;
+		}
+		
+		// Reg client on client mgr.
+		if (isAuthorized) {
+			// TODO: remove the channel from unauthorizedClientMgr.
+			
+			AppClient client = new AppClient();
+			client.setChannel(channel);
+			client.setDeviceId(deviceId);
+			client.setLastHeartBeatTime(DateUtil.getCurrentSecTimeUTC());
+			OnlineClientMgr.getInstance().addClient(deviceId, client);
 		}
 		
 		// Send resp to client
 		channel.write(regAckBuilder.build());
+		
+		// TODO: if isAuthorized == false,
+		// 1. shutdown the channel. 2. remove it from unauthorizedClientMgr
 	}
 }

@@ -1,4 +1,4 @@
-package com.zhiyi.InstantChat;
+package com.zhiyi.InstantChat.client;
 
 import io.netty.channel.Channel;
 
@@ -8,30 +8,37 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.zhiyi.InstantChat.base.DateUtil;
 import com.zhiyi.InstantChat.exception.ClientNotExistingException;
 
-public class ClientMgr {
+/**
+ * Manager of online clients.
+ * 
+ * TODO: It's to be discussed about what to used to be as client identifier.
+ * currently we use device id as client identifier. Later we may use user ID.
+ *
+ */
+public class OnlineClientMgr {
 	// TODO: put it into configuration
 	private static final Integer CONNECTION_DEADLINE = 10;
 	
-	private static ConcurrentHashMap<String, Client> clients =
-			new ConcurrentHashMap<String, Client>();
+	private static ConcurrentHashMap<String, AppClient> clients =
+			new ConcurrentHashMap<String, AppClient>();
 	
-	private ClientMgr() {}
+	private OnlineClientMgr() {}
 	
 	private static class ClientMgrHolder {
-		public static final ClientMgr instance= new ClientMgr();
+		public static final OnlineClientMgr instance= new OnlineClientMgr();
 	}
 	
-	public static ClientMgr getInstance() {
+	public static OnlineClientMgr getInstance() {
 		return ClientMgrHolder.instance;
 	}
 	
-	public Client getClient(String deviceId) {
-		Client client = clients.get(deviceId);
+	public AppClient getClient(String deviceId) {
+		AppClient client = clients.get(deviceId);
 		return client;
 	}
 	
-	public void addClient(String deviceId, Client client) {
-		Client existingClient = getClient(deviceId);
+	public void addClient(String deviceId, AppClient client) {
+		AppClient existingClient = getClient(deviceId);
 		if (existingClient != null) {
 			Channel channel = client.getChannel();
 			channel.flush();
@@ -42,7 +49,7 @@ public class ClientMgr {
 	}
 	
 	public void removeClient(String deviceId) {
-		Client client = getClient(deviceId);
+		AppClient client = getClient(deviceId);
 		if (client != null) {
 			Channel channel = client.getChannel();
 			channel.flush();
@@ -55,8 +62,8 @@ public class ClientMgr {
 		// TODO: it's very slow to scan the whole hashmap one by one and compare a big object
 		// TODO: To clarify how much memory space the "channel" cost?
 		// TODO: Make the search faster
-		for(Entry<String, Client> entry : clients.entrySet()) {
-			Client client = entry.getValue();
+		for(Entry<String, AppClient> entry : clients.entrySet()) {
+			AppClient client = entry.getValue();
 			if (channel.equals(client.getChannel())) {
 				removeClient(entry.getKey());
 				break;
@@ -66,7 +73,7 @@ public class ClientMgr {
 	
 	public void refreshClientHeartBeat(String deviceId, long lastHeatBeatTime)
 			throws ClientNotExistingException {
-		Client client = clients.get(deviceId);
+		AppClient client = clients.get(deviceId);
 		if (client == null) {
 			throw new ClientNotExistingException();
 		}
@@ -77,8 +84,8 @@ public class ClientMgr {
 	public void checkConnProcess() {
 		long currentTime = DateUtil.getCurrentSecTimeUTC();
 		
-		for(Entry<String, Client> entry : clients.entrySet()) {
-			Client client = entry.getValue();
+		for(Entry<String, AppClient> entry : clients.entrySet()) {
+			AppClient client = entry.getValue();
 			if (client.getLastHeartBeatTime() + CONNECTION_DEADLINE < currentTime) {
 				removeClient(entry.getKey());
 			}
