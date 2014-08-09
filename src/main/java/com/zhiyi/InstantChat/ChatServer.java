@@ -1,5 +1,7 @@
 package com.zhiyi.InstantChat;
 
+import com.zhiyi.InstantChat.client.OnlineClientMgr;
+import com.zhiyi.InstantChat.client.UnauthorizedClientMgr;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -73,12 +75,35 @@ public class ChatServer {
 			port = DEFAULT_PORT;  
 		}
 		
+		// Add cronjob to scan dead connection
+		DeadConnectionScanner deadConnectionScanner = new DeadConnectionScanner();
+		deadConnectionScanner.run();
+		
+		// Add cronjob to scan pending(unauthorized) connection
+		PendingConnectionScanner pendingConnectionScanner = new PendingConnectionScanner();
+		pendingConnectionScanner.run();
+		
 		new ChatServer(port).run();
 		
-		// TODO: add cronjob to scan dead connection
-		
-		// TODO: add cronjob to scan pending(unauthorized) connection
-		
+		deadConnectionScanner.wait();
+		pendingConnectionScanner.wait();
 	}
 	
+	private static class DeadConnectionScanner implements Runnable {
+
+		@Override
+		public void run() {
+			OnlineClientMgr.getInstance().checkConnProcess();
+		}
+
+	}
+	
+	private static class PendingConnectionScanner implements Runnable {
+
+		@Override
+		public void run() {
+			UnauthorizedClientMgr.getInstance().checkConnProcess();
+		}
+
+	}
 }

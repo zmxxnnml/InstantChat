@@ -5,14 +5,16 @@ import com.zhiyi.InstantChat.client.AppClient;
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
 import com.zhiyi.InstantChat.client.UnauthorizedAppClient;
 import com.zhiyi.InstantChat.client.UnauthorizedClientMgr;
-import com.zhiyi.InstantChat.inter.AppServInteractor;
+import com.zhiyi.InstantChat.inter.DefaultAppServInteractor;
 import com.zhiyi.InstantChat.inter.exception.DeviceNotExistingException;
 import com.zhiyi.InstantChat.inter.exception.InternalException;
 import com.zhiyi.InstantChat.inter.exception.InvalidSecTokenException;
 import com.zhiyi.InstantChat.inter.exception.UserNotExistingException;
+import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C;
+import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RegC2S;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C;
-import com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode;
+import com.zhiyi.InstantChat.protobuf.ChatPkg.RetCode;
 
 /*
  * Use {uid/device_id/sec_token} to authorize app client.
@@ -20,21 +22,34 @@ import com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C.RetCode;
 public class AuthHandler extends BaseHandler {
 	@Override
 	public void run() {
+		RegS2C.Builder regAckBuilder = RegS2C.newBuilder();
+		
 		RegC2S regc2s = pkgC2S.getReg();
-		if (regc2s == null) {
-			// do nothing
+		if ((regc2s == null) ||
+				(!regc2s.hasDeviceId() && !regc2s.hasUid()) ||
+				!regc2s.hasSecToken()) {
+			regAckBuilder.setCode(RetCode.ILLEGAL_REQUEST);
+			handleResp(regAckBuilder.build(), null, false);
 			return;
 		}
 		
-		long uid = regc2s.getUid();
-		String deviceId = regc2s.getDeviceId();
-		String secToken = regc2s.getSecToken();
+		Long uid = null;
+		if (regc2s.hasUid()) {
+			uid = regc2s.getUid();
+		}
+		String deviceId = null;
+		if (regc2s.hasDeviceId()) {
+			deviceId = regc2s.getDeviceId();
+		}
+		String secToken = null;
+		if (regc2s.hasSecToken()) {
+			secToken = regc2s.getSecToken();
+		}
 		
 		boolean isAuthorized = true;
-		RegS2C.Builder regAckBuilder = RegS2C.newBuilder();
-		regAckBuilder.setCode(RetCode.SUCCESS);
 		try {
-			AppServInteractor.getInstance().authenticateAppClient(uid, deviceId, secToken);
+			DefaultAppServInteractor.getInstance().authenticateAppClient(uid, deviceId, secToken);
+			regAckBuilder.setCode(RetCode.SUCCESS);
 		} catch (InternalException e) {
 			regAckBuilder.setCode(RetCode.INTERNAL_ERROR);
 			isAuthorized = false;
@@ -49,6 +64,10 @@ public class AuthHandler extends BaseHandler {
 			isAuthorized = false;
 		}
 		
+		handleResp(regAckBuilder.build(), deviceId, isAuthorized);
+	}
+	
+	private void handleResp(RegS2C regS2C, String deviceId, Boolean isAuthorized) {
 		// Reg client on client mgr.
 		if (isAuthorized) {
 			// remove the channel from unauthorizedClientMgr.
@@ -68,6 +87,9 @@ public class AuthHandler extends BaseHandler {
 		}
 		
 		// Send resp to client
-		channel.write(regAckBuilder.build());
+		PkgS2C.Builder pkgS2CBuilder = PkgS2C.newBuilder();
+		pkgS2CBuilder.setType(PkgType.REG_ACK);
+		pkgS2CBuilder.setRegAck(regS2C);
+		channel.write(pkgS2CBuilder.build());
 	}
 }

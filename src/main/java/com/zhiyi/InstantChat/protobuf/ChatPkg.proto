@@ -31,7 +31,7 @@ message PkgS2C {
 	
 	required PkgType type = 1;
 	
-	repeated ChatMessage message = 2;
+	optional PullMessageS2C pull_msg_ack = 2;
 	
 	optional HeartBeatS2C heart_beat_ack = 3;
 	
@@ -62,13 +62,17 @@ message ChatMessage {
 	
 	required bytes data = 8;
 	
-	optional int64 peer2server = 9;
+	optional int64 user_send_time = 9;
 	
-	optional int64 server2peer = 10;
+	optional bool is_read = 10;
+}
+
+message PullMessageS2C {
+
+	optional RetCode code = 1;
 	
-	optional int64 send_time = 11;
+	repeated ChatMessage messages = 2;
 	
-	optional bool is_read = 12;
 }
 
 message RegC2S {
@@ -80,15 +84,16 @@ message RegC2S {
 	optional string sec_token = 3;
 }
 
-message RegS2C {
-	enum RetCode {
-		SUCCESS = 0;
-		USER_NOT_EXISING = 1;
-		DEVICE_NOT_EXISTING = 2;
-		INVALID_SEC_TOKEN = 3;
-		INTERNAL_ERROR = 4;
-	}
+enum RetCode {
+	SUCCESS = 0;
+	USER_NOT_EXISING = 1;
+	DEVICE_NOT_EXISTING = 2;
+	INVALID_SEC_TOKEN = 3;
+	INTERNAL_ERROR = 4;
+	ILLEGAL_REQUEST = 5;
+}
 	
+message RegS2C {
 	optional RetCode code = 1;
 }
 
@@ -102,7 +107,10 @@ message HeartBeatC2S {
 }
 
 message HeartBeatS2C {
-	optional int64 send_time = 1;
+
+	optional RetCode code = 1;
+	
+	optional int64 send_time = 2;
 }
 
 message PullReqC2S {
