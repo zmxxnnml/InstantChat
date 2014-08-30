@@ -12,10 +12,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 public class ChatServer {
 	// TODO: make it to be configured
@@ -45,7 +45,7 @@ public class ChatServer {
                 			"protobufDecoder", new ProtobufDecoder(PkgC2S.getDefaultInstance()));
 
                 	 // Encoders
-                	ch.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));
+                	ch.pipeline().addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
                 	ch.pipeline().addLast("protobufEncoder", new ProtobufEncoder());
                 	
                 	// In handler

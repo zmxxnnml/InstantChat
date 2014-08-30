@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.zhiyi.InstantChat.base.DateUtil;
+
 /**
  * Manager to manage the "to be authorized" clients.
  * 
@@ -15,7 +16,7 @@ import com.zhiyi.InstantChat.base.DateUtil;
 public class UnauthorizedClientMgr {
 	// If the client can't be authorized in #{CONNECTION_UNAUTHORIZED_PENDDING_TIME} seconds
 	// after connecting server, we will shutdown the channel.
-	private static final Integer CONNECTION_UNAUTHORIZED_PENDDING_TIME = 10;
+	private static final Integer CONNECTION_UNAUTHORIZED_PENDDING_TIME = 30;  // 30seconds
 	
 	private static ConcurrentHashMap<Integer, UnauthorizedAppClient> clients =
 			new ConcurrentHashMap<Integer, UnauthorizedAppClient>();
