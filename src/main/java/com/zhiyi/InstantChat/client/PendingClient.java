@@ -2,7 +2,7 @@ package com.zhiyi.InstantChat.client;
 
 import io.netty.channel.Channel;
 
-public class UnauthorizedAppClient {
+public class PendingClient {
 	private Channel channel;
 	
 	private long connectedTime;
@@ -10,7 +10,7 @@ public class UnauthorizedAppClient {
 	// true if the client has invoked authorization process but failed.
 	private boolean failAuthorized;
 	
-	public UnauthorizedAppClient() {
+	public PendingClient() {
 		failAuthorized = false;
 	}
 	

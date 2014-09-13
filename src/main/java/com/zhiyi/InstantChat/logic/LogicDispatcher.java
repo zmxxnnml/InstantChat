@@ -17,6 +17,10 @@ public class LogicDispatcher {
 	public static void submit(Channel channel, PkgC2S pkgC2S) {
 		
 		BaseHandler handler = LogicHandlerMgr.getHandler(pkgC2S.getType());
+		if (handler == null) {
+			return;
+		}
+		
 		handler.setChannel(channel);
 		handler.setPkgC2S(pkgC2S);
 		

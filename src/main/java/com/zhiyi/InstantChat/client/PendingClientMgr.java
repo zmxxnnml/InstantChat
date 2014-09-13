@@ -5,6 +5,8 @@ import io.netty.channel.Channel;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.log4j.Logger;
+
 import com.zhiyi.InstantChat.base.DateUtil;
 
 /**
@@ -13,34 +15,36 @@ import com.zhiyi.InstantChat.base.DateUtil;
  * Used to void connection attack.
  *
  */
-public class UnauthorizedClientMgr {
+public class PendingClientMgr {
 	// If the client can't be authorized in #{CONNECTION_UNAUTHORIZED_PENDDING_TIME} seconds
 	// after connecting server, we will shutdown the channel.
 	private static final Integer CONNECTION_UNAUTHORIZED_PENDDING_TIME = 30;  // 30seconds
 	
-	private static ConcurrentHashMap<Integer, UnauthorizedAppClient> clients =
-			new ConcurrentHashMap<Integer, UnauthorizedAppClient>();
+	private static final Logger logger = Logger.getLogger(PendingClientMgr.class);
 	
-	private UnauthorizedClientMgr() {}
+	private static ConcurrentHashMap<Integer, PendingClient> clients =
+			new ConcurrentHashMap<Integer, PendingClient>();
+	
+	private PendingClientMgr() {}
 	
 	private static class UnauthorizedClientMgrHolder {
-		public static final UnauthorizedClientMgr instance= new UnauthorizedClientMgr();
+		public static final PendingClientMgr instance= new PendingClientMgr();
 	}
 	
-	public static UnauthorizedClientMgr getInstance() {
+	public static PendingClientMgr getInstance() {
 		return UnauthorizedClientMgrHolder.instance;
 	}
 	
-	public UnauthorizedAppClient getClient(int channelHashCode) {
+	public PendingClient getClient(int channelHashCode) {
 		return clients.get(channelHashCode);
 	}
 	
-	public void addClient(UnauthorizedAppClient client) {
+	public void addClient(PendingClient client) {
 		clients.put(client.getChannel().hashCode(), client);
 	}
 	
 	public void removeAndCloseClient(int channelHashCode) {
-		UnauthorizedAppClient client = getClient(channelHashCode);
+		PendingClient client = getClient(channelHashCode);
 		if (client != null) {
 			Channel channel = client.getChannel();
 			channel.flush();
@@ -54,10 +58,12 @@ public class UnauthorizedClientMgr {
 	}
 	
 	public void checkConnProcess() {
+		logger.info("pending clients: " + clients.size());
+		
 		long currentTime = DateUtil.getCurrentSecTimeUTC();
 		
-		for(Entry<Integer, UnauthorizedAppClient> entry : clients.entrySet()) {
-			UnauthorizedAppClient client = entry.getValue();
+		for(Entry<Integer, PendingClient> entry : clients.entrySet()) {
+			PendingClient client = entry.getValue();
 			if (client.getConnectedTime() + CONNECTION_UNAUTHORIZED_PENDDING_TIME < currentTime
 					|| client.getFailAuthorized()) {
 				removeAndCloseClient(entry.getKey());

@@ -1,47 +1,37 @@
-package com.zhiyi.InstantChat;
+package com.zhiyi.InstantChat.mockclient;
 
 import org.apache.log4j.Logger;
 
-import com.zhiyi.InstantChat.base.DateUtil;
-import com.zhiyi.InstantChat.client.OnlineClientMgr;
-import com.zhiyi.InstantChat.client.PendingClient;
-import com.zhiyi.InstantChat.client.PendingClientMgr;
-import com.zhiyi.InstantChat.logic.LogicDispatcher;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class MsgInHandler extends ChannelInboundHandlerAdapter {
+	
 	private static final Logger logger = Logger.getLogger(MsgInHandler.class);
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
-		logger.info("one client connected.");
-		PendingClient client = new PendingClient();
-		client.setChannel(ctx.channel());
-		client.setConnectedTime(DateUtil.getCurrentSecTimeUTC());
-		PendingClientMgr.getInstance().addClient(client);
+		logger.info("channelActive.");
 	}
 	
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx)
             throws Exception {
-		logger.info("one client left.");
-		OnlineClientMgr.getInstance().removeClient(ctx.channel());
+		logger.info("channelInactive.");
 	}
 	
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
+		// Get data from server: REG/HEARTBEAT/PULLMESSAGE
 		PkgC2S pkg = (PkgC2S)msg;
 		logger.info("received:\n" + pkg.toString());
-		LogicDispatcher.submit(ctx.channel(), pkg);
 	}
 	
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 		cause.printStackTrace();
-		OnlineClientMgr.getInstance().removeClient(ctx.channel());
 		ctx.close();
 	}
 }

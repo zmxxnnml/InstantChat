@@ -1,10 +1,10 @@
 package com.zhiyi.InstantChat.logic;
 
 import com.zhiyi.InstantChat.base.DateUtil;
-import com.zhiyi.InstantChat.client.AppClient;
+import com.zhiyi.InstantChat.client.OnlineClient;
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
-import com.zhiyi.InstantChat.client.UnauthorizedAppClient;
-import com.zhiyi.InstantChat.client.UnauthorizedClientMgr;
+import com.zhiyi.InstantChat.client.PendingClient;
+import com.zhiyi.InstantChat.client.PendingClientMgr;
 import com.zhiyi.InstantChat.inter.DefaultAppServInteractor;
 import com.zhiyi.InstantChat.inter.exception.DeviceNotExistingException;
 import com.zhiyi.InstantChat.inter.exception.InternalException;
@@ -71,16 +71,16 @@ public class AuthHandler extends BaseHandler {
 		// Reg client on client mgr.
 		if (isAuthorized) {
 			// remove the channel from unauthorizedClientMgr.
-			UnauthorizedClientMgr.getInstance().removeClient(channel.hashCode());
+			PendingClientMgr.getInstance().removeClient(channel.hashCode());
 			
-			AppClient client = new AppClient();
+			OnlineClient client = new OnlineClient();
 			client.setChannel(channel);
 			client.setDeviceId(deviceId);
 			client.setLastHeartBeatTime(DateUtil.getCurrentSecTimeUTC());
 			OnlineClientMgr.getInstance().addClient(deviceId, client);
 		} else {
-			UnauthorizedAppClient unauthorizedAppClient =
-					UnauthorizedClientMgr.getInstance().getClient(channel.hashCode());
+			PendingClient unauthorizedAppClient =
+					PendingClientMgr.getInstance().getClient(channel.hashCode());
 			if (unauthorizedAppClient != null) {
 				unauthorizedAppClient.setFailAuthorized(true);
 			}

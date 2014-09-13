@@ -24,38 +24,38 @@ public class MongoDbServiceImpl implements DbService {
 	
 	private MongoDbMgr mongoDbMgr;
 	
-	public MongoDbServiceImpl() {}
-	
-	public void init() throws StorageException {
+	private MongoDbServiceImpl() {
 		mongoDbMgr = new MongoDbMgrImpl();
 		mongoDbMgr.init(MONGODB_HOST, MONGODB_PORT, DB_NAME);
 	}
 	
-	private long getNextServerSeq(long uid) {
-		DBObject queryObj = new BasicDBObject();
-		queryObj.put("uid", uid);
-		DBObject updateObj = new BasicDBObject();
-		updateObj.put("$inc", new BasicDBObject().append("server_max_seq", 1));
-		// TODO: make it to be atomic
-		DBObject result =
-				mongoDbMgr.findAndModify(SEQ_COLLECTION, queryObj, updateObj);
-		if (result == null) {
-			DBObject insertObj = new BasicDBObject();
-			insertObj.put("uid", uid);
-			insertObj.put("server_max_seq", 1);
-			insertObj.put("acked_max_seq", 0);
-			mongoDbMgr.insertDocument(SEQ_COLLECTION, insertObj);
-			return 1;
-		}
-		
-		return (Long) result.get("server_max_seq");
+	private static class MongoDbServiceImplHolder {
+		public static final MongoDbServiceImpl instance= new MongoDbServiceImpl();
+	}
+	
+	public static MongoDbServiceImpl getInstance() {
+		return MongoDbServiceImplHolder.instance;
 	}
 	
 	@Override
 	public boolean updateAckSeq(long uid, long newAckSeq) {
-		// TODO: if newAckSeq > current ack seq, update. else do nothing
+		// if newAckSeq > current ack seq, update. else do nothing
 		DBObject queryObj = new BasicDBObject();
-		queryObj.put("uid", uid);
+		queryObj.put("to_uid", uid);
+		queryObj.put("server_ack_seq", new BasicDBObject().append("$lt", newAckSeq));
+		
+		DBObject updateObj = new BasicDBObject();
+		updateObj.put("$set", new BasicDBObject().append("server_ack_seq", newAckSeq));
+		return mongoDbMgr.updateDocument(SEQ_COLLECTION, queryObj, updateObj);
+	}
+	
+	@Override
+	public boolean updateAckSeq(String deviceId, long newAckSeq) {
+		// if newAckSeq > current ack seq, update. else do nothing
+		DBObject queryObj = new BasicDBObject();
+		queryObj.put("to_device_id", deviceId);
+		queryObj.put("server_ack_seq", new BasicDBObject().append("$lt", newAckSeq));
+		
 		DBObject updateObj = new BasicDBObject();
 		updateObj.put("$set", new BasicDBObject().append("server_ack_seq", newAckSeq));
 		return mongoDbMgr.updateDocument(SEQ_COLLECTION, queryObj, updateObj);
@@ -82,11 +82,12 @@ public class MongoDbServiceImpl implements DbService {
 		insertObj.put("msg", b.build().toByteArray());
 		
 		mongoDbMgr.insertDocument(MESSAGE_COLLECTION, insertObj);
-		return 0;
+		
+		return nextSeq;
 	}
 
 	@Override
-	public List<ChatMessage> getChatMessageByDate(long uid, long startp, long num) {
+	public List<ChatMessage> getChatMessages(long uid, long startp, long num) {
 		DBObject queryObj = new BasicDBObject();
 		queryObj.put("to_uid", uid);
 		
@@ -114,7 +115,7 @@ public class MongoDbServiceImpl implements DbService {
 	}
 
 	@Override
-	public List<ChatMessage> getDeviceChatMessageByDate(String deviceId, long startp, long num) {
+	public List<ChatMessage> getDeviceChatMessages(String deviceId, long startp, long num) {
 		DBObject queryObj = new BasicDBObject();
 		queryObj.put("to_device_id", deviceId);
 		
@@ -193,4 +194,105 @@ public class MongoDbServiceImpl implements DbService {
 		return messages;
 	}
 
+	@Override
+	public List<ChatMessage> getChatMessagesByDate(long uid, long timestamp,
+			long num, boolean greater) {
+		DBObject queryObj = new BasicDBObject();
+		queryObj.put("to_uid", uid);
+		if (greater) {
+			queryObj.put("time", new BasicDBObject().append("$gt", timestamp));
+		} else {
+			queryObj.put("time", new BasicDBObject().append("$lt", timestamp));
+		}
+		
+		DBObject sortObj = new BasicDBObject();
+		if (greater) {
+			sortObj.put("time", 1);
+		} else {
+			sortObj.put("time", -1);
+		}
+		
+		List<DBObject> dbObjs = mongoDbMgr.selectDocumentByPage(
+				MESSAGE_COLLECTION, queryObj, sortObj, 0, num);
+
+		List<ChatMessage> messages = new ArrayList<ChatMessage>();
+		try {
+			for (DBObject obj : dbObjs) {
+				Binary msgBinary = (Binary) obj.get("msg");
+				ChatMessage msg = ChatMessage.parseFrom(msgBinary.getData());
+				messages.add(msg);
+			}
+		} catch (InvalidProtocolBufferException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			messages.clear();
+			return null;
+		}
+		
+		return messages;
+	}
+
+	@Override
+	public List<ChatMessage> getDeviceChatMessagesByDate(String deviceId,
+			long timestamp, long num, boolean greater) {
+		DBObject queryObj = new BasicDBObject();
+		queryObj.put("to_device_id", deviceId);
+		if (greater) {
+			queryObj.put("time", new BasicDBObject().append("$gt", timestamp));
+		} else {
+			queryObj.put("time", new BasicDBObject().append("$lt", timestamp));
+		}
+		
+		DBObject sortObj = new BasicDBObject();
+		if (greater) {
+			sortObj.put("time", 1);
+		} else {
+			sortObj.put("time", -1);
+		}
+		
+		List<DBObject> dbObjs = mongoDbMgr.selectDocumentByPage(
+				MESSAGE_COLLECTION, queryObj, sortObj, 0, num);
+
+		List<ChatMessage> messages = new ArrayList<ChatMessage>();
+		try {
+			for (DBObject obj : dbObjs) {
+				Binary msgBinary = (Binary) obj.get("msg");
+				ChatMessage msg = ChatMessage.parseFrom(msgBinary.getData());
+				messages.add(msg);
+			}
+		} catch (InvalidProtocolBufferException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			messages.clear();
+			return null;
+		}
+		
+		return messages;
+	}
+
+	private long getNextServerSeq(long uid) {
+		DBObject queryObj = new BasicDBObject();
+		queryObj.put("uid", uid);
+		DBObject updateObj = new BasicDBObject();
+		updateObj.put("$inc", new BasicDBObject().append("server_max_seq", 1));
+
+		DBObject result = null;
+		
+		// TODO: make it to be atomic
+		{
+			result = mongoDbMgr.findAndModify(SEQ_COLLECTION, queryObj,
+					updateObj);
+			if (result == null) {
+				DBObject insertObj = new BasicDBObject();
+				insertObj.put("uid", uid);
+				insertObj.put("server_max_seq", 1);
+				insertObj.put("acked_max_seq", 0);
+				mongoDbMgr.insertDocument(SEQ_COLLECTION, insertObj);
+				return 1;
+			}
+		}
+		
+		return (Long) result.get("server_max_seq");
+	}
+	
 }

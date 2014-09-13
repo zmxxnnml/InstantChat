@@ -6,16 +6,16 @@ import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S.PkgType;
 public class LogicHandlerMgr {
 	
 	public static BaseHandler getHandler(PkgC2S.PkgType pkgType) {
-		if (pkgType == PkgType.REG) {
+		if (pkgType.equals(PkgType.REG)) {
 			return new AuthHandler();
 		}
-		if (pkgType == PkgType.HEART_BEAT) {
+		if (pkgType.equals(PkgType.HEART_BEAT)) {
 			return new HeartBeatHandler();
 		}
-		if (pkgType == PkgType.PULL_REQ) {
+		if (pkgType.equals(PkgType.PULL_REQ)) {
 			return new PullMsgHandler();
 		}
-		if (pkgType == PkgType.MESSAGE) {
+		if (pkgType.equals(PkgType.MESSAGE)) {
 			return new SendMsgHandler();
 		}
 		

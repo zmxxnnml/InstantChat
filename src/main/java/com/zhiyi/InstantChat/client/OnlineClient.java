@@ -9,7 +9,7 @@ import io.netty.channel.Channel;
  * currently we use device id as client identifier. Later we may use user ID.
  *
  */
-public class AppClient {
+public class OnlineClient {
 
 	private String deviceId;
 	

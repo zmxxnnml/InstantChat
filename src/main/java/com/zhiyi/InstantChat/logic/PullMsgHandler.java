@@ -1,10 +1,16 @@
 package com.zhiyi.InstantChat.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PullMessageS2C;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PullReqC2S;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RetCode;
+import com.zhiyi.InstantChat.storage.DbService;
+import com.zhiyi.InstantChat.storage.MongoDbServiceImpl;
 
 public class PullMsgHandler extends BaseHandler {
 	@Override
@@ -28,11 +34,30 @@ public class PullMsgHandler extends BaseHandler {
 			channel.write(pkgS2CBuilder.build());
 			return;
 		}
+
+		DbService dbService = MongoDbServiceImpl.getInstance();
 		
-		// TODO: interact with MongoDB
-		// 1. Parse out of req_start_seq/req_end_seq/ack_seq
-		// 2. Get messages from MongoDB
-		// 3. Update messages as has-read
-		// 4. Update seq(deviceId/uid)
+		List<ChatMessage> messages = new ArrayList<ChatMessage>();
+		if (pullReqC2S.hasReqStartSeq() && pullReqC2S.hasReqEndSeq()) {
+			// Get messages by start seq and end seq.
+			List<ChatMessage> messagesFromBb  = dbService.getChatMessageBySeq(
+					pullReqC2S.getDeviceId(), pullReqC2S.getReqStartSeq(), pullReqC2S.getReqEndSeq());
+			messages.addAll(messagesFromBb);
+		} else if (pullReqC2S.hasStartTimestamp() && pullReqC2S.hasNum() && pullReqC2S.hasGreater()){
+			// Get messages by start timestamp and num.
+			List<ChatMessage> messagesFromBb  = dbService.getDeviceChatMessagesByDate(
+					pullReqC2S.getDeviceId(), pullReqC2S.getStartTimestamp(), pullReqC2S.getNum(), pullReqC2S.getGreater());
+			messages.addAll(messagesFromBb);
+		}
+		
+		pullMessageS2C.setCode(RetCode.SUCCESS);
+		pullMessageS2C.addAllMessages(messages);
+		channel.write(pullMessageS2C.build());
+		
+		// Update ack seq.
+		if (pullReqC2S.hasDeviceId() && pullReqC2S.hasAckReq()) {
+			dbService.updateAckSeq(pullReqC2S.getDeviceId(), pullReqC2S.getAckReq());
+		}
+		
 	}
 }

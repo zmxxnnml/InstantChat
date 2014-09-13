@@ -1,7 +1,9 @@
 package com.zhiyi.InstantChat;
 
+import org.apache.log4j.Logger;
+
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
-import com.zhiyi.InstantChat.client.UnauthorizedClientMgr;
+import com.zhiyi.InstantChat.client.PendingClientMgr;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -22,6 +24,8 @@ public class ChatServer {
 	private static final int DEFAULT_PORT = 21423;
 	
 	private int port;
+	
+	private static final Logger logger = Logger.getLogger(ChatServer.class);
 	
 	public ChatServer(int port) {
 		this.port = port;
@@ -59,7 +63,7 @@ public class ChatServer {
             .childOption(ChannelOption.SO_KEEPALIVE, true);
 			
 			ChannelFuture f = b.bind(port).sync();
-			
+			logger.info("server is running...");
 			f.channel().closeFuture().sync();
 		} finally {
 			workerGroup.shutdownGracefully();
@@ -78,13 +82,17 @@ public class ChatServer {
 		// Add cronjob to scan dead connection
 		DeadConnectionScanner deadConnectionScanner = new DeadConnectionScanner();
 		deadConnectionScanner.run();
+		logger.info("dead connection scanner is running...");
 		
 		// Add cronjob to scan pending(unauthorized) connection
 		PendingConnectionScanner pendingConnectionScanner = new PendingConnectionScanner();
 		pendingConnectionScanner.run();
+		logger.info("pending connection scanner is running...");
 		
 		new ChatServer(port).run();
-		
+
+		// In fact, new ChatServer(port).run() will be blocked until being killed.
+		// So no need to wait.
 		deadConnectionScanner.wait();
 		pendingConnectionScanner.wait();
 	}
@@ -102,7 +110,7 @@ public class ChatServer {
 
 		@Override
 		public void run() {
-			UnauthorizedClientMgr.getInstance().checkConnProcess();
+			PendingClientMgr.getInstance().checkConnProcess();
 		}
 
 	}

@@ -5,6 +5,8 @@ import io.netty.channel.Channel;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.log4j.Logger;
+
 import com.zhiyi.InstantChat.base.DateUtil;
 import com.zhiyi.InstantChat.exception.ClientNotExistingException;
 
@@ -19,8 +21,10 @@ public class OnlineClientMgr {
 	// TODO: put it into configuration
 	private static final Integer CONNECTION_DEADLINE = 10;
 	
-	private static ConcurrentHashMap<String, AppClient> clients =
-			new ConcurrentHashMap<String, AppClient>();
+	private static final Logger logger = Logger.getLogger(OnlineClientMgr.class);
+	
+	private static ConcurrentHashMap<String, OnlineClient> clients =
+			new ConcurrentHashMap<String, OnlineClient>();
 	
 	private OnlineClientMgr() {}
 	
@@ -32,13 +36,13 @@ public class OnlineClientMgr {
 		return ClientMgrHolder.instance;
 	}
 	
-	public AppClient getClient(String deviceId) {
-		AppClient client = clients.get(deviceId);
+	public OnlineClient getClient(String deviceId) {
+		OnlineClient client = clients.get(deviceId);
 		return client;
 	}
 	
-	public void addClient(String deviceId, AppClient client) {
-		AppClient existingClient = getClient(deviceId);
+	public void addClient(String deviceId, OnlineClient client) {
+		OnlineClient existingClient = getClient(deviceId);
 		if (existingClient != null) {
 			Channel channel = client.getChannel();
 			channel.flush();
@@ -49,7 +53,7 @@ public class OnlineClientMgr {
 	}
 	
 	public void removeClient(String deviceId) {
-		AppClient client = getClient(deviceId);
+		OnlineClient client = getClient(deviceId);
 		if (client != null) {
 			Channel channel = client.getChannel();
 			channel.flush();
@@ -62,8 +66,8 @@ public class OnlineClientMgr {
 		// TODO: it's very slow to scan the whole hashmap one by one and compare a big object
 		// TODO: To clarify how much memory space the "channel" cost?
 		// TODO: Make the search faster
-		for(Entry<String, AppClient> entry : clients.entrySet()) {
-			AppClient client = entry.getValue();
+		for(Entry<String, OnlineClient> entry : clients.entrySet()) {
+			OnlineClient client = entry.getValue();
 			if (channel.equals(client.getChannel())) {
 				removeClient(entry.getKey());
 				break;
@@ -73,7 +77,7 @@ public class OnlineClientMgr {
 	
 	public void refreshClientHeartBeat(String deviceId, long lastHeatBeatTime)
 			throws ClientNotExistingException {
-		AppClient client = clients.get(deviceId);
+		OnlineClient client = clients.get(deviceId);
 		if (client == null) {
 			throw new ClientNotExistingException();
 		}
@@ -82,10 +86,12 @@ public class OnlineClientMgr {
 	}
 	
 	public void checkConnProcess() {
+		logger.info("online clients: " + clients.size());
+		
 		long currentTime = DateUtil.getCurrentSecTimeUTC();
 		
-		for(Entry<String, AppClient> entry : clients.entrySet()) {
-			AppClient client = entry.getValue();
+		for(Entry<String, OnlineClient> entry : clients.entrySet()) {
+			OnlineClient client = entry.getValue();
 			if (client.getLastHeartBeatTime() + CONNECTION_DEADLINE < currentTime) {
 				removeClient(entry.getKey());
 			}

@@ -2,6 +2,8 @@ package com.zhiyi.InstantChat.logic;
 
 import com.zhiyi.InstantChat.base.DateUtil;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
+import com.zhiyi.InstantChat.storage.DbService;
+import com.zhiyi.InstantChat.storage.MongoDbServiceImpl;
 
 public class SendMsgHandler extends BaseHandler {
 	@Override
@@ -28,12 +30,9 @@ public class SendMsgHandler extends BaseHandler {
 		}
 		chatMsg.toBuilder().setUserSendTime(adjustClientTime(userSendTime));
 		
-		// TODO: interact with MongoDB
-		// 1. Get next-seq(touid/todeviceid) meanwhile increase it in Mongodb 
-		//    (Make the process to be a transcation)
-		// 2. Update seq field of chat message
-		// 3. Store into mongodb
-		// 4. Send notification to push server.
+		// Save message into database.
+		DbService db = MongoDbServiceImpl.getInstance();
+		db.saveChatMessage(chatMsg);
 	}
 	
 	private long adjustClientTime(long clientTime) {
