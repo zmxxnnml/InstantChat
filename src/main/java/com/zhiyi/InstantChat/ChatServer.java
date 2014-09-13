@@ -81,27 +81,30 @@ public class ChatServer {
 		
 		// Add cronjob to scan dead connection
 		DeadConnectionScanner deadConnectionScanner = new DeadConnectionScanner();
-		deadConnectionScanner.run();
+		new Thread(deadConnectionScanner).start();
 		logger.info("dead connection scanner is running...");
 		
 		// Add cronjob to scan pending(unauthorized) connection
 		PendingConnectionScanner pendingConnectionScanner = new PendingConnectionScanner();
-		pendingConnectionScanner.run();
+		new Thread(pendingConnectionScanner).start();
 		logger.info("pending connection scanner is running...");
 		
 		new ChatServer(port).run();
-
-		// In fact, new ChatServer(port).run() will be blocked until being killed.
-		// So no need to wait.
-		deadConnectionScanner.wait();
-		pendingConnectionScanner.wait();
 	}
 	
 	private static class DeadConnectionScanner implements Runnable {
 
 		@Override
 		public void run() {
-			OnlineClientMgr.getInstance().checkConnProcess();
+			while (true) {
+				try {
+					Thread.sleep(10000);  // TODO: put it into config
+					OnlineClientMgr.getInstance().checkConnProcess();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
@@ -110,7 +113,15 @@ public class ChatServer {
 
 		@Override
 		public void run() {
-			PendingClientMgr.getInstance().checkConnProcess();
+			while (true) {
+				try {
+					Thread.sleep(10000);  // Put it into config.
+					PendingClientMgr.getInstance().checkConnProcess();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
