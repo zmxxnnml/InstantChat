@@ -1,11 +1,15 @@
 package com.zhiyi.InstantChat.logic;
 
+import org.apache.log4j.Logger;
+
 import com.zhiyi.InstantChat.base.DateUtil;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
 import com.zhiyi.InstantChat.storage.DbService;
 import com.zhiyi.InstantChat.storage.MongoDbServiceImpl;
 
 public class SendMsgHandler extends BaseHandler {
+	private static final Logger logger = Logger.getLogger(SendMsgHandler.class);
+	
 	@Override
 	public void run() {
 		ChatMessage chatMsg = pkgC2S.getMessage();
@@ -33,6 +37,7 @@ public class SendMsgHandler extends BaseHandler {
 		// Save message into database.
 		DbService db = MongoDbServiceImpl.getInstance();
 		db.saveChatMessage(chatMsg);
+		logger.info("save chatmsg into mongodb success!");
 	}
 	
 	private long adjustClientTime(long clientTime) {

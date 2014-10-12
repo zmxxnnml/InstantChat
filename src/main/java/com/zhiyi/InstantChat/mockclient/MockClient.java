@@ -3,6 +3,7 @@ package com.zhiyi.InstantChat.mockclient;
 import org.apache.log4j.Logger;
 
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
+import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -58,7 +59,7 @@ public class MockClient implements Runnable {
 					ch.pipeline().addLast("frameDecoder",
 							new ProtobufVarint32FrameDecoder());
 					ch.pipeline().addLast("protobufDecoder",
-							new ProtobufDecoder(PkgC2S.getDefaultInstance()));
+							new ProtobufDecoder(PkgS2C.getDefaultInstance()));
 
 					// Encoders
 					ch.pipeline().addLast("frameEncoder",

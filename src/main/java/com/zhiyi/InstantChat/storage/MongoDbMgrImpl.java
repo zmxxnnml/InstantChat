@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.log4j.Logger;
+
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -14,6 +16,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
 
 public class MongoDbMgrImpl implements MongoDbMgr {
+	private static final Logger logger = Logger.getLogger(MongoDbMgrImpl.class);
 
     private MongoClient mongo = null;
     private DB dbConnection = null;
@@ -27,6 +30,7 @@ public class MongoDbMgrImpl implements MongoDbMgr {
                 this.mongo = new MongoClient( mongoServerAddr , mongoServerPort);
                 if (null != this.mongo) {
                     this.dbConnection = this.mongo.getDB(dbName);
+                    logger.info("connected to mongo db.");
                 }
             } catch (UnknownHostException e) {
                 throw new RuntimeException(e);

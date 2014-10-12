@@ -10,6 +10,9 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
 
+/*
+ * http://docs.mongodb.org/manual/tutorial/
+ */
 public class MongoDbServiceImpl implements DbService {
 
 	private static final String MONGODB_HOST = "localhost";

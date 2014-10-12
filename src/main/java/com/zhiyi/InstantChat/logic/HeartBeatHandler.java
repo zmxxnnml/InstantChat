@@ -1,5 +1,7 @@
 package com.zhiyi.InstantChat.logic;
 
+import org.apache.log4j.Logger;
+
 import com.zhiyi.InstantChat.base.DateUtil;
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
 import com.zhiyi.InstantChat.exception.ClientNotExistingException;
@@ -10,6 +12,8 @@ import com.zhiyi.InstantChat.protobuf.ChatPkg.RetCode;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType;
 
 public class HeartBeatHandler extends BaseHandler {
+	private static final Logger logger = Logger.getLogger(HeartBeatHandler.class);
+	
 	@Override
 	public void run() {
 		PkgS2C.Builder pkgS2CBuilder = PkgS2C.newBuilder();
@@ -21,7 +25,8 @@ public class HeartBeatHandler extends BaseHandler {
 			// TODO: log ERROR
 			heartBeatS2CBuilder.setCode(RetCode.ILLEGAL_REQUEST);
 			pkgS2CBuilder.setHeartBeatAck(heartBeatS2CBuilder.build());
-			channel.write(pkgS2CBuilder.build());
+			logger.info("send:\n" + pkgS2CBuilder.build().toString());
+			channel.writeAndFlush(pkgS2CBuilder.build());
 			return;
 		}
 		
@@ -40,7 +45,8 @@ public class HeartBeatHandler extends BaseHandler {
 		}
 		
 		pkgS2CBuilder.setHeartBeatAck(heartBeatS2CBuilder.build());
-		channel.write(pkgS2CBuilder.build());
+		logger.info("send to [" + deviceId + "]:\n" + pkgS2CBuilder.build().toString());
+		channel.writeAndFlush(pkgS2CBuilder.build());
 	}
 	
 }

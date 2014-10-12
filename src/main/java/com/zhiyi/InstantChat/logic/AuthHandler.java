@@ -1,5 +1,7 @@
 package com.zhiyi.InstantChat.logic;
 
+import org.apache.log4j.Logger;
+
 import com.zhiyi.InstantChat.base.DateUtil;
 import com.zhiyi.InstantChat.client.OnlineClient;
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
@@ -20,6 +22,8 @@ import com.zhiyi.InstantChat.protobuf.ChatPkg.RetCode;
  * Use {uid/device_id/sec_token} to authorize app client.
  */
 public class AuthHandler extends BaseHandler {
+	private static final Logger logger = Logger.getLogger(AuthHandler.class);
+	
 	@Override
 	public void run() {
 		RegS2C.Builder regAckBuilder = RegS2C.newBuilder();
@@ -64,6 +68,10 @@ public class AuthHandler extends BaseHandler {
 			isAuthorized = false;
 		}
 		
+		// TODO: Just for debuging.
+		regAckBuilder.setCode(RetCode.SUCCESS);
+		isAuthorized = true;
+		
 		handleResp(regAckBuilder.build(), deviceId, isAuthorized);
 	}
 	
@@ -90,6 +98,9 @@ public class AuthHandler extends BaseHandler {
 		PkgS2C.Builder pkgS2CBuilder = PkgS2C.newBuilder();
 		pkgS2CBuilder.setType(PkgType.REG_ACK);
 		pkgS2CBuilder.setRegAck(regS2C);
-		channel.write(pkgS2CBuilder.build());
+		
+		logger.info("send to [" + deviceId + "]:\n" + pkgS2CBuilder.build().toString());
+		
+		channel.writeAndFlush(pkgS2CBuilder.build());
 	}
 }

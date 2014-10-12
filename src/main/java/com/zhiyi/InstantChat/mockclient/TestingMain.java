@@ -14,17 +14,27 @@ public class TestingMain {
 	
 	private static final Logger logger = Logger.getLogger(TestingMain.class);
 	
-	private static final String MOCK_DEVICE_ID = "mock_device_id_1";
+	private static final String MOCK_DEVICE_ID = genMockDeviceId("1");
 	
-	private static final Long MOCK_USER_ID = 1L;
+	private static final Long MOCK_USER_ID = genMockUserId(1L);
 	
 	private static final String MOCK_SEC_TOKEN = "mock_sec_token";
 	
-	private static final String MOCK_TO_DEVICE_ID = "mock_device_id_2";
+	private static final String MOCK_TO_DEVICE_ID = genMockDeviceId("2");
 	
-	private static final Long MOCK_TO_USER_ID = 2L;
+	private static final Long MOCK_TO_USER_ID = genMockUserId(2L);
 	
 	private static MockClient mockClient;
+	
+	private static String genMockDeviceId(String random) {
+		String mockDeviceId = "mock_device_id_" + System.currentTimeMillis() + "_" + random;
+		return mockDeviceId;
+	}
+	
+	private static Long genMockUserId(Long random) {
+		Long mockUserId = System.currentTimeMillis() + random;
+		return mockUserId;
+	}
 	
 	public static void main(String[] argv) throws Exception {
 		mockClient = new MockClient();
@@ -81,24 +91,25 @@ public class TestingMain {
 		sendMessageThread.start();
 		logger.info("send message thread running...");
 		
-		// Pull messages every 10s.
-		Thread pullMessageThread = new Thread(new Runnable() {
-
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(10000);
-					} catch (InterruptedException e) {
-						logger.error(e);
-					}
-					pullMessage();
-				}
-			}
-			
-		});
-		pullMessageThread.start();
-		logger.info("pull message thread running...");
+//		// Pull messages every 10s.
+//		Thread pullMessageThread = new Thread(new Runnable() {
+//
+//			public void run() {
+//				while (true) {
+//					try {
+//						Thread.sleep(10000);
+//					} catch (InterruptedException e) {
+//						logger.error(e);
+//					}
+//					pullMessage();
+//				}
+//			}
+//			
+//		});
+//		pullMessageThread.start();
+//		logger.info("pull message thread running...");
 		
+		// Because it block the thread, so put mockClient.run() at the end.
 		mockClient.run();  // connect the server.
 	}
 	

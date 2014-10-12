@@ -3,6 +3,8 @@ package com.zhiyi.InstantChat.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PullMessageS2C;
@@ -13,6 +15,8 @@ import com.zhiyi.InstantChat.storage.DbService;
 import com.zhiyi.InstantChat.storage.MongoDbServiceImpl;
 
 public class PullMsgHandler extends BaseHandler {
+	private static final Logger logger = Logger.getLogger(PullMsgHandler.class);
+	
 	@Override
 	public void run() {
 		PkgS2C.Builder pkgS2CBuilder = PkgS2C.newBuilder();
@@ -23,7 +27,8 @@ public class PullMsgHandler extends BaseHandler {
 			// TODO: log ERROR
 			pullMessageS2C.setCode(RetCode.ILLEGAL_REQUEST);
 			pkgS2CBuilder.setPullMsgAck(pullMessageS2C.build());
-			channel.write(pkgS2CBuilder.build());
+			logger.info("send:\n" + pkgS2CBuilder.build().toString());
+			channel.writeAndFlush(pkgS2CBuilder.build());
 			return;
 		}
 		
@@ -31,7 +36,8 @@ public class PullMsgHandler extends BaseHandler {
 		if (!pullReqC2S.hasDeviceId()) {
 			pullMessageS2C.setCode(RetCode.ILLEGAL_REQUEST);
 			pkgS2CBuilder.setPullMsgAck(pullMessageS2C.build());
-			channel.write(pkgS2CBuilder.build());
+			logger.info("send:\n" + pkgS2CBuilder.build().toString());
+			channel.writeAndFlush(pkgS2CBuilder.build());
 			return;
 		}
 
@@ -43,7 +49,7 @@ public class PullMsgHandler extends BaseHandler {
 			List<ChatMessage> messagesFromBb  = dbService.getChatMessageBySeq(
 					pullReqC2S.getDeviceId(), pullReqC2S.getReqStartSeq(), pullReqC2S.getReqEndSeq());
 			messages.addAll(messagesFromBb);
-		} else if (pullReqC2S.hasStartTimestamp() && pullReqC2S.hasNum() && pullReqC2S.hasGreater()){
+		} else if (pullReqC2S.hasStartTimestamp() && pullReqC2S.hasNum() && pullReqC2S.hasGreater()) {
 			// Get messages by start timestamp and num.
 			List<ChatMessage> messagesFromBb  = dbService.getDeviceChatMessagesByDate(
 					pullReqC2S.getDeviceId(), pullReqC2S.getStartTimestamp(), pullReqC2S.getNum(), pullReqC2S.getGreater());
@@ -52,7 +58,9 @@ public class PullMsgHandler extends BaseHandler {
 		
 		pullMessageS2C.setCode(RetCode.SUCCESS);
 		pullMessageS2C.addAllMessages(messages);
-		channel.write(pullMessageS2C.build());
+		pkgS2CBuilder.setPullMsgAck(pullMessageS2C);
+		logger.info("send:\n" + pkgS2CBuilder.build().toString());
+		channel.writeAndFlush(pkgS2CBuilder.build());
 		
 		// Update ack seq.
 		if (pullReqC2S.hasDeviceId() && pullReqC2S.hasAckReq()) {
