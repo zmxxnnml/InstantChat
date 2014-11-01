@@ -19,6 +19,7 @@ import com.zhiyi.InstantChat.config.InstantChatConfig;
  * 
  * Used to void connection attack.
  *
+ * TODO: Refactor the code.
  */
 public class PendingClientMgr {
 
@@ -53,6 +54,7 @@ public class PendingClientMgr {
 	}
 	
 	public void addClient(PendingClient client) {
+		// TODO: change the key alg.
 		clients.put(client.getChannel().hashCode(), client);
 	}
 	
@@ -74,7 +76,7 @@ public class PendingClientMgr {
 
 		@Override
 		public void run() {
-			logger.info("online clients: " + clients.size());
+			logger.info("pending clients: " + clients.size());
 
 			long currentTime = DateUtil.getCurrentSecTimeUTC();
 

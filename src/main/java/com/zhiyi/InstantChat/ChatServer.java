@@ -70,6 +70,9 @@ public class ChatServer {
 	}
 	
 	public static void main(String[] args) throws Exception {
+		// load configuration.
+		InstantChatConfig.getInstance().preload();
+		
 		int port;
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);

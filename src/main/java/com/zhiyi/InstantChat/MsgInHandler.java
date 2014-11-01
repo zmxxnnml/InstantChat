@@ -40,7 +40,7 @@ public class MsgInHandler extends ChannelInboundHandlerAdapter {
 	
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
+		logger.warn("channel exception:" + cause.getMessage());
 		OnlineClientMgr.getInstance().removeClient(ctx.channel());
 		ctx.close();
 	}

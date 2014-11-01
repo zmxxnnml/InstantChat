@@ -24,6 +24,12 @@ public class LoadRunner {
 	
 	private static final Integer DEFAULT_CLIENTS_NUM = 100;
 	
+	private static final Integer HEART_BEAT_INTERVAL = 10; // 10s
+	
+	private static final Integer SEND_MSG_INTERVAL = 3; // 3s
+	
+	private static final Integer RECEIVE_MSG_INTERVAL = 3; // 3s
+	
 	private List<ClientIdentifier> clientIdentifiers;
 	
 	public LoadRunner(int clientNum) {
@@ -62,7 +68,7 @@ public class LoadRunner {
 				public void run() {
 					while (true) {
 						try {
-							Thread.sleep(10000);
+							Thread.sleep(HEART_BEAT_INTERVAL);
 						} catch (InterruptedException e) {
 							logger.error(e);
 						}
@@ -102,7 +108,7 @@ public class LoadRunner {
 			sendRegThread.start();
 			logger.info("send reg thread running...");
 			
-			// Heartbeat every 10s.
+			// Heartbeat every ${HEART_BEAT_INTERVAL}s.
 			Thread heartBeatThread = new Thread(new Runnable() {
 
 				public void run() {
@@ -114,7 +120,7 @@ public class LoadRunner {
 					
 					while (true) {
 						try {
-							Thread.sleep(10000);  // 10s
+							Thread.sleep(HEART_BEAT_INTERVAL);
 						} catch (InterruptedException e) {
 							logger.error(e);
 						}
@@ -126,7 +132,7 @@ public class LoadRunner {
 			heartBeatThread.start();
 			logger.info("heartbeat thread running...");
 			
-			//  0<->1  2<->3  4<->5 .... send and receive message
+			//  0<->1  2<->3  4<->5 .... send and receive message every ${SEND_MSG_INTERVAL}
 			Thread sendMessageThread = new Thread(new Runnable() {
 
 				public void run() {
@@ -139,7 +145,7 @@ public class LoadRunner {
 					
 					while (true) {
 						try {
-							Thread.sleep(3000);  //3s
+							Thread.sleep(SEND_MSG_INTERVAL);
 						} catch (InterruptedException e) {
 							logger.error(e);
 						}
@@ -164,7 +170,7 @@ public class LoadRunner {
 			});
 			sendMessageThread.start();
 			
-			// Pull messages every 3s.
+			// Pull messages every ${RECEIVE_MSG_INTERVAL}.
 			Thread pullMessageThread = new Thread(new Runnable() {
 
 				public void run() {
@@ -177,7 +183,7 @@ public class LoadRunner {
 					
 					while (true) {
 						try {
-							Thread.sleep(3000);  // 3s
+							Thread.sleep(RECEIVE_MSG_INTERVAL);
 						} catch (InterruptedException e) {
 							logger.error(e);
 						}

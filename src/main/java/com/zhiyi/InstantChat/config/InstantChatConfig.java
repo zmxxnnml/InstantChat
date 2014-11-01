@@ -56,6 +56,11 @@ public class InstantChatConfig {
 		public static final InstantChatConfig instance= new InstantChatConfig();
 	}
 	
+	public void preload() {
+		// do nothing.
+		// Just for avoid lazy loading configuration.
+	}
+	
 	public static InstantChatConfig getInstance() {
 		return ClientMgrHolder.instance;
 	}
@@ -66,14 +71,16 @@ public class InstantChatConfig {
 		Properties deployProperties = new Properties();
 		InputStream inputStream1 = this.getClass().getClassLoader().getResourceAsStream(
 				"com/zhiyi/InstantChat/config/deploy.properties");
-		try {
-			deployProperties.load(inputStream1);
-			String deployVal = deployProperties.getProperty(DEPLOY_KEY);
-			if (deployVal != null) {
-				deploy = deployVal;
+		if (inputStream1 != null) {
+			try {
+				deployProperties.load(inputStream1);
+				String deployVal = deployProperties.getProperty(DEPLOY_KEY);
+				if (deployVal != null) {
+					deploy = deployVal;
+				}
+			} catch (IOException e1) {
+				logger.error("Load deploy properties failed!", e1);
 			}
-		} catch (IOException e1) {
-			logger.error("Load deploy properties failed!", e1);
 		}
 		
 		String globalConfigPath = "com/zhiyi/InstantChat/config/IntantChat-dev.properties";
@@ -85,51 +92,56 @@ public class InstantChatConfig {
 		
 		Properties instantChatProperties = new Properties();
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(globalConfigPath);
-		try {
-			instantChatProperties.load(inputStream);
-			String serverPortVal = instantChatProperties.getProperty(SERVER_PORT_KEY);
-			if (serverPortVal != null) {
-				serverPort = Integer.parseInt(serverPortVal);
-			}
+		if (inputStream != null) {
+			try {
+				instantChatProperties.load(inputStream);
+				String serverPortVal = instantChatProperties
+						.getProperty(SERVER_PORT_KEY);
+				if (serverPortVal != null) {
+					serverPort = Integer.parseInt(serverPortVal);
+				}
 
-			String mongoDbAddrVal = instantChatProperties
-					.getProperty(MONGODB_ADDR_KEY);
-			if (mongoDbAddrVal != null) {
-				mongoDbAddr = mongoDbAddrVal;
-			}
+				String mongoDbAddrVal = instantChatProperties
+						.getProperty(MONGODB_ADDR_KEY);
+				if (mongoDbAddrVal != null) {
+					mongoDbAddr = mongoDbAddrVal;
+				}
 
-			String mongoDbPortVal = instantChatProperties
-					.getProperty(MONGODB_PORT_KEY);
-			if (mongoDbPortVal != null) {
-				mongoDbPort = Integer.parseInt(mongoDbPortVal);
-			}
+				String mongoDbPortVal = instantChatProperties
+						.getProperty(MONGODB_PORT_KEY);
+				if (mongoDbPortVal != null) {
+					mongoDbPort = Integer.parseInt(mongoDbPortVal);
+				}
 
-			String connectionUnauthorizedDeadlineVal = instantChatProperties
-					.getProperty(CONN_UNAUTHORIZED_DEADLINE_KEY);
-			if (connectionUnauthorizedDeadlineVal != null) {
-				connectionUnauthorizedDeadline = Integer
-						.parseInt(connectionUnauthorizedDeadlineVal);
-			}
+				String connectionUnauthorizedDeadlineVal = instantChatProperties
+						.getProperty(CONN_UNAUTHORIZED_DEADLINE_KEY);
+				if (connectionUnauthorizedDeadlineVal != null) {
+					connectionUnauthorizedDeadline = Integer
+							.parseInt(connectionUnauthorizedDeadlineVal);
+				}
 
-			String connectionUnactiveDeadlineVal = instantChatProperties
-					.getProperty(CONN_UNACTIVE__DEADLINE_KEY);
-			if (connectionUnactiveDeadlineVal != null) {
-				connectionUnactiveDeadline = Integer
-						.parseInt(connectionUnactiveDeadlineVal);
-			}
+				String connectionUnactiveDeadlineVal = instantChatProperties
+						.getProperty(CONN_UNACTIVE__DEADLINE_KEY);
+				if (connectionUnactiveDeadlineVal != null) {
+					connectionUnactiveDeadline = Integer
+							.parseInt(connectionUnactiveDeadlineVal);
+				}
 
-			String applicationServerUrlVal = instantChatProperties
-					.getProperty(APPLICATION_SERVER_URL_KEY);
-			if (applicationServerUrlVal != null) {
-				applicationServerUrl = applicationServerUrlVal;
+				String applicationServerUrlVal = instantChatProperties
+						.getProperty(APPLICATION_SERVER_URL_KEY);
+				if (applicationServerUrlVal != null) {
+					applicationServerUrl = applicationServerUrlVal;
+				}
+
+				String sessionScanIntervalVal = instantChatProperties
+						.getProperty(SESSION_SCAN_INTERVAL_KEY);
+				if (sessionScanIntervalVal != null) {
+					sessionScanInterval = Integer
+							.parseInt(sessionScanIntervalVal);
+				}
+			} catch (IOException e) {
+				logger.error("Load global properties failed!", e);
 			}
-			
-			String sessionScanIntervalVal = instantChatProperties.getProperty(SESSION_SCAN_INTERVAL_KEY);
-			if (sessionScanIntervalVal != null) {
-				sessionScanInterval = Integer.parseInt(sessionScanIntervalVal);
-			}
-		} catch (IOException e) {
-			logger.error("Load global properties failed!", e);
 		}
 
 	}

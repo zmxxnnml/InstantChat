@@ -66,17 +66,16 @@ public class OnlineClientMgr {
 					logger.warn("kill pre client: " + clientId);
 					removeClient(preClient.getChannel());
 				}
-				channel.attr(attr).set(clientId);
-				client = new OnlineClient(clientId, channel);
-				clients.put(clientId, client);
 			}
+			channel.attr(attr).set(clientId);
+			client = new OnlineClient(clientId, channel);
+			clients.put(clientId, client);
 		} finally {
 			addClientLock.unlock();
 		}
 	}
 	
 	public void removeClient(Channel channel) {
-
 		if (channel == null) {
 			logger.warn("channel is null");
 			return;
@@ -117,6 +116,7 @@ public class OnlineClientMgr {
 
 	public void touch(Channel channel) {
 		String key = channel.attr(attr).get();
+
 		if (clients.containsKey(key)) {
 			OnlineClient session = clients.get(key);
 			session.visit();

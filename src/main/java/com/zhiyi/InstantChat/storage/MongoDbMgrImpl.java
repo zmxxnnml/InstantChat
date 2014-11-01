@@ -15,6 +15,10 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
 
+/**
+ * http://api.mongodb.org/java/current/overview-summary.html
+ *
+ */
 public class MongoDbMgrImpl implements MongoDbMgr {
 	private static final Logger logger = Logger.getLogger(MongoDbMgrImpl.class);
 
@@ -30,11 +34,17 @@ public class MongoDbMgrImpl implements MongoDbMgr {
                 this.mongo = new MongoClient( mongoServerAddr , mongoServerPort);
                 if (null != this.mongo) {
                     this.dbConnection = this.mongo.getDB(dbName);
-                    logger.info("connected to mongo db.");
+                    if (this.dbConnection != null) {
+                    	logger.info("connected to mongo db.");
+                    } else {
+                    	// TODO: handle the failure!
+                    	logger.error("connect to mongo failed!");
+                    }
                 }
             } catch (UnknownHostException e) {
                 throw new RuntimeException(e);
             }
+            
         }
     }
     
