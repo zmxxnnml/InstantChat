@@ -7,16 +7,16 @@ import com.zhiyi.InstantChat.client.OnlineClient;
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
 import com.zhiyi.InstantChat.client.PendingClient;
 import com.zhiyi.InstantChat.client.PendingClientMgr;
-import com.zhiyi.InstantChat.inter.DefaultAppServInteractor;
-import com.zhiyi.InstantChat.inter.exception.DeviceNotExistingException;
-import com.zhiyi.InstantChat.inter.exception.InternalException;
-import com.zhiyi.InstantChat.inter.exception.InvalidSecTokenException;
-import com.zhiyi.InstantChat.inter.exception.UserNotExistingException;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RegC2S;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RetCode;
+import com.zhiyi.InstantChat.trans.DefaultApplicationServerTransporter;
+import com.zhiyi.InstantChat.trans.exception.DeviceNotExistingException;
+import com.zhiyi.InstantChat.trans.exception.InternalException;
+import com.zhiyi.InstantChat.trans.exception.InvalidSecTokenException;
+import com.zhiyi.InstantChat.trans.exception.UserNotExistingException;
 
 /*
  * Use {uid/device_id/sec_token} to authorize app client.
@@ -52,7 +52,7 @@ public class AuthHandler extends BaseHandler {
 		
 		boolean isAuthorized = true;
 		try {
-			DefaultAppServInteractor.getInstance().authenticateAppClient(uid, deviceId, secToken);
+			DefaultApplicationServerTransporter.getInstance().authenticateAppClient(uid, deviceId, secToken);
 			regAckBuilder.setCode(RetCode.SUCCESS);
 		} catch (InternalException e) {
 			regAckBuilder.setCode(RetCode.INTERNAL_ERROR);

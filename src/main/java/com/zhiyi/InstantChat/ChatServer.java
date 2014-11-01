@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
 import com.zhiyi.InstantChat.client.PendingClientMgr;
+import com.zhiyi.InstantChat.config.InstantChatConfig;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -20,9 +21,6 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 public class ChatServer {
-	// TODO: make it to be configured
-	private static final int DEFAULT_PORT = 21423;
-	
 	private int port;
 	
 	private static final Logger logger = Logger.getLogger(ChatServer.class);
@@ -76,7 +74,7 @@ public class ChatServer {
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);
 		} else {
-			port = DEFAULT_PORT;  
+			port = InstantChatConfig.getInstance().getServerPort();  
 		}
 		
 		// Add cronjob to scan dead connection

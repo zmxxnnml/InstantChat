@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.Logger;
 
 import com.zhiyi.InstantChat.base.DateUtil;
+import com.zhiyi.InstantChat.config.InstantChatConfig;
 
 /**
  * Manager to manage the "to be authorized" clients.
@@ -16,10 +17,7 @@ import com.zhiyi.InstantChat.base.DateUtil;
  *
  */
 public class PendingClientMgr {
-	// If the client can't be authorized in #{CONNECTION_UNAUTHORIZED_PENDDING_TIME} seconds
-	// after connecting server, we will shutdown the channel.
-	private static final Integer CONNECTION_UNAUTHORIZED_PENDDING_TIME = 30;  // 30seconds
-	
+
 	private static final Logger logger = Logger.getLogger(PendingClientMgr.class);
 	
 	private static ConcurrentHashMap<Integer, PendingClient> clients =
@@ -64,7 +62,9 @@ public class PendingClientMgr {
 		
 		for(Entry<Integer, PendingClient> entry : clients.entrySet()) {
 			PendingClient client = entry.getValue();
-			if (client.getConnectedTime() + CONNECTION_UNAUTHORIZED_PENDDING_TIME < currentTime
+			if (client.getConnectedTime()
+					+ InstantChatConfig.getInstance().getConnectionUnauthorizedDeadline()
+					< currentTime
 					|| client.getFailAuthorized()) {
 				removeAndCloseClient(entry.getKey());
 			}

@@ -3,6 +3,7 @@ package com.zhiyi.InstantChat.mockclient;
 import org.apache.log4j.Logger;
 
 import com.google.protobuf.ByteString;
+import com.zhiyi.InstantChat.config.InstantChatConfig;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
@@ -27,6 +28,8 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 public class MockClient implements Runnable {
 	private static final Logger logger = Logger.getLogger(MockClient.class);
+	
+	private static final String SERVER_ADDR =  "127.0.0.1";
 	
 	private ChannelFuture future;
 	
@@ -122,9 +125,6 @@ public class MockClient implements Runnable {
 	}
 
 	public void run() {
-		String host = "127.0.0.1";
-		int port = 21423;
-		
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 
 		try {
@@ -152,7 +152,7 @@ public class MockClient implements Runnable {
 
 			});
 
-			future = b.connect(host, port).sync();
+			future = b.connect(SERVER_ADDR, InstantChatConfig.getInstance().getServerPort()).sync();
 			if (future != null && future.channel().isActive()) {
 				logger.info("connect success!");
 			} else {

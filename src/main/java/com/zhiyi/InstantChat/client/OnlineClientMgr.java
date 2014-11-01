@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.Logger;
 
 import com.zhiyi.InstantChat.base.DateUtil;
+import com.zhiyi.InstantChat.config.InstantChatConfig;
 import com.zhiyi.InstantChat.exception.ClientNotExistingException;
 
 /**
@@ -18,9 +19,6 @@ import com.zhiyi.InstantChat.exception.ClientNotExistingException;
  *
  */
 public class OnlineClientMgr {
-	// TODO: put it into configuration
-	private static final Integer CONNECTION_DEADLINE = 10;
-	
 	private static final Logger logger = Logger.getLogger(OnlineClientMgr.class);
 	
 	private static ConcurrentHashMap<String, OnlineClient> clients =
@@ -92,7 +90,9 @@ public class OnlineClientMgr {
 		
 		for(Entry<String, OnlineClient> entry : clients.entrySet()) {
 			OnlineClient client = entry.getValue();
-			if (client.getLastHeartBeatTime() + CONNECTION_DEADLINE < currentTime) {
+			if (client.getLastHeartBeatTime()
+					+ InstantChatConfig.getInstance().getConnectionUnactiveDeadline()
+					< currentTime) {
 				removeClient(entry.getKey());
 			}
 		}

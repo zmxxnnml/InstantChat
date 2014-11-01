@@ -8,6 +8,7 @@ import org.bson.types.Binary;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.zhiyi.InstantChat.config.InstantChatConfig;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
 
 /*
@@ -17,10 +18,6 @@ import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
  * http://docs.mongodb.org/manual/core/crud-introduction/
  */
 public class MongoDbServiceImpl implements DbService {
-
-	private static final String MONGODB_HOST = "localhost";
-	
-	private static final Short MONGODB_PORT = 27017;
 	
 	private static final String DB_NAME = "instantchat";
 	
@@ -32,7 +29,8 @@ public class MongoDbServiceImpl implements DbService {
 	
 	private MongoDbServiceImpl() {
 		mongoDbMgr = new MongoDbMgrImpl();
-		mongoDbMgr.init(MONGODB_HOST, MONGODB_PORT, DB_NAME);
+		mongoDbMgr.init(InstantChatConfig.getInstance().getMongoDbAddr(),
+				InstantChatConfig.getInstance().getMongoDbPort(), DB_NAME);
 	}
 	
 	private static class MongoDbServiceImplHolder {
