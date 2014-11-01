@@ -25,6 +25,8 @@ public class InstantChatConfig {
 	
 	private static final String APPLICATION_SERVER_URL_KEY = "inst.applicationServerUrl";
 	
+	private static final String SESSION_SCAN_INTERVAL_KEY = "inst.sessionScanInterval";
+	
 	// Mongodb server address.
 	private String mongoDbAddr = "localhost";
 	
@@ -43,6 +45,8 @@ public class InstantChatConfig {
 	private Integer connectionUnactiveDeadline = 30;  // seconds
 	
 	private String applicationServerUrl = "";
+	
+	private Integer sessionScanInterval = 60;
 	
 	private InstantChatConfig() {
 		reloadConfig();
@@ -119,7 +123,11 @@ public class InstantChatConfig {
 			if (applicationServerUrlVal != null) {
 				applicationServerUrl = applicationServerUrlVal;
 			}
-
+			
+			String sessionScanIntervalVal = instantChatProperties.getProperty(SESSION_SCAN_INTERVAL_KEY);
+			if (sessionScanIntervalVal != null) {
+				sessionScanInterval = Integer.parseInt(sessionScanIntervalVal);
+			}
 		} catch (IOException e) {
 			logger.error("Load global properties failed!", e);
 		}
@@ -148,6 +156,10 @@ public class InstantChatConfig {
 	
 	public String getApplicationServerUrl() {
 		return applicationServerUrl;
+	}
+	
+	public Integer getSessionScanInterval() {
+		return sessionScanInterval;
 	}
 	
 }

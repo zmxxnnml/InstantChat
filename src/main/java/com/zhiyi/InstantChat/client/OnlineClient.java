@@ -1,28 +1,39 @@
 package com.zhiyi.InstantChat.client;
 
+import java.net.InetSocketAddress;
+import java.util.concurrent.atomic.AtomicLong;
+
+import com.zhiyi.InstantChat.base.DateUtil;
+
 import io.netty.channel.Channel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**
  * Wrapper used to represent a client.
- * 
- * TODO: It's to be discussed about what to used to be as client identifier.
- * currently we use device id as client identifier. Later we may use user ID.
- *
  */
 public class OnlineClient {
 
-	private String deviceId;
+	// uid or device id or other identifier.
+	private String clientId;
 	
 	private Channel channel;
+
+	private final AtomicLong lastOperationTimeStamp = new AtomicLong(0);
 	
-	private long lastHeartBeatTime;
+	public OnlineClient() {}
 	
-	public String getDeviceId() {
-		return deviceId;
+	public OnlineClient(String clientId, Channel channel) {
+		this.clientId = clientId;
+		this.channel = channel;
+		this.lastOperationTimeStamp.set(DateUtil.getCurrentSecTimeUTC());
 	}
 	
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
+	public String getClientId() {
+		return clientId;
+	}
+	
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 	
 	public Channel getChannel() {
@@ -33,12 +44,25 @@ public class OnlineClient {
 		this.channel = channel;
 	}
 	
-	public long getLastHeartBeatTime() {
-		return lastHeartBeatTime;
+	public boolean isActive() {
+		return (this.channel != null && this.channel.isActive());
 	}
 	
-	public void setLastHeartBeatTime(long heartBeatTime) {
-		this.lastHeartBeatTime = heartBeatTime;
+	public InetSocketAddress getRemoteSocketAddress() {
+		return ((NioSocketChannel) channel).remoteAddress();
 	}
 	
+	public AtomicLong getLastOperationTimeStamp() {
+		return lastOperationTimeStamp;
+	}
+
+	public void visit() {
+		this.lastOperationTimeStamp.set(DateUtil.getCurrentSecTimeUTC());
+	}
+	
+	public void stop() {
+		if (channel != null || channel.isActive()) {
+			channel.close();
+		}
+	}
 }

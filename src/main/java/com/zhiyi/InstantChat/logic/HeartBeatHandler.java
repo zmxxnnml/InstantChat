@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import com.zhiyi.InstantChat.base.DateUtil;
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
-import com.zhiyi.InstantChat.exception.ClientNotExistingException;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatC2S;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.HeartBeatS2C;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C;
@@ -36,13 +35,9 @@ public class HeartBeatHandler extends BaseHandler {
 		}
 		
 		long lastHeartBeatTime = DateUtil.getCurrentSecTimeUTC();
-		try {
-			OnlineClientMgr.getInstance().refreshClientHeartBeat(deviceId, lastHeartBeatTime);
-			heartBeatS2CBuilder.setCode(RetCode.SUCCESS);
-			heartBeatS2CBuilder.setSendTime(lastHeartBeatTime);
-		} catch (ClientNotExistingException e) {
-			heartBeatS2CBuilder.setCode(RetCode.DEVICE_NOT_EXISTING);
-		}
+		OnlineClientMgr.getInstance().touch(deviceId);
+		heartBeatS2CBuilder.setCode(RetCode.SUCCESS);
+		heartBeatS2CBuilder.setSendTime(lastHeartBeatTime);
 		
 		pkgS2CBuilder.setHeartBeatAck(heartBeatS2CBuilder.build());
 		logger.info("send to [" + deviceId + "]:\n" + pkgS2CBuilder.build().toString());

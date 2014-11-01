@@ -2,8 +2,6 @@ package com.zhiyi.InstantChat.logic;
 
 import org.apache.log4j.Logger;
 
-import com.zhiyi.InstantChat.base.DateUtil;
-import com.zhiyi.InstantChat.client.OnlineClient;
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
 import com.zhiyi.InstantChat.client.PendingClient;
 import com.zhiyi.InstantChat.client.PendingClientMgr;
@@ -81,11 +79,7 @@ public class AuthHandler extends BaseHandler {
 			// remove the channel from unauthorizedClientMgr.
 			PendingClientMgr.getInstance().removeClient(channel.hashCode());
 			
-			OnlineClient client = new OnlineClient();
-			client.setChannel(channel);
-			client.setDeviceId(deviceId);
-			client.setLastHeartBeatTime(DateUtil.getCurrentSecTimeUTC());
-			OnlineClientMgr.getInstance().addClient(deviceId, client);
+			OnlineClientMgr.getInstance().addClient(deviceId, channel);
 		} else {
 			PendingClient unauthorizedAppClient =
 					PendingClientMgr.getInstance().getClient(channel.hashCode());
