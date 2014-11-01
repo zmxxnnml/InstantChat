@@ -47,7 +47,7 @@ public interface DbService {
 	 * User is identified by @{deviceId}
 	 */
 	public List<ChatMessage> getChatMessageBySeq(String deviceId, long startSeq, long endSeq);
-
+	
 	/**
 	 * Update the ack seq.
 	 */

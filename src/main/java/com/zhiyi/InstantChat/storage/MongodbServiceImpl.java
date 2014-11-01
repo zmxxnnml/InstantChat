@@ -12,6 +12,9 @@ import com.zhiyi.InstantChat.protobuf.ChatPkg.ChatMessage;
 
 /*
  * http://docs.mongodb.org/manual/tutorial/
+ * http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/
+ * http://docs.mongodb.org/manual/tutorial/getting-started/
+ * http://docs.mongodb.org/manual/core/crud-introduction/
  */
 public class MongoDbServiceImpl implements DbService {
 
@@ -285,6 +288,7 @@ public class MongoDbServiceImpl implements DbService {
 		{
 			result = mongoDbMgr.findAndModify(SEQ_COLLECTION, queryObj,
 					updateObj);
+			
 			if (result == null) {
 				DBObject insertObj = new BasicDBObject();
 				insertObj.put("uid", uid);

@@ -2,7 +2,6 @@ package com.zhiyi.InstantChat.mockclient;
 
 import org.apache.log4j.Logger;
 
-import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C;
 
 import io.netty.channel.ChannelHandlerContext;
