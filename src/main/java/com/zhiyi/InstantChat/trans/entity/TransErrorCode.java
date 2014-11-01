@@ -1,11 +1,11 @@
-package com.zhiyi.InstantChat.trans;
+package com.zhiyi.InstantChat.trans.entity;
 
-public enum TransporterErrorCode {
+public enum TransErrorCode {
 	USER_NOT_EXISTING(1),
 	DEVICE_NOT_EXISTING(2),
 	INVALID_SEC_TOKEN(3);
 	
-	private TransporterErrorCode(int v) {
+	private TransErrorCode(int v) {
 		this.value = v;
 	}
 	

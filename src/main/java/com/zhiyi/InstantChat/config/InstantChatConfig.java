@@ -61,7 +61,7 @@ public class InstantChatConfig {
 		
 		Properties deployProperties = new Properties();
 		InputStream inputStream1 = this.getClass().getClassLoader().getResourceAsStream(
-				"com/zhiyi/InstantChat/config/IntantChat.properties");
+				"com/zhiyi/InstantChat/config/deploy.properties");
 		try {
 			deployProperties.load(inputStream1);
 			String deployVal = deployProperties.getProperty(DEPLOY_KEY);
@@ -69,13 +69,18 @@ public class InstantChatConfig {
 				deploy = deployVal;
 			}
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			logger.error("Load deploy properties failed!", e1);
+		}
+		
+		String globalConfigPath = "com/zhiyi/InstantChat/config/IntantChat-dev.properties";
+		if (deploy == "prod") {
+			globalConfigPath = "com/zhiyi/InstantChat/config/IntantChat-prod.properties";
+		} else if (deploy == "local") {
+			globalConfigPath = "com/zhiyi/InstantChat/config/IntantChat-local.properties";
 		}
 		
 		Properties instantChatProperties = new Properties();
-		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(
-						"com/zhiyi/InstantChat/config/IntantChat.properties");
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(globalConfigPath);
 		try {
 			instantChatProperties.load(inputStream);
 			String serverPortVal = instantChatProperties.getProperty(SERVER_PORT_KEY);
@@ -116,7 +121,7 @@ public class InstantChatConfig {
 			}
 
 		} catch (IOException e) {
-			logger.error("Load properties failed!", e);
+			logger.error("Load global properties failed!", e);
 		}
 
 	}

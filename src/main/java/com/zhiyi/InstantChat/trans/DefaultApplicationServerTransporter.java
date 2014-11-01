@@ -18,8 +18,11 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.zhiyi.InstantChat.config.InstantChatConfig;
+import com.zhiyi.InstantChat.trans.entity.AuthResp;
+import com.zhiyi.InstantChat.trans.entity.PushMsg;
+import com.zhiyi.InstantChat.trans.entity.PushResp;
+import com.zhiyi.InstantChat.trans.entity.TransErrorCode;
 import com.zhiyi.InstantChat.trans.exception.DeviceNotExistingException;
 import com.zhiyi.InstantChat.trans.exception.InternalException;
 import com.zhiyi.InstantChat.trans.exception.InvalidSecTokenException;
@@ -31,6 +34,8 @@ import com.zhiyi.InstantChat.trans.exception.UserNotExistingException;
 public class DefaultApplicationServerTransporter implements ApplicationServerTransporter {
 	
 	private static final String APP_AUTH_URI = ""; // TODO: fill it later.
+	
+	private static final String APP_PUSH_URI = ""; // TODO: fill it later
 	
 	private static final Logger logger = Logger.getLogger(DefaultApplicationServerTransporter.class);
 	
@@ -47,13 +52,48 @@ public class DefaultApplicationServerTransporter implements ApplicationServerTra
 	public void authenticateAppClient(Long uid, String deviceId, String secToken)
 			throws InternalException, DeviceNotExistingException,
 			UserNotExistingException, InvalidSecTokenException {
-		String authUrl = InstantChatConfig.getInstance().getApplicationServerUrl() + APP_AUTH_URI;
-		HttpPost httpPost = new HttpPost(authUrl);
-		
+
 		List<NameValuePair> postData = new ArrayList<NameValuePair>();
 		postData.add(new BasicNameValuePair("uid", uid.toString()));
 		postData.add(new BasicNameValuePair("device_id", deviceId));
 		postData.add(new BasicNameValuePair("sec_token", secToken));
+
+		String respJsonData = communicateWithApplicationServ(APP_AUTH_URI, postData);
+		AuthResp authResp = (AuthResp)JSON.parse(respJsonData);
+
+		if (authResp.getCode() == TransErrorCode.USER_NOT_EXISTING.toInteger()) {
+			throw new UserNotExistingException();
+		}
+		if (authResp.getCode()  == TransErrorCode.USER_NOT_EXISTING.toInteger()) {
+			throw new DeviceNotExistingException();
+		}
+		if (authResp.getCode()  == TransErrorCode.INVALID_SEC_TOKEN.toInteger()) {
+			throw new InvalidSecTokenException();
+		}
+	}
+
+	@Override
+	public void sendNotificationToClient(Long uid, String deviceId, PushMsg msg)
+			throws InternalException, UserNotExistingException, DeviceNotExistingException {
+		List<NameValuePair> postData = new ArrayList<NameValuePair>();
+		postData.add(new BasicNameValuePair("uid", uid.toString()));
+		postData.add(new BasicNameValuePair("device_id", deviceId));
+		postData.add(new BasicNameValuePair("msg", JSON.toJSONString(msg)));
+		
+	        String respJsonData = communicateWithApplicationServ(APP_PUSH_URI, postData);
+	        PushResp pushResp = (PushResp)JSON.parse(respJsonData);
+			if (pushResp.getCode() == TransErrorCode.USER_NOT_EXISTING.toInteger()) {
+				throw new UserNotExistingException();
+			}
+			if (pushResp.getCode() == TransErrorCode.USER_NOT_EXISTING.toInteger()) {
+				throw new DeviceNotExistingException();
+			}
+	}
+	
+	private String communicateWithApplicationServ(
+			String uri, List<NameValuePair> postData) throws InternalException {
+		String appUrl = InstantChatConfig.getInstance().getApplicationServerUrl() + uri;
+		HttpPost httpPost = new HttpPost(appUrl);
 		
 		CloseableHttpResponse resp = null;
 		try {
@@ -69,46 +109,27 @@ public class DefaultApplicationServerTransporter implements ApplicationServerTra
 
 	        HttpEntity entity = resp.getEntity();
 	        String respJsonData = EntityUtils.toString(entity);
-	        JSONObject json = JSON.parseObject(respJsonData);
-	        
-			Integer authRetCode = json.getInteger("code");
-			if (authRetCode == TransporterErrorCode.USER_NOT_EXISTING.toInteger()) {
-				throw new UserNotExistingException();
-			}
-			if (authRetCode == TransporterErrorCode.USER_NOT_EXISTING.toInteger()) {
-				throw new DeviceNotExistingException();
-			}
-			if (authRetCode == TransporterErrorCode.INVALID_SEC_TOKEN.toInteger()) {
-				throw new InvalidSecTokenException();
-			}
-	        
 	        EntityUtils.consume(entity);
+	        return respJsonData;
 		} catch (UnsupportedEncodingException e) {
-			logger.error("authorize client failed!", e);
+			logger.error("send message to application server failed!", e);
 			throw new InternalException();
 		} catch (ClientProtocolException e) {
-			logger.error("authorize client failed!", e);
+			logger.error("send message to application server failed!", e);
 			throw new InternalException();
 		} catch (IOException e) {
-			logger.error("authorize client failed!", e);
+			logger.error("send message to application server failed!", e);
 			throw new InternalException();
 		} finally {
 			if (resp != null) {
 				try {
 					resp.close();
 				} catch (IOException e) {
-					logger.error("authorize client failed!", e);
+					logger.error("Communicate app server failed!", e);
 					throw new InternalException();
 				}
 			}
 		}
 	}
-
-	@Override
-	public void sendNotificationToClient(Long uid, String deviceId) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }
