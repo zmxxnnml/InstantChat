@@ -6,6 +6,7 @@ import com.zhiyi.InstantChat.client.OnlineClientMgr;
 import com.zhiyi.InstantChat.client.PendingClientMgr;
 import com.zhiyi.InstantChat.config.InstantChatConfig;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgC2S;
+import com.zhiyi.InstantChat.storage.DbServiceImpl;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -61,7 +62,7 @@ public class ChatServer {
             .childOption(ChannelOption.SO_KEEPALIVE, true);
 			
 			ChannelFuture f = b.bind(port).sync();
-			logger.info("server is running...");
+			logger.error("server is running...");
 			f.channel().closeFuture().sync();
 		} finally {
 			workerGroup.shutdownGracefully();
@@ -70,6 +71,8 @@ public class ChatServer {
 	}
 	
 	public static void main(String[] args) throws Exception {
+		logger.error("Instant server is starting...");
+		
 		// load configuration.
 		InstantChatConfig.getInstance().preload();
 		
@@ -80,13 +83,17 @@ public class ChatServer {
 			port = InstantChatConfig.getInstance().getServerPort();  
 		}
 		
+		// Connect to database
+		DbServiceImpl.getInstance().init();
+		logger.error("Connect to database success!");
+		
 		// Add cronjob to scan dead connection
 		OnlineClientMgr.getInstance().scan();
-		logger.info("Dead connection scanner is running...");
+		logger.error("Dead connection scanner is running...");
 		
 		// Add cronjob to scan pending(unauthorized) connection
 		PendingClientMgr.getInstance().scan();
-		logger.info("pending connection scanner is running...");
+		logger.error("pending connection scanner is running...");
 		
 		new ChatServer(port).run();
 	}

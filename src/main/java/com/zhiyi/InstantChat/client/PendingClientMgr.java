@@ -76,15 +76,13 @@ public class PendingClientMgr {
 
 		@Override
 		public void run() {
-			logger.info("pending clients: " + clients.size());
+			logger.error("pending clients: " + clients.size());
 
-			long currentTime = DateUtil.getCurrentSecTimeUTC();
-
+			long currentTime = DateUtil.getCurrentMillisTimeUTC();
 			for (Entry<Integer, PendingClient> entry : clients.entrySet()) {
 				PendingClient client = entry.getValue();
-				if (client.getConnectedTime()
-						+ InstantChatConfig.getInstance()
-								.getConnectionUnauthorizedDeadline() < currentTime
+				if (client.getConnectedTime() + InstantChatConfig.getInstance().
+						getConnectionUnauthorizedDeadline() *1000 < currentTime
 						|| client.getFailAuthorized()) {
 					removeAndCloseClient(entry.getKey());
 				}

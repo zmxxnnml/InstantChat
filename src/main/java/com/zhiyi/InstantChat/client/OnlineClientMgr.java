@@ -150,34 +150,18 @@ public class OnlineClientMgr {
 	public long getClientCount() {
 		return clients.values().size();
 	}
-	
-	public void checkConnProcess() {
-		logger.info("online clients: " + clients.size());
-		
-		long currentTime = DateUtil.getCurrentSecTimeUTC();
-		
-		for(Entry<String, OnlineClient> entry : clients.entrySet()) {
-			OnlineClient client = entry.getValue();
-			if (client.getLastOperationTimeStamp().get()
-					+ InstantChatConfig.getInstance().getConnectionUnactiveDeadline()
-					< currentTime) {
-				removeClient(entry.getKey());
-			}
-		}
-	}
-	
+
 	private class ScanAllSessionRunner implements Runnable {
 
 		@Override
 		public void run() {
-			logger.info("online clients: " + clients.size());
+			logger.error("online clients: " + clients.size());
 			
-			long currentTime = DateUtil.getCurrentSecTimeUTC();
-			
+			long currentTime = DateUtil.getCurrentMillisTimeUTC();
 			for(Entry<String, OnlineClient> entry : clients.entrySet()) {
 				OnlineClient client = entry.getValue();
 				if (client.getLastOperationTimeStamp().get()
-						+ InstantChatConfig.getInstance().getConnectionUnactiveDeadline()
+						+ InstantChatConfig.getInstance().getConnectionUnactiveDeadline() * 1000
 						< currentTime) {
 					logger.warn("Connection is unactive for quite a while: " + client.getRemoteSocketAddress());
 					removeClient(entry.getKey());

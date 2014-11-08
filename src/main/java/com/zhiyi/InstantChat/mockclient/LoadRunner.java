@@ -43,9 +43,15 @@ public class LoadRunner {
 	public void testIdleClientsPerf() {
 		
 		for (int i = 0; i < clientIdentifiers.size(); ++ i) {
-			final MockClient mockClient = new MockClient(
-					clientIdentifiers.get(i).getUserId(), clientIdentifiers.get(i).getDeviceId(), "");
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
+			final MockClient mockClient = new MockClient(
+					clientIdentifiers.get(i).getUserId(), clientIdentifiers.get(i).getDeviceId(), "");	
 			// Reg client.
 			Thread sendRegThread = new Thread(new Runnable() {
 
@@ -68,7 +74,7 @@ public class LoadRunner {
 				public void run() {
 					while (true) {
 						try {
-							Thread.sleep(HEART_BEAT_INTERVAL);
+							Thread.sleep(HEART_BEAT_INTERVAL * 1000);
 						} catch (InterruptedException e) {
 							logger.error(e);
 						}
@@ -80,7 +86,24 @@ public class LoadRunner {
 			heartBeatThread.start();
 			logger.info("heartbeat thread running...");
 			
-			mockClient.run();  // Put it at the end.
+			// Connect to server.
+			Thread connectThread = new Thread(new Runnable() {
+
+				public void run() {
+						mockClient.run();
+				}
+				
+			});
+			connectThread.start();
+			logger.info("one client running...");
+			
+		}
+		
+		try {
+			Thread.sleep(1000 * 1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -120,7 +143,7 @@ public class LoadRunner {
 					
 					while (true) {
 						try {
-							Thread.sleep(HEART_BEAT_INTERVAL);
+							Thread.sleep(HEART_BEAT_INTERVAL * 1000);
 						} catch (InterruptedException e) {
 							logger.error(e);
 						}
@@ -145,7 +168,7 @@ public class LoadRunner {
 					
 					while (true) {
 						try {
-							Thread.sleep(SEND_MSG_INTERVAL);
+							Thread.sleep(SEND_MSG_INTERVAL * 1000);
 						} catch (InterruptedException e) {
 							logger.error(e);
 						}
@@ -183,7 +206,7 @@ public class LoadRunner {
 					
 					while (true) {
 						try {
-							Thread.sleep(RECEIVE_MSG_INTERVAL);
+							Thread.sleep(RECEIVE_MSG_INTERVAL * 1000);
 						} catch (InterruptedException e) {
 							logger.error(e);
 						}
@@ -203,7 +226,7 @@ public class LoadRunner {
 	private List<ClientIdentifier> generateClientIdentifiers(int clientNum) {
 		List<ClientIdentifier> clients = new ArrayList<ClientIdentifier>();
 		for (int i = 0; i < clientNum; ++i) {
-			long userId = 10001 + clientNum;
+			long userId = 10001 + i;
 			String deviceId = "d_" + userId;
 			ClientIdentifier clientIdentifier = new ClientIdentifier(userId, deviceId);
 			clients.add(clientIdentifier);

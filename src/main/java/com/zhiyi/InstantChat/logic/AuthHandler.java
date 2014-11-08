@@ -2,15 +2,18 @@ package com.zhiyi.InstantChat.logic;
 
 import org.apache.log4j.Logger;
 
+import com.zhiyi.InstantChat.client.ClientIdGenerator;
 import com.zhiyi.InstantChat.client.OnlineClientMgr;
 import com.zhiyi.InstantChat.client.PendingClient;
 import com.zhiyi.InstantChat.client.PendingClientMgr;
+import com.zhiyi.InstantChat.config.InstantChatConfig;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.PkgS2C.PkgType;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RegC2S;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RegS2C;
 import com.zhiyi.InstantChat.protobuf.ChatPkg.RetCode;
-import com.zhiyi.InstantChat.trans.DefaultApplicationServerTransporter;
+import com.zhiyi.InstantChat.trans.ApplicationServerTransporter;
+import com.zhiyi.InstantChat.trans.ApplicationServerTransporterFactory;
 import com.zhiyi.InstantChat.trans.exception.DeviceNotExistingException;
 import com.zhiyi.InstantChat.trans.exception.InternalException;
 import com.zhiyi.InstantChat.trans.exception.InvalidSecTokenException;
@@ -25,61 +28,54 @@ public class AuthHandler extends BaseHandler {
 	@Override
 	public void run() {
 		RegS2C.Builder regAckBuilder = RegS2C.newBuilder();
-		
 		RegC2S regc2s = pkgC2S.getReg();
-		if ((regc2s == null) ||
-				(!regc2s.hasDeviceId() && !regc2s.hasUid()) ||
-				!regc2s.hasSecToken()) {
+		if ((regc2s == null) || !regc2s.hasSecToken() ||
+				(!regc2s.hasDeviceId() && !regc2s.hasUid())) {
+			logger.warn("Illegal auth packet: " + pkgC2S.toString());
 			regAckBuilder.setCode(RetCode.ILLEGAL_REQUEST);
 			handleResp(regAckBuilder.build(), null, false);
 			return;
 		}
 		
-		Long uid = null;
-		if (regc2s.hasUid()) {
-			uid = regc2s.getUid();
-		}
-		String deviceId = null;
-		if (regc2s.hasDeviceId()) {
-			deviceId = regc2s.getDeviceId();
-		}
-		String secToken = null;
-		if (regc2s.hasSecToken()) {
-			secToken = regc2s.getSecToken();
-		}
-		
+		Long uid = regc2s.getUid();
+		String deviceId =  regc2s.getDeviceId();
+		String secToken = regc2s.getSecToken();
 		boolean isAuthorized = true;
 		try {
-			DefaultApplicationServerTransporter.getInstance().authenticateAppClient(uid, deviceId, secToken);
+			ApplicationServerTransporter transporter  =
+					ApplicationServerTransporterFactory.getTransporter(
+					InstantChatConfig.getInstance().getApplicationServerType());
+			transporter.authenticateAppClient(uid, deviceId, secToken);
 			regAckBuilder.setCode(RetCode.SUCCESS);
 		} catch (InternalException e) {
 			regAckBuilder.setCode(RetCode.INTERNAL_ERROR);
 			isAuthorized = false;
+			logger.warn("Reg failed  by internal error: " + e);
 		} catch (DeviceNotExistingException e) {
 			regAckBuilder.setCode(RetCode.DEVICE_NOT_EXISTING);
 			isAuthorized = false;
+			logger.warn("Reg failed  by DeviceNotExisting: " + pkgC2S.toString());
 		} catch (UserNotExistingException e) {
 			regAckBuilder.setCode(RetCode.USER_NOT_EXISING);
 			isAuthorized = false;
+			logger.warn("Reg failed  by UserNotExisting: "  + pkgC2S.toString());
 		} catch (InvalidSecTokenException e) {
 			regAckBuilder.setCode(RetCode.INVALID_SEC_TOKEN);
 			isAuthorized = false;
+			logger.warn("Reg failed  by InvalidSecToken: "  + pkgC2S.toString());
 		}
-		
-		// TODO: Just for debuging.
-		regAckBuilder.setCode(RetCode.SUCCESS);
-		isAuthorized = true;
-		
-		handleResp(regAckBuilder.build(), deviceId, isAuthorized);
+
+		handleResp(
+				regAckBuilder.build(),
+				ClientIdGenerator.genClientId(regc2s.getDeviceId(), regc2s.getUid()),
+				isAuthorized);
 	}
 	
-	private void handleResp(RegS2C regS2C, String deviceId, Boolean isAuthorized) {
-		// Reg client on client mgr.
+	private void handleResp(RegS2C regS2C, String clientId, Boolean isAuthorized) {
 		if (isAuthorized) {
-			// remove the channel from unauthorizedClientMgr.
+			// Remove the channel from unauthorized client pool.
 			PendingClientMgr.getInstance().removeClient(channel.hashCode());
-			
-			OnlineClientMgr.getInstance().addClient(deviceId, channel);
+			OnlineClientMgr.getInstance().addClient(clientId, channel);
 		} else {
 			PendingClient unauthorizedAppClient =
 					PendingClientMgr.getInstance().getClient(channel.hashCode());
@@ -93,7 +89,7 @@ public class AuthHandler extends BaseHandler {
 		pkgS2CBuilder.setType(PkgType.REG_ACK);
 		pkgS2CBuilder.setRegAck(regS2C);
 		
-		logger.info("send to [" + deviceId + "]:\n" + pkgS2CBuilder.build().toString());
+		logger.info("send to [" + clientId + "]:\n" + pkgS2CBuilder.build().toString());
 		
 		channel.writeAndFlush(pkgS2CBuilder.build());
 	}

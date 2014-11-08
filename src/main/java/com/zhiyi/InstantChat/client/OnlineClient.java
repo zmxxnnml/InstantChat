@@ -25,7 +25,7 @@ public class OnlineClient {
 	public OnlineClient(String clientId, Channel channel) {
 		this.clientId = clientId;
 		this.channel = channel;
-		this.lastOperationTimeStamp.set(DateUtil.getCurrentSecTimeUTC());
+		this.lastOperationTimeStamp.set(DateUtil.getCurrentMillisTimeUTC());
 	}
 	
 	public String getClientId() {
@@ -57,7 +57,7 @@ public class OnlineClient {
 	}
 
 	public void visit() {
-		this.lastOperationTimeStamp.set(DateUtil.getCurrentSecTimeUTC());
+		this.lastOperationTimeStamp.set(DateUtil.getCurrentMillisTimeUTC());
 	}
 	
 	public void stop() {

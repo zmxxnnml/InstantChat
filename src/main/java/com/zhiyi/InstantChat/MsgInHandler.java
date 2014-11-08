@@ -20,7 +20,7 @@ public class MsgInHandler extends ChannelInboundHandlerAdapter {
 		logger.info("one client connected.");
 		PendingClient client = new PendingClient();
 		client.setChannel(ctx.channel());
-		client.setConnectedTime(DateUtil.getCurrentSecTimeUTC());
+		client.setConnectedTime(DateUtil.getCurrentMillisTimeUTC());
 		PendingClientMgr.getInstance().addClient(client);
 	}
 	

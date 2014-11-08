@@ -100,13 +100,9 @@ public class MockClient implements Runnable {
 		Long currentTime = System.currentTimeMillis();
 		ByteString bs = ByteString.copyFrom(currentTime.toString().getBytes());
 		messageBuilder.setData(bs);
+		messageBuilder.setDataLen(currentTime.toString().length());
 		messageBuilder.setUserSendTime(currentTime);
 		messageBuilder.setType(MessageType.TEXT);
-		// TODO: generate random message
-		String text = "hello tester!";
-		messageBuilder.setData(ByteString.copyFromUtf8(text));
-		messageBuilder.setDataLen(text.length());
-		messageBuilder.setUserSendTime(System.currentTimeMillis()/1000);
 		pkgBuilder.setMessage(messageBuilder.build());
 		sendMessage(pkgBuilder.build());
 	}

@@ -34,17 +34,14 @@ public class MongoDbMgrImpl implements MongoDbMgr {
                 this.mongo = new MongoClient( mongoServerAddr , mongoServerPort);
                 if (null != this.mongo) {
                     this.dbConnection = this.mongo.getDB(dbName);
-                    if (this.dbConnection != null) {
-                    	logger.info("connected to mongo db.");
-                    } else {
-                    	// TODO: handle the failure!
-                    	logger.error("connect to mongo failed!");
-                    }
+                    // Workaround: check if we have connected to mongodb successfully.
+                    List<String> names = mongo.getDatabaseNames();
+                    logger.info("database names: " + names.toString());
                 }
             } catch (UnknownHostException e) {
+            	logger.error("Connect to mongodb failed!", e);
                 throw new RuntimeException(e);
             }
-            
         }
     }
     

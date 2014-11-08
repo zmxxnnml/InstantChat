@@ -31,7 +31,7 @@ public class MsgInHandler extends ChannelInboundHandlerAdapter {
 	
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
+		logger.error("Channel exception:", cause);
 		ctx.close();
 	}
 }

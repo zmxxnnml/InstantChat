@@ -26,14 +26,14 @@ public interface DbService {
 	 * Get the @{num} messages which timestamp is
 	 * greater(if @{greater}==true) or less(if @{greater}==false) than @{timestamp}.
 	 */
-	public List<ChatMessage> getChatMessagesByDate(
+	public List<ChatMessage> getChatMessagesByTimestamp(
 			long uid, long timestamp, long num, boolean greater);
 	
 	/**
 	 * Get the @{num} messages which timestamp is
 	 * greater(if @{greater}==true) or less(if @{greater}==false) than @{timestamp}.
 	 */
-	public List<ChatMessage> getDeviceChatMessagesByDate(
+	public List<ChatMessage> getDeviceChatMessagesByTimestamp(
 			String deviceId, long timestamp, long num, boolean greater);
 	
 	/**

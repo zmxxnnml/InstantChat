@@ -6937,88 +6937,103 @@ public final class ChatPkg {
      */
     long getUid();
 
-    // optional int64 from_uid = 2;
+    // optional string device_id = 2;
     /**
-     * <code>optional int64 from_uid = 2;</code>
-     */
-    boolean hasFromUid();
-    /**
-     * <code>optional int64 from_uid = 2;</code>
-     */
-    long getFromUid();
-
-    // optional string device_id = 3;
-    /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional string device_id = 2;</code>
      */
     boolean hasDeviceId();
     /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional string device_id = 2;</code>
      */
     java.lang.String getDeviceId();
     /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional string device_id = 2;</code>
      */
     com.google.protobuf.ByteString
         getDeviceIdBytes();
 
-    // optional int64 req_start_seq = 4;
+    // optional int64 from_uid = 3;
     /**
-     * <code>optional int64 req_start_seq = 4;</code>
+     * <code>optional int64 from_uid = 3;</code>
+     */
+    boolean hasFromUid();
+    /**
+     * <code>optional int64 from_uid = 3;</code>
+     */
+    long getFromUid();
+
+    // optional string from_device_id = 4;
+    /**
+     * <code>optional string from_device_id = 4;</code>
+     */
+    boolean hasFromDeviceId();
+    /**
+     * <code>optional string from_device_id = 4;</code>
+     */
+    java.lang.String getFromDeviceId();
+    /**
+     * <code>optional string from_device_id = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getFromDeviceIdBytes();
+
+    // optional int64 req_start_seq = 5;
+    /**
+     * <code>optional int64 req_start_seq = 5;</code>
      */
     boolean hasReqStartSeq();
     /**
-     * <code>optional int64 req_start_seq = 4;</code>
+     * <code>optional int64 req_start_seq = 5;</code>
      */
     long getReqStartSeq();
 
-    // optional int64 req_end_seq = 5;
+    // optional int64 req_end_seq = 6;
     /**
-     * <code>optional int64 req_end_seq = 5;</code>
+     * <code>optional int64 req_end_seq = 6;</code>
      */
     boolean hasReqEndSeq();
     /**
-     * <code>optional int64 req_end_seq = 5;</code>
+     * <code>optional int64 req_end_seq = 6;</code>
      */
     long getReqEndSeq();
 
-    // optional int64 start_timestamp = 6;
+    // optional int64 start_timestamp = 7;
     /**
-     * <code>optional int64 start_timestamp = 6;</code>
+     * <code>optional int64 start_timestamp = 7;</code>
      */
     boolean hasStartTimestamp();
     /**
-     * <code>optional int64 start_timestamp = 6;</code>
+     * <code>optional int64 start_timestamp = 7;</code>
      */
     long getStartTimestamp();
 
-    // optional bool greater = 7;
+    // optional bool greater = 8;
     /**
-     * <code>optional bool greater = 7;</code>
+     * <code>optional bool greater = 8;</code>
      */
     boolean hasGreater();
     /**
-     * <code>optional bool greater = 7;</code>
+     * <code>optional bool greater = 8;</code>
      */
     boolean getGreater();
 
-    // optional int64 num = 8;
+    // optional int64 num = 9;
     /**
-     * <code>optional int64 num = 8;</code>
+     * <code>optional int64 num = 9;</code>
      */
     boolean hasNum();
     /**
-     * <code>optional int64 num = 8;</code>
+     * <code>optional int64 num = 9;</code>
      */
     long getNum();
 
-    // optional int64 ack_req = 9;
+    // optional int64 ack_req = 10;
     /**
-     * <code>optional int64 ack_req = 9;</code>
+     * <code>optional int64 ack_req = 10;</code>
      */
     boolean hasAckReq();
     /**
-     * <code>optional int64 ack_req = 9;</code>
+     * <code>optional int64 ack_req = 10;</code>
      */
     long getAckReq();
   }
@@ -7078,43 +7093,48 @@ public final class ChatPkg {
               uid_ = input.readInt64();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
-              fromUid_ = input.readInt64();
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
               deviceId_ = input.readBytes();
               break;
             }
-            case 32: {
+            case 24: {
+              bitField0_ |= 0x00000004;
+              fromUid_ = input.readInt64();
+              break;
+            }
+            case 34: {
               bitField0_ |= 0x00000008;
-              reqStartSeq_ = input.readInt64();
+              fromDeviceId_ = input.readBytes();
               break;
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              reqEndSeq_ = input.readInt64();
+              reqStartSeq_ = input.readInt64();
               break;
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              startTimestamp_ = input.readInt64();
+              reqEndSeq_ = input.readInt64();
               break;
             }
             case 56: {
               bitField0_ |= 0x00000040;
-              greater_ = input.readBool();
+              startTimestamp_ = input.readInt64();
               break;
             }
             case 64: {
               bitField0_ |= 0x00000080;
-              num_ = input.readInt64();
+              greater_ = input.readBool();
               break;
             }
             case 72: {
               bitField0_ |= 0x00000100;
+              num_ = input.readInt64();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
               ackReq_ = input.readInt64();
               break;
             }
@@ -7174,33 +7194,17 @@ public final class ChatPkg {
       return uid_;
     }
 
-    // optional int64 from_uid = 2;
-    public static final int FROM_UID_FIELD_NUMBER = 2;
-    private long fromUid_;
+    // optional string device_id = 2;
+    public static final int DEVICE_ID_FIELD_NUMBER = 2;
+    private java.lang.Object deviceId_;
     /**
-     * <code>optional int64 from_uid = 2;</code>
+     * <code>optional string device_id = 2;</code>
      */
-    public boolean hasFromUid() {
+    public boolean hasDeviceId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional int64 from_uid = 2;</code>
-     */
-    public long getFromUid() {
-      return fromUid_;
-    }
-
-    // optional string device_id = 3;
-    public static final int DEVICE_ID_FIELD_NUMBER = 3;
-    private java.lang.Object deviceId_;
-    /**
-     * <code>optional string device_id = 3;</code>
-     */
-    public boolean hasDeviceId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional string device_id = 2;</code>
      */
     public java.lang.String getDeviceId() {
       java.lang.Object ref = deviceId_;
@@ -7217,7 +7221,7 @@ public final class ChatPkg {
       }
     }
     /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional string device_id = 2;</code>
      */
     public com.google.protobuf.ByteString
         getDeviceIdBytes() {
@@ -7233,97 +7237,156 @@ public final class ChatPkg {
       }
     }
 
-    // optional int64 req_start_seq = 4;
-    public static final int REQ_START_SEQ_FIELD_NUMBER = 4;
-    private long reqStartSeq_;
+    // optional int64 from_uid = 3;
+    public static final int FROM_UID_FIELD_NUMBER = 3;
+    private long fromUid_;
     /**
-     * <code>optional int64 req_start_seq = 4;</code>
+     * <code>optional int64 from_uid = 3;</code>
      */
-    public boolean hasReqStartSeq() {
+    public boolean hasFromUid() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int64 from_uid = 3;</code>
+     */
+    public long getFromUid() {
+      return fromUid_;
+    }
+
+    // optional string from_device_id = 4;
+    public static final int FROM_DEVICE_ID_FIELD_NUMBER = 4;
+    private java.lang.Object fromDeviceId_;
+    /**
+     * <code>optional string from_device_id = 4;</code>
+     */
+    public boolean hasFromDeviceId() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional int64 req_start_seq = 4;</code>
+     * <code>optional string from_device_id = 4;</code>
+     */
+    public java.lang.String getFromDeviceId() {
+      java.lang.Object ref = fromDeviceId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          fromDeviceId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string from_device_id = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFromDeviceIdBytes() {
+      java.lang.Object ref = fromDeviceId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fromDeviceId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional int64 req_start_seq = 5;
+    public static final int REQ_START_SEQ_FIELD_NUMBER = 5;
+    private long reqStartSeq_;
+    /**
+     * <code>optional int64 req_start_seq = 5;</code>
+     */
+    public boolean hasReqStartSeq() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int64 req_start_seq = 5;</code>
      */
     public long getReqStartSeq() {
       return reqStartSeq_;
     }
 
-    // optional int64 req_end_seq = 5;
-    public static final int REQ_END_SEQ_FIELD_NUMBER = 5;
+    // optional int64 req_end_seq = 6;
+    public static final int REQ_END_SEQ_FIELD_NUMBER = 6;
     private long reqEndSeq_;
     /**
-     * <code>optional int64 req_end_seq = 5;</code>
+     * <code>optional int64 req_end_seq = 6;</code>
      */
     public boolean hasReqEndSeq() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional int64 req_end_seq = 5;</code>
+     * <code>optional int64 req_end_seq = 6;</code>
      */
     public long getReqEndSeq() {
       return reqEndSeq_;
     }
 
-    // optional int64 start_timestamp = 6;
-    public static final int START_TIMESTAMP_FIELD_NUMBER = 6;
+    // optional int64 start_timestamp = 7;
+    public static final int START_TIMESTAMP_FIELD_NUMBER = 7;
     private long startTimestamp_;
     /**
-     * <code>optional int64 start_timestamp = 6;</code>
+     * <code>optional int64 start_timestamp = 7;</code>
      */
     public boolean hasStartTimestamp() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional int64 start_timestamp = 6;</code>
+     * <code>optional int64 start_timestamp = 7;</code>
      */
     public long getStartTimestamp() {
       return startTimestamp_;
     }
 
-    // optional bool greater = 7;
-    public static final int GREATER_FIELD_NUMBER = 7;
+    // optional bool greater = 8;
+    public static final int GREATER_FIELD_NUMBER = 8;
     private boolean greater_;
     /**
-     * <code>optional bool greater = 7;</code>
+     * <code>optional bool greater = 8;</code>
      */
     public boolean hasGreater() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>optional bool greater = 7;</code>
+     * <code>optional bool greater = 8;</code>
      */
     public boolean getGreater() {
       return greater_;
     }
 
-    // optional int64 num = 8;
-    public static final int NUM_FIELD_NUMBER = 8;
+    // optional int64 num = 9;
+    public static final int NUM_FIELD_NUMBER = 9;
     private long num_;
     /**
-     * <code>optional int64 num = 8;</code>
+     * <code>optional int64 num = 9;</code>
      */
     public boolean hasNum() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     /**
-     * <code>optional int64 num = 8;</code>
+     * <code>optional int64 num = 9;</code>
      */
     public long getNum() {
       return num_;
     }
 
-    // optional int64 ack_req = 9;
-    public static final int ACK_REQ_FIELD_NUMBER = 9;
+    // optional int64 ack_req = 10;
+    public static final int ACK_REQ_FIELD_NUMBER = 10;
     private long ackReq_;
     /**
-     * <code>optional int64 ack_req = 9;</code>
+     * <code>optional int64 ack_req = 10;</code>
      */
     public boolean hasAckReq() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     /**
-     * <code>optional int64 ack_req = 9;</code>
+     * <code>optional int64 ack_req = 10;</code>
      */
     public long getAckReq() {
       return ackReq_;
@@ -7331,8 +7394,9 @@ public final class ChatPkg {
 
     private void initFields() {
       uid_ = 0L;
-      fromUid_ = 0L;
       deviceId_ = "";
+      fromUid_ = 0L;
+      fromDeviceId_ = "";
       reqStartSeq_ = 0L;
       reqEndSeq_ = 0L;
       startTimestamp_ = 0L;
@@ -7356,28 +7420,31 @@ public final class ChatPkg {
         output.writeInt64(1, uid_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt64(2, fromUid_);
+        output.writeBytes(2, getDeviceIdBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getDeviceIdBytes());
+        output.writeInt64(3, fromUid_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt64(4, reqStartSeq_);
+        output.writeBytes(4, getFromDeviceIdBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt64(5, reqEndSeq_);
+        output.writeInt64(5, reqStartSeq_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeInt64(6, startTimestamp_);
+        output.writeInt64(6, reqEndSeq_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeBool(7, greater_);
+        output.writeInt64(7, startTimestamp_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt64(8, num_);
+        output.writeBool(8, greater_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt64(9, ackReq_);
+        output.writeInt64(9, num_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeInt64(10, ackReq_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -7394,35 +7461,39 @@ public final class ChatPkg {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, fromUid_);
+          .computeBytesSize(2, getDeviceIdBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getDeviceIdBytes());
+          .computeInt64Size(3, fromUid_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, reqStartSeq_);
+          .computeBytesSize(4, getFromDeviceIdBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(5, reqEndSeq_);
+          .computeInt64Size(5, reqStartSeq_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, startTimestamp_);
+          .computeInt64Size(6, reqEndSeq_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(7, greater_);
+          .computeInt64Size(7, startTimestamp_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(8, num_);
+          .computeBoolSize(8, greater_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(9, ackReq_);
+          .computeInt64Size(9, num_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(10, ackReq_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7542,22 +7613,24 @@ public final class ChatPkg {
         super.clear();
         uid_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        fromUid_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000002);
         deviceId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fromUid_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
-        reqStartSeq_ = 0L;
+        fromDeviceId_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        reqEndSeq_ = 0L;
+        reqStartSeq_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000010);
-        startTimestamp_ = 0L;
+        reqEndSeq_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000020);
-        greater_ = false;
+        startTimestamp_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000040);
-        num_ = 0L;
+        greater_ = false;
         bitField0_ = (bitField0_ & ~0x00000080);
-        ackReq_ = 0L;
+        num_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000100);
+        ackReq_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
 
@@ -7593,33 +7666,37 @@ public final class ChatPkg {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.fromUid_ = fromUid_;
+        result.deviceId_ = deviceId_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.deviceId_ = deviceId_;
+        result.fromUid_ = fromUid_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.reqStartSeq_ = reqStartSeq_;
+        result.fromDeviceId_ = fromDeviceId_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.reqEndSeq_ = reqEndSeq_;
+        result.reqStartSeq_ = reqStartSeq_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.startTimestamp_ = startTimestamp_;
+        result.reqEndSeq_ = reqEndSeq_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.greater_ = greater_;
+        result.startTimestamp_ = startTimestamp_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.num_ = num_;
+        result.greater_ = greater_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
+        }
+        result.num_ = num_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
         }
         result.ackReq_ = ackReq_;
         result.bitField0_ = to_bitField0_;
@@ -7641,12 +7718,17 @@ public final class ChatPkg {
         if (other.hasUid()) {
           setUid(other.getUid());
         }
+        if (other.hasDeviceId()) {
+          bitField0_ |= 0x00000002;
+          deviceId_ = other.deviceId_;
+          onChanged();
+        }
         if (other.hasFromUid()) {
           setFromUid(other.getFromUid());
         }
-        if (other.hasDeviceId()) {
-          bitField0_ |= 0x00000004;
-          deviceId_ = other.deviceId_;
+        if (other.hasFromDeviceId()) {
+          bitField0_ |= 0x00000008;
+          fromDeviceId_ = other.fromDeviceId_;
           onChanged();
         }
         if (other.hasReqStartSeq()) {
@@ -7727,49 +7809,16 @@ public final class ChatPkg {
         return this;
       }
 
-      // optional int64 from_uid = 2;
-      private long fromUid_ ;
+      // optional string device_id = 2;
+      private java.lang.Object deviceId_ = "";
       /**
-       * <code>optional int64 from_uid = 2;</code>
+       * <code>optional string device_id = 2;</code>
        */
-      public boolean hasFromUid() {
+      public boolean hasDeviceId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional int64 from_uid = 2;</code>
-       */
-      public long getFromUid() {
-        return fromUid_;
-      }
-      /**
-       * <code>optional int64 from_uid = 2;</code>
-       */
-      public Builder setFromUid(long value) {
-        bitField0_ |= 0x00000002;
-        fromUid_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int64 from_uid = 2;</code>
-       */
-      public Builder clearFromUid() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        fromUid_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      // optional string device_id = 3;
-      private java.lang.Object deviceId_ = "";
-      /**
-       * <code>optional string device_id = 3;</code>
-       */
-      public boolean hasDeviceId() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional string device_id = 2;</code>
        */
       public java.lang.String getDeviceId() {
         java.lang.Object ref = deviceId_;
@@ -7783,7 +7832,7 @@ public final class ChatPkg {
         }
       }
       /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional string device_id = 2;</code>
        */
       public com.google.protobuf.ByteString
           getDeviceIdBytes() {
@@ -7799,234 +7848,341 @@ public final class ChatPkg {
         }
       }
       /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional string device_id = 2;</code>
        */
       public Builder setDeviceId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000002;
         deviceId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional string device_id = 2;</code>
        */
       public Builder clearDeviceId() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         deviceId_ = getDefaultInstance().getDeviceId();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional string device_id = 2;</code>
        */
       public Builder setDeviceIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000002;
         deviceId_ = value;
         onChanged();
         return this;
       }
 
-      // optional int64 req_start_seq = 4;
-      private long reqStartSeq_ ;
+      // optional int64 from_uid = 3;
+      private long fromUid_ ;
       /**
-       * <code>optional int64 req_start_seq = 4;</code>
+       * <code>optional int64 from_uid = 3;</code>
        */
-      public boolean hasReqStartSeq() {
+      public boolean hasFromUid() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int64 from_uid = 3;</code>
+       */
+      public long getFromUid() {
+        return fromUid_;
+      }
+      /**
+       * <code>optional int64 from_uid = 3;</code>
+       */
+      public Builder setFromUid(long value) {
+        bitField0_ |= 0x00000004;
+        fromUid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 from_uid = 3;</code>
+       */
+      public Builder clearFromUid() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fromUid_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // optional string from_device_id = 4;
+      private java.lang.Object fromDeviceId_ = "";
+      /**
+       * <code>optional string from_device_id = 4;</code>
+       */
+      public boolean hasFromDeviceId() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional int64 req_start_seq = 4;</code>
+       * <code>optional string from_device_id = 4;</code>
+       */
+      public java.lang.String getFromDeviceId() {
+        java.lang.Object ref = fromDeviceId_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          fromDeviceId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string from_device_id = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFromDeviceIdBytes() {
+        java.lang.Object ref = fromDeviceId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          fromDeviceId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string from_device_id = 4;</code>
+       */
+      public Builder setFromDeviceId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        fromDeviceId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string from_device_id = 4;</code>
+       */
+      public Builder clearFromDeviceId() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        fromDeviceId_ = getDefaultInstance().getFromDeviceId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string from_device_id = 4;</code>
+       */
+      public Builder setFromDeviceIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        fromDeviceId_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional int64 req_start_seq = 5;
+      private long reqStartSeq_ ;
+      /**
+       * <code>optional int64 req_start_seq = 5;</code>
+       */
+      public boolean hasReqStartSeq() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional int64 req_start_seq = 5;</code>
        */
       public long getReqStartSeq() {
         return reqStartSeq_;
       }
       /**
-       * <code>optional int64 req_start_seq = 4;</code>
+       * <code>optional int64 req_start_seq = 5;</code>
        */
       public Builder setReqStartSeq(long value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         reqStartSeq_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 req_start_seq = 4;</code>
+       * <code>optional int64 req_start_seq = 5;</code>
        */
       public Builder clearReqStartSeq() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         reqStartSeq_ = 0L;
         onChanged();
         return this;
       }
 
-      // optional int64 req_end_seq = 5;
+      // optional int64 req_end_seq = 6;
       private long reqEndSeq_ ;
       /**
-       * <code>optional int64 req_end_seq = 5;</code>
+       * <code>optional int64 req_end_seq = 6;</code>
        */
       public boolean hasReqEndSeq() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional int64 req_end_seq = 5;</code>
+       * <code>optional int64 req_end_seq = 6;</code>
        */
       public long getReqEndSeq() {
         return reqEndSeq_;
       }
       /**
-       * <code>optional int64 req_end_seq = 5;</code>
+       * <code>optional int64 req_end_seq = 6;</code>
        */
       public Builder setReqEndSeq(long value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         reqEndSeq_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 req_end_seq = 5;</code>
+       * <code>optional int64 req_end_seq = 6;</code>
        */
       public Builder clearReqEndSeq() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         reqEndSeq_ = 0L;
         onChanged();
         return this;
       }
 
-      // optional int64 start_timestamp = 6;
+      // optional int64 start_timestamp = 7;
       private long startTimestamp_ ;
       /**
-       * <code>optional int64 start_timestamp = 6;</code>
+       * <code>optional int64 start_timestamp = 7;</code>
        */
       public boolean hasStartTimestamp() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>optional int64 start_timestamp = 6;</code>
+       * <code>optional int64 start_timestamp = 7;</code>
        */
       public long getStartTimestamp() {
         return startTimestamp_;
       }
       /**
-       * <code>optional int64 start_timestamp = 6;</code>
+       * <code>optional int64 start_timestamp = 7;</code>
        */
       public Builder setStartTimestamp(long value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         startTimestamp_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 start_timestamp = 6;</code>
+       * <code>optional int64 start_timestamp = 7;</code>
        */
       public Builder clearStartTimestamp() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         startTimestamp_ = 0L;
         onChanged();
         return this;
       }
 
-      // optional bool greater = 7;
+      // optional bool greater = 8;
       private boolean greater_ ;
       /**
-       * <code>optional bool greater = 7;</code>
+       * <code>optional bool greater = 8;</code>
        */
       public boolean hasGreater() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional bool greater = 7;</code>
+       * <code>optional bool greater = 8;</code>
        */
       public boolean getGreater() {
         return greater_;
       }
       /**
-       * <code>optional bool greater = 7;</code>
+       * <code>optional bool greater = 8;</code>
        */
       public Builder setGreater(boolean value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         greater_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bool greater = 7;</code>
+       * <code>optional bool greater = 8;</code>
        */
       public Builder clearGreater() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         greater_ = false;
         onChanged();
         return this;
       }
 
-      // optional int64 num = 8;
+      // optional int64 num = 9;
       private long num_ ;
       /**
-       * <code>optional int64 num = 8;</code>
+       * <code>optional int64 num = 9;</code>
        */
       public boolean hasNum() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       /**
-       * <code>optional int64 num = 8;</code>
+       * <code>optional int64 num = 9;</code>
        */
       public long getNum() {
         return num_;
       }
       /**
-       * <code>optional int64 num = 8;</code>
+       * <code>optional int64 num = 9;</code>
        */
       public Builder setNum(long value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         num_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 num = 8;</code>
+       * <code>optional int64 num = 9;</code>
        */
       public Builder clearNum() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         num_ = 0L;
         onChanged();
         return this;
       }
 
-      // optional int64 ack_req = 9;
+      // optional int64 ack_req = 10;
       private long ackReq_ ;
       /**
-       * <code>optional int64 ack_req = 9;</code>
+       * <code>optional int64 ack_req = 10;</code>
        */
       public boolean hasAckReq() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       /**
-       * <code>optional int64 ack_req = 9;</code>
+       * <code>optional int64 ack_req = 10;</code>
        */
       public long getAckReq() {
         return ackReq_;
       }
       /**
-       * <code>optional int64 ack_req = 9;</code>
+       * <code>optional int64 ack_req = 10;</code>
        */
       public Builder setAckReq(long value) {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         ackReq_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 ack_req = 9;</code>
+       * <code>optional int64 ack_req = 10;</code>
        */
       public Builder clearAckReq() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         ackReq_ = 0L;
         onChanged();
         return this;
@@ -8865,18 +9021,18 @@ public final class ChatPkg {
       "de\"A\n\014HeartBeatC2S\022\013\n\003uid\030\001 \001(\003\022\021\n\tdevic" +
       "e_id\030\002 \001(\t\022\021\n\tsend_time\030\003 \001(\003\"9\n\014HeartBe" +
       "atS2C\022\026\n\004code\030\001 \001(\0162\010.RetCode\022\021\n\tsend_ti" +
-      "me\030\002 \001(\003\"\262\001\n\nPullReqC2S\022\013\n\003uid\030\001 \001(\003\022\020\n\010" +
-      "from_uid\030\002 \001(\003\022\021\n\tdevice_id\030\003 \001(\t\022\025\n\rreq" +
-      "_start_seq\030\004 \001(\003\022\023\n\013req_end_seq\030\005 \001(\003\022\027\n" +
-      "\017start_timestamp\030\006 \001(\003\022\017\n\007greater\030\007 \001(\010\022" +
-      "\013\n\003num\030\010 \001(\003\022\017\n\007ack_req\030\t \001(\003\"T\n\003Seq\022\013\n\003",
-      "uid\030\001 \001(\003\022\021\n\tdevice_id\030\002 \001(\t\022\026\n\016server_m" +
-      "ax_seq\030\003 \002(\003\022\025\n\racked_max_seq\030\004 \002(\003*\205\001\n\007" +
-      "RetCode\022\013\n\007SUCCESS\020\000\022\024\n\020USER_NOT_EXISING" +
-      "\020\001\022\027\n\023DEVICE_NOT_EXISTING\020\002\022\025\n\021INVALID_S" +
-      "EC_TOKEN\020\003\022\022\n\016INTERNAL_ERROR\020\004\022\023\n\017ILLEGA" +
-      "L_REQUEST\020\005B)\n\036com.zhiyi.InstantChat.pro" +
-      "tobufB\007ChatPkg"
+      "me\030\002 \001(\003\"\312\001\n\nPullReqC2S\022\013\n\003uid\030\001 \001(\003\022\021\n\t" +
+      "device_id\030\002 \001(\t\022\020\n\010from_uid\030\003 \001(\003\022\026\n\016fro" +
+      "m_device_id\030\004 \001(\t\022\025\n\rreq_start_seq\030\005 \001(\003" +
+      "\022\023\n\013req_end_seq\030\006 \001(\003\022\027\n\017start_timestamp" +
+      "\030\007 \001(\003\022\017\n\007greater\030\010 \001(\010\022\013\n\003num\030\t \001(\003\022\017\n\007",
+      "ack_req\030\n \001(\003\"T\n\003Seq\022\013\n\003uid\030\001 \001(\003\022\021\n\tdev" +
+      "ice_id\030\002 \001(\t\022\026\n\016server_max_seq\030\003 \002(\003\022\025\n\r" +
+      "acked_max_seq\030\004 \002(\003*\205\001\n\007RetCode\022\013\n\007SUCCE" +
+      "SS\020\000\022\024\n\020USER_NOT_EXISING\020\001\022\027\n\023DEVICE_NOT" +
+      "_EXISTING\020\002\022\025\n\021INVALID_SEC_TOKEN\020\003\022\022\n\016IN" +
+      "TERNAL_ERROR\020\004\022\023\n\017ILLEGAL_REQUEST\020\005B)\n\036c" +
+      "om.zhiyi.InstantChat.protobufB\007ChatPkg"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -8936,7 +9092,7 @@ public final class ChatPkg {
           internal_static_PullReqC2S_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PullReqC2S_descriptor,
-              new java.lang.String[] { "Uid", "FromUid", "DeviceId", "ReqStartSeq", "ReqEndSeq", "StartTimestamp", "Greater", "Num", "AckReq", });
+              new java.lang.String[] { "Uid", "DeviceId", "FromUid", "FromDeviceId", "ReqStartSeq", "ReqEndSeq", "StartTimestamp", "Greater", "Num", "AckReq", });
           internal_static_Seq_descriptor =
             getDescriptor().getMessageTypes().get(9);
           internal_static_Seq_fieldAccessorTable = new

@@ -29,7 +29,7 @@ import com.zhiyi.InstantChat.trans.exception.InvalidSecTokenException;
 import com.zhiyi.InstantChat.trans.exception.UserNotExistingException;
 
 /*
- * The class to talk with application server.
+ * The singleton class to talk with application server.
  */
 public class DefaultApplicationServerTransporter implements ApplicationServerTransporter {
 	
@@ -37,10 +37,12 @@ public class DefaultApplicationServerTransporter implements ApplicationServerTra
 	
 	private static final String APP_PUSH_URI = ""; // TODO: fill it later
 	
-	private static final Logger logger = Logger.getLogger(DefaultApplicationServerTransporter.class);
+	private static final Logger logger =
+			Logger.getLogger(DefaultApplicationServerTransporter.class);
 	
 	private static class AppServInteractorHolder {
-		public static final DefaultApplicationServerTransporter instance= new DefaultApplicationServerTransporter();
+		public static final DefaultApplicationServerTransporter instance =
+				new DefaultApplicationServerTransporter();
 	}
 	
 	public static DefaultApplicationServerTransporter getInstance() {

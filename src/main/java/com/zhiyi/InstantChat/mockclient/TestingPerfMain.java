@@ -2,7 +2,7 @@ package com.zhiyi.InstantChat.mockclient;
 
 public class TestingPerfMain {
 
-	private static final Integer TESTING_CLIENTS_NUM = 100;
+	private static final Integer TESTING_CLIENTS_NUM = 1000;
 	
 	public static void main(String[] args) {
 		LoadRunner loadRunner = new LoadRunner(TESTING_CLIENTS_NUM);

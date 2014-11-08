@@ -92,7 +92,7 @@ enum RetCode {
 	INTERNAL_ERROR = 4;
 	ILLEGAL_REQUEST = 5;
 }
-	
+
 message RegS2C {
 	optional RetCode code = 1;
 }
@@ -117,21 +117,23 @@ message PullReqC2S {
 
 	optional int64 uid = 1;
 	
-	optional int64 from_uid = 2;
+	optional string device_id = 2;
 	
-	optional string device_id = 3;
+	optional int64 from_uid = 3;
+
+	optional string from_device_id = 4;
+			
+	optional int64 req_start_seq = 5;
 	
-	optional int64 req_start_seq = 4;
+	optional int64 req_end_seq = 6;
 	
-	optional int64 req_end_seq = 5;
+	optional int64 start_timestamp = 7;
 	
-	optional int64 start_timestamp = 6;
+	optional bool  greater = 8;
 	
-	optional bool  greater = 7;
+	optional int64 num = 9;
 	
-	optional int64 num = 8;
-	
-	optional int64 ack_req = 9;
+	optional int64 ack_req = 10;
 }
 
 // Stored in db for message syncing
