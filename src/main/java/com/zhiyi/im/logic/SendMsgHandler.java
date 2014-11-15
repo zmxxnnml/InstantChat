@@ -7,6 +7,7 @@ import com.zhiyi.im.config.InstantChatConfig;
 import com.zhiyi.im.protobuf.ChatPkg.ChatMessage;
 import com.zhiyi.im.storage.DbService;
 import com.zhiyi.im.storage.DbServiceImpl;
+import com.zhiyi.im.storage.StorageException;
 import com.zhiyi.im.trans.ApplicationServerTransporter;
 import com.zhiyi.im.trans.ApplicationServerTransporterFactory;
 import com.zhiyi.im.trans.exception.DeviceNotExistingException;
@@ -55,12 +56,16 @@ public class SendMsgHandler extends BaseHandler {
 		chatMsg.toBuilder().setUserSendTime(DateUtil.getCurrentMillisTimeUTC());
 		
 		// Save message into database.
-		logger.info("I am beginning to save message to db.");
 		DbService db = DbServiceImpl.getInstance();
-		logger.info("I got the db handler.");
-		long messageId = db.saveChatMessage(chatMsg);
-		logger.info("Save message successfully, messageId:" + messageId);
 		
+		try {
+			long messageId = db.saveChatMessage(chatMsg);
+			logger.info("Save message successfully, messageId:" + messageId);
+		} catch (StorageException e) {
+			// TODO: do nothing for now.
+			return;
+		}
+
 		// Send notification to target client.
 		try {
 			ApplicationServerTransporter transporter  =

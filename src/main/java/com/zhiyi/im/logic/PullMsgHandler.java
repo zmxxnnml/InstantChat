@@ -55,26 +55,43 @@ public class PullMsgHandler extends BaseHandler {
 		DbService dbService = DbServiceImpl.getInstance();
 		
 		// TODO:xxxxxxxxxxxxxxxxxxxxxxxxxxx
+		logger.info("update ack seq start.");
 		// Update ack seq.
 		if (pullReqC2S.hasDeviceId() && pullReqC2S.hasAckReq()) {
 			dbService.updateAckSeq(pullReqC2S.getDeviceId(), pullReqC2S.getAckReq());
 		} else if (pullReqC2S.hasUid() && pullReqC2S.hasAckReq()) {
 			dbService.updateAckSeq(pullReqC2S.getUid(), pullReqC2S.getAckReq());
 		}
+		logger.info("update ack seq end.");
 		
 		// Get messages from db and send to target client.
 		List<ChatMessage> messages = new ArrayList<ChatMessage>();
 		if (pullReqC2S.hasReqStartSeq() && pullReqC2S.hasReqEndSeq()) {
 			// Get messages by start seq and end seq.
-			List<ChatMessage> messagesFromBb  = dbService.getChatMessageBySeq(
+			List<ChatMessage> messagesFromDb = null;
+			if (pullReqC2S.hasDeviceId()) {
+				messagesFromDb  = dbService.getChatMessageBySeq(
 					pullReqC2S.getDeviceId(), pullReqC2S.getReqStartSeq(), pullReqC2S.getReqEndSeq());
-			messages.addAll(messagesFromBb);
+			} else {
+				messagesFromDb  = dbService.getChatMessageBySeq(
+						pullReqC2S.getUid(), pullReqC2S.getReqStartSeq(), pullReqC2S.getReqEndSeq());
+			}
+			logger.info("Get messages count: " + messagesFromDb.size());
+			messages.addAll(messagesFromDb);
 		} else if (pullReqC2S.hasStartTimestamp() && pullReqC2S.hasNum() && pullReqC2S.hasGreater()) {
 			// Get messages by start timestamp and num.
-			List<ChatMessage> messagesFromBb  = dbService.getDeviceChatMessagesByTimestamp(
+			List<ChatMessage> messagesFromDb = null;
+			if (pullReqC2S.hasDeviceId()) {
+				messagesFromDb  = dbService.getDeviceChatMessagesByTimestamp(
 					pullReqC2S.getDeviceId(), pullReqC2S.getStartTimestamp(),
 					pullReqC2S.getNum(), pullReqC2S.getGreater());
-			messages.addAll(messagesFromBb);
+			} else {
+				messagesFromDb  = dbService.getChatMessagesByTimestamp(
+						pullReqC2S.getUid(), pullReqC2S.getStartTimestamp(),
+						pullReqC2S.getNum(), pullReqC2S.getGreater());
+			}
+			logger.info("Get messages count: " + messagesFromDb.size());
+			messages.addAll(messagesFromDb);
 		}
 		
 		pullMessageS2C.setCode(RetCode.SUCCESS);

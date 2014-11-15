@@ -1,12 +1,12 @@
 package com.zhiyi.im.storage;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.log4j.Logger;
-import org.bson.types.Binary;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.mongodb.BasicDBObject;
@@ -73,7 +73,7 @@ public class DbServiceImpl implements DbService {
 	}
 	
 	@Override
-	public long saveChatMessage(ChatMessage msg) {
+	public long saveChatMessage(ChatMessage msg) throws StorageException {
 		if (msg == null) {
 			logger.warn("Chat message is null!");
 			return -1;
@@ -81,8 +81,6 @@ public class DbServiceImpl implements DbService {
 		
 		// Get next seq and seq
 		long nextSeq = getNextServerSeq(msg.getToUid(), msg.getToDeviceId());
-		logger.info("Get next message seq: " + nextSeq);
-		
 		ChatMessage.Builder b = ChatMessage.newBuilder(msg);
 		b.setSeq(nextSeq);
 		
@@ -93,8 +91,16 @@ public class DbServiceImpl implements DbService {
 		insertObj.put("to_device_id", b.getToDeviceId());
 		insertObj.put("from_uid", b.getFromUid());
 		insertObj.put("from_device_id", b.getFromDeviceId());
-		insertObj.put("msg", b.build().toByteArray());
 		
+		String str = "";
+		try {
+			str = new String(msg.toByteArray(), "ISO-8859-1");
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Invalid messag from db : ", e);
+			throw new StorageException(e);
+		}
+		insertObj.put("msg", str);
+
 		mongoDbMgr.insertDocument(MESSAGE_COLLECTION, insertObj);
 		
 		return nextSeq;
@@ -114,13 +120,15 @@ public class DbServiceImpl implements DbService {
 		List<ChatMessage> messages = new ArrayList<ChatMessage>();
 		try {
 			for (DBObject obj : dbObjs) {
-				Binary msgBinary = (Binary) obj.get("msg");
-				ChatMessage msg = ChatMessage.parseFrom(msgBinary.getData());
+				ChatMessage msg = ChatMessage.parseFrom(obj.get("msg")
+						.toString().getBytes("ISO-8859-1"));
 				messages.add(msg);
 			}
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("Invalid messag from db : ", e);
-			messages.clear();
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Invalid messag from db : ", e);
 			return null;
 		}
 		
@@ -141,13 +149,15 @@ public class DbServiceImpl implements DbService {
 		List<ChatMessage> messages = new ArrayList<ChatMessage>();
 		try {
 			for (DBObject obj : dbObjs) {
-				Binary msgBinary = (Binary) obj.get("msg");
-				ChatMessage msg = ChatMessage.parseFrom(msgBinary.getData());
+				ChatMessage msg = ChatMessage.parseFrom(obj.get("msg")
+						.toString().getBytes("ISO-8859-1"));
 				messages.add(msg);
 			}
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("Invalid messag from db : ", e);
-			messages.clear();
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Invalid messag from db : ", e);
 			return null;
 		}
 		
@@ -166,13 +176,15 @@ public class DbServiceImpl implements DbService {
 		List<ChatMessage> messages = new ArrayList<ChatMessage>();
 		try {
 			for (DBObject obj : dbObjs) {
-				Binary msgBinary = (Binary) obj.get("msg");
-				ChatMessage msg = ChatMessage.parseFrom(msgBinary.getData());
+				ChatMessage msg = ChatMessage.parseFrom(obj.get("msg")
+						.toString().getBytes("ISO-8859-1"));
 				messages.add(msg);
 			}
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("Invalid messag from db : ", e);
-			messages.clear();
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Invalid messag from db : ", e);
 			return null;
 		}
 		
@@ -180,24 +192,30 @@ public class DbServiceImpl implements DbService {
 	}
 
 	@Override
-	public List<ChatMessage> getChatMessageBySeq(String deviceId, long startSeq, long endSeq) {
+	public List<ChatMessage> getChatMessageBySeq(String deviceId,
+			long startSeq, long endSeq) {
+		logger.info("Get messages by { deviceId" + deviceId + "; startSeq: "
+				+ startSeq + "; endSeq: " + endSeq + " }");
+
 		DBObject queryObj = new BasicDBObject();
 		queryObj.put("to_device_id", deviceId);
 		queryObj.put("seq", new BasicDBObject().append("$gt", startSeq));
 		queryObj.put("seq", new BasicDBObject().append("$lt", endSeq));
-		
-		List<DBObject> dbObjs = mongoDbMgr.selectDocument(MESSAGE_COLLECTION, queryObj);
 
+		List<DBObject> dbObjs = mongoDbMgr.selectDocument(MESSAGE_COLLECTION,
+				queryObj);
 		List<ChatMessage> messages = new ArrayList<ChatMessage>();
 		try {
 			for (DBObject obj : dbObjs) {
-				Binary msgBinary = (Binary) obj.get("msg");
-				ChatMessage msg = ChatMessage.parseFrom(msgBinary.getData());
+				ChatMessage msg = ChatMessage.parseFrom(obj.get("msg")
+						.toString().getBytes("ISO-8859-1"));
 				messages.add(msg);
 			}
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("Invalid messag from db : ", e);
-			messages.clear();
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Invalid messag from db : ", e);
 			return null;
 		}
 		
@@ -228,13 +246,15 @@ public class DbServiceImpl implements DbService {
 		List<ChatMessage> messages = new ArrayList<ChatMessage>();
 		try {
 			for (DBObject obj : dbObjs) {
-				Binary msgBinary = (Binary) obj.get("msg");
-				ChatMessage msg = ChatMessage.parseFrom(msgBinary.getData());
+				ChatMessage msg = ChatMessage.parseFrom(obj.get("msg")
+						.toString().getBytes("ISO-8859-1"));
 				messages.add(msg);
 			}
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("Invalid messag from db : ", e);
-			messages.clear();
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Invalid messag from db : ", e);
 			return null;
 		}
 		
@@ -265,13 +285,15 @@ public class DbServiceImpl implements DbService {
 		List<ChatMessage> messages = new ArrayList<ChatMessage>();
 		try {
 			for (DBObject obj : dbObjs) {
-				Binary msgBinary = (Binary) obj.get("msg");
-				ChatMessage msg = ChatMessage.parseFrom(msgBinary.getData());
+				ChatMessage msg = ChatMessage.parseFrom(obj.get("msg")
+						.toString().getBytes("ISO-8859-1"));
 				messages.add(msg);
 			}
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("Invalid messag from db : ", e);
-			messages.clear();
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			logger.error("Invalid messag from db : ", e);
 			return null;
 		}
 		

@@ -9,8 +9,9 @@ public interface DbService {
 	/**
 	 * Save chat message.
 	 * @return chat message seq
+	 * @throws StorageException 
 	 */
-	public long saveChatMessage(ChatMessage msg);
+	public long saveChatMessage(ChatMessage msg) throws StorageException;
 	
 	/**
 	 * First sort the messages of the user, then get @{num} messages beginning from @{startp}
