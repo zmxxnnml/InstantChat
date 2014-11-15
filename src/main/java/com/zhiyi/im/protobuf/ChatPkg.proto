@@ -1,0 +1,149 @@
+option java_package = "com.zhiyi.im.protobuf";
+option java_outer_classname = "ChatPkg";
+
+message PkgC2S {
+
+	enum PkgType {
+		REG = 0;
+		HEART_BEAT = 1;
+		MESSAGE = 2;
+		PULL_REQ = 3;
+	}
+	
+	required PkgType type = 1;
+	
+	optional RegC2S reg = 2;
+	
+	optional ChatMessage message = 3;
+	
+	optional HeartBeatC2S heart_beat= 4;
+	
+	optional PullReqC2S pull_req= 5;
+}
+
+message PkgS2C {
+
+	enum PkgType {
+		REG_ACK = 1;
+		PULL_RESP = 2;
+		HEART_BEAT_ACK = 3;
+	}
+	
+	required PkgType type = 1;
+	
+	optional PullMessageS2C pull_msg_ack = 2;
+	
+	optional HeartBeatS2C heart_beat_ack = 3;
+	
+	optional RegS2C reg_ack = 4;
+}
+
+message ChatMessage {
+
+	enum MessageType {
+		TEXT = 0;
+		PICTURE = 1;
+		AUDIO = 2;
+	}
+	
+	optional int64 seq = 1;
+	
+	optional int64 from_uid = 2; 
+	
+	optional int64 to_uid = 3;
+	
+	optional string from_device_id = 4;
+	
+	optional string to_device_id = 5;
+	
+	required MessageType type = 6;
+	
+	required int32 data_len = 7;
+	
+	required bytes data = 8;
+	
+	optional int64 user_send_time = 9;
+	
+	optional bool is_read = 10;
+}
+
+message PullMessageS2C {
+
+	optional RetCode code = 1;
+	
+	repeated ChatMessage messages = 2;
+	
+}
+
+message RegC2S {
+
+	optional int64 uid = 1;
+	
+	optional string device_id = 2;
+	
+	optional string sec_token = 3;
+}
+
+enum RetCode {
+	SUCCESS = 0;
+	USER_NOT_EXISING = 1;
+	DEVICE_NOT_EXISTING = 2;
+	INVALID_SEC_TOKEN = 3;
+	INTERNAL_ERROR = 4;
+	ILLEGAL_REQUEST = 5;
+}
+
+message RegS2C {
+	optional RetCode code = 1;
+}
+
+message HeartBeatC2S {
+
+	optional int64 uid = 1;
+	
+	optional string device_id = 2;
+	
+	optional int64 send_time = 3;
+}
+
+message HeartBeatS2C {
+
+	optional RetCode code = 1;
+	
+	optional int64 send_time = 2;
+}
+
+message PullReqC2S {
+
+	optional int64 uid = 1;
+	
+	optional string device_id = 2;
+	
+	optional int64 from_uid = 3;
+
+	optional string from_device_id = 4;
+			
+	optional int64 req_start_seq = 5;
+	
+	optional int64 req_end_seq = 6;
+	
+	optional int64 start_timestamp = 7;
+	
+	optional bool  greater = 8;
+	
+	optional int64 num = 9;
+	
+	optional int64 ack_req = 10;
+}
+
+// Stored in db for message syncing
+message Seq {
+
+	optional int64 uid = 1;
+	
+	optional string device_id = 2;
+	
+	required int64 server_max_seq = 3;
+	
+	required int64 acked_max_seq = 4;
+}
