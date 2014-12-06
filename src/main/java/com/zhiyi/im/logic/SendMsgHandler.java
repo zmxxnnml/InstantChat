@@ -2,7 +2,7 @@ package com.zhiyi.im.logic;
 
 import org.apache.log4j.Logger;
 
-import com.zhiyi.im.base.DateUtil;
+import com.zhiyi.im.common.DateUtil;
 import com.zhiyi.im.config.InstantChatConfig;
 import com.zhiyi.im.protobuf.ChatPkg.ChatMessage;
 import com.zhiyi.im.storage.DbService;

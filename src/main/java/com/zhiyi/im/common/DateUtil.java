@@ -1,4 +1,4 @@
-package com.zhiyi.im.base;
+package com.zhiyi.im.common;
 
 public class DateUtil {
 	public static final long getCurrentSecTimeUTC() {

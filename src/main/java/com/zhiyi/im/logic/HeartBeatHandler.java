@@ -2,9 +2,9 @@ package com.zhiyi.im.logic;
 
 import org.apache.log4j.Logger;
 
-import com.zhiyi.im.base.DateUtil;
 import com.zhiyi.im.client.ClientIdGenerator;
 import com.zhiyi.im.client.OnlineClientMgr;
+import com.zhiyi.im.common.DateUtil;
 import com.zhiyi.im.protobuf.ChatPkg.HeartBeatC2S;
 import com.zhiyi.im.protobuf.ChatPkg.HeartBeatS2C;
 import com.zhiyi.im.protobuf.ChatPkg.PkgS2C;

@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.zhiyi.im.base.StringUtil;
+import com.zhiyi.im.common.StringUtil;
 import com.zhiyi.im.config.InstantChatConfig;
 import com.zhiyi.im.protobuf.ChatPkg.ChatMessage;
 

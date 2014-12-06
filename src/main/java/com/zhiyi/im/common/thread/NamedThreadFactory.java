@@ -1,4 +1,4 @@
-package com.zhiyi.im.base;
+package com.zhiyi.im.common.thread;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

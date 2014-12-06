@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
-import com.zhiyi.im.base.DateUtil;
-import com.zhiyi.im.base.NamedThreadFactory;
+import com.zhiyi.im.common.DateUtil;
+import com.zhiyi.im.common.thread.NamedThreadFactory;
 import com.zhiyi.im.config.InstantChatConfig;
 
 /**

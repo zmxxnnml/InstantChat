@@ -105,8 +105,6 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
 
         ConsumeConcurrentlyStatus status = doConsumeMessage(msgObj);
         return status;
-
-
     }
 
     public int getDelayLevelWhenNextConsume(int reconsumeTimes) {

@@ -2,10 +2,10 @@ package com.zhiyi.im;
 
 import org.apache.log4j.Logger;
 
-import com.zhiyi.im.base.DateUtil;
 import com.zhiyi.im.client.OnlineClientMgr;
 import com.zhiyi.im.client.PendingClient;
 import com.zhiyi.im.client.PendingClientMgr;
+import com.zhiyi.im.common.DateUtil;
 import com.zhiyi.im.logic.LogicDispatcher;
 import com.zhiyi.im.protobuf.ChatPkg.PkgC2S;
 

@@ -3,7 +3,7 @@ package com.zhiyi.im.client;
 import java.net.InetSocketAddress;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.zhiyi.im.base.DateUtil;
+import com.zhiyi.im.common.DateUtil;
 
 import io.netty.channel.Channel;
 import io.netty.channel.socket.nio.NioSocketChannel;

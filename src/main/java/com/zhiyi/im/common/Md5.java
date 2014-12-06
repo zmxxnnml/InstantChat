@@ -1,4 +1,4 @@
-package com.zhiyi.im.base;
+package com.zhiyi.im.common;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
