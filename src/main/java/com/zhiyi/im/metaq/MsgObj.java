@@ -7,8 +7,11 @@ import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 
 public class MsgObj {
     private int reconsumeTimes;
+    
     List<Serializable> msgList;
+    
     private String errorMsg;
+    
     private ConsumeConcurrentlyContext context;
 
     public int getReconsumeTimes() {
@@ -42,6 +45,5 @@ public class MsgObj {
     public void setContext(ConsumeConcurrentlyContext context) {
         this.context = context;
     }
-
 
 }

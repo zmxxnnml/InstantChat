@@ -4,6 +4,9 @@ import org.apache.log4j.Logger;
 
 import com.zhiyi.im.common.DateUtil;
 import com.zhiyi.im.config.InstantChatConfig;
+import com.zhiyi.im.metaq.MsgNotify;
+import com.zhiyi.im.metaq.MsgSender;
+import com.zhiyi.im.metaq.TopicEnum;
 import com.zhiyi.im.protobuf.ChatPkg.ChatMessage;
 import com.zhiyi.im.storage.DbService;
 import com.zhiyi.im.storage.DbServiceImpl;
@@ -66,6 +69,24 @@ public class SendMsgHandler extends BaseHandler {
 			return;
 		}
 
+		// Put notify msg into rocketmq.
+		MsgNotify msgNotify = new MsgNotify();
+		if (chatMsg.hasFromDeviceId()) {
+			msgNotify.setFromDeviceId(chatMsg.getFromDeviceId());
+		}
+		if (chatMsg.hasFromUid()) {
+			msgNotify.setFromUid(chatMsg.getFromUid());
+		}
+		if (chatMsg.hasToDeviceId()) {
+			msgNotify.setToDeviceId(chatMsg.getToDeviceId());
+		}
+		if (chatMsg.hasToUid()) {
+			msgNotify.setToUid(chatMsg.getToUid());
+		}
+		
+		MsgSender.getInstance().sendMessage(msgNotify,
+				TopicEnum.NOTIFYASYNCQUEUE.getTopic(), TopicEnum.NOTIFYASYNCQUEUE.getTags());
+		
 		// Send notification to target client.
 		try {
 			ApplicationServerTransporter transporter  =
@@ -82,6 +103,7 @@ public class SendMsgHandler extends BaseHandler {
 		} catch (UserNotExistingException e) {
 			logger.warn("Send notificaiton failed  by UseNotExisting: " + chatMsg.getToUid());
 		}
+		
 	}
 	
 }

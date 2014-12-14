@@ -21,24 +21,50 @@ import java.util.List;
 public abstract class BaseConsumer implements MessageListenerConcurrently {
 
     private final static Logger log = LoggerFactory.getLogger(BaseConsumer.class);
+
     protected DefaultMQPushConsumer consumer;
+    
     protected String nameServer;
+    
     protected int minConsumeThread = 2;
+    
     protected int maxConsumeThread = 5;
+    
     protected String group;
+    
     protected String subExpression;
+    
     protected TopicEnum topicEnum;
 
     private final static int[] DELAY_LEVELS = new int[]{3, 5, 9, 14, 15, 16, 17, 18, 19, 20, 21};
+    
     protected int maxRetryCount = 10;
 
+    public void setNameServer(String nameServer) {
+        this.nameServer = nameServer;
+    }
+
+    public void setMinConsumeThread(int minConsumeThread) {
+        this.minConsumeThread = minConsumeThread;
+    }
+
+    public void setMaxConsumeThread(int maxConsumeThread) {
+        this.maxConsumeThread = maxConsumeThread;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public void setSubExpression(String subExpression) {
+        this.subExpression = subExpression;
+    }
+    
     public void init() throws MQClientException {
         if ("localTest".equals(nameServer)) {
             return;
         }
-        if (StringUtils.isBlank(System.getProperty("rocketmq.namesrv.domain"))) {
-            System.setProperty("rocketmq.namesrv.domain", nameServer);
-        }
+        
         topicEnum = getTopicEnum();
         if (StringUtils.isBlank(group)) {
             group = "S_" + topicEnum.getTopic() + "_" + topicEnum.getTags();
@@ -49,30 +75,33 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
         consumer.setConsumeThreadMax(maxConsumeThread);
 
         try {
-            consumer.setInstanceName("DEFAULT_CONSUMER-" + InetAddress.getLocalHost().getHostName() + "_" + topicEnum.getTopic());
+            consumer.setInstanceName("DEFAULT_CONSUMER-" +
+            		InetAddress.getLocalHost().getHostName() + "_" + topicEnum.getTopic());
         } catch (UnknownHostException e) {
             log.error("getHostName error", e);
         }
 
         if (StringUtils.isBlank(subExpression)) {
             subExpression = topicEnum.getTags();
-            consumer.subscribe(topicEnum.getTopic(), subExpression);
-        } else {
-            consumer.subscribe(topicEnum.getTopic(), subExpression);
         }
+        consumer.subscribe(topicEnum.getTopic(), subExpression);
+        
         try {
             consumer.registerMessageListener(this);
             consumer.start();
         } catch (MQClientException e) {
             log.error(e.getMessage(), e);
         }
-        log.info("consumer start! ns={},topic={},subExpression={},group={}", System.getProperty("rocketmq.namesrv.domain"), topicEnum.getTopic(), subExpression, group);
+        
+        log.info("consumer start! ns={},topic={},subExpression={},group={}",
+        		nameServer, topicEnum.getTopic(), subExpression, group);
     }
 
     public void destroy() {
         if (consumer != null) {
             consumer.shutdown();
-            log.info("consumer shutdown! topic=" + topicEnum.getTopic() + ",subExpression=" + subExpression + ",group=" + group);
+            log.info("consumer shutdown! topic=" + 
+            		topicEnum.getTopic() + ",subExpression=" + subExpression + ",group=" + group);
         }
     }
 
@@ -86,6 +115,7 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
     public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                     ConsumeConcurrentlyContext context) {
         log.info("receive_message:" + msgs.toString());
+        
         if (msgs == null || msgs.size() < 1) {
             log.error("receive empty msg!");
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
@@ -111,6 +141,7 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
         if (reconsumeTimes >= DELAY_LEVELS.length) {
             return DELAY_LEVELS[DELAY_LEVELS.length - 1];
         }
+        
         return DELAY_LEVELS[reconsumeTimes];
     }
 
@@ -122,31 +153,9 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
         try {
             return HessianUtils.decode(msg.getBody());
         } catch (IOException e) {
-            log.error("反序列化出错!" + e.getMessage(), e);
+            log.error("Deserialized error!" + e.getMessage(), e);
             return null;
         }
     }
-
-
-    public void setNameServer(String nameServer) {
-        this.nameServer = nameServer;
-    }
-
-    public void setMinConsumeThread(int minConsumeThread) {
-        this.minConsumeThread = minConsumeThread;
-    }
-
-    public void setMaxConsumeThread(int maxConsumeThread) {
-        this.maxConsumeThread = maxConsumeThread;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public void setSubExpression(String subExpression) {
-        this.subExpression = subExpression;
-    }
-
 
 }

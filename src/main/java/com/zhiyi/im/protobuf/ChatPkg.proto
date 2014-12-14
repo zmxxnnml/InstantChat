@@ -27,6 +27,7 @@ message PkgS2C {
 		REG_ACK = 1;
 		PULL_RESP = 2;
 		HEART_BEAT_ACK = 3;
+		MSG_NOTIFY = 4;
 	}
 	
 	required PkgType type = 1;
@@ -36,6 +37,9 @@ message PkgS2C {
 	optional HeartBeatS2C heart_beat_ack = 3;
 	
 	optional RegS2C reg_ack = 4;
+	
+	optional MsgNotifyS2C msg_notify = 5;
+	
 }
 
 message ChatMessage {
@@ -134,6 +138,15 @@ message PullReqC2S {
 	optional int64 num = 9;
 	
 	optional int64 ack_req = 10;
+}
+
+message MsgNotifyS2C {
+	
+	optional int64 timestamp = 1;
+	
+	optional int64 fromUid = 2;
+	
+	optional string fromDeviceId = 3;
 }
 
 // Stored in db for message syncing

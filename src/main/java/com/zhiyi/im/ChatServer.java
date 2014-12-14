@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import com.zhiyi.im.client.OnlineClientMgr;
 import com.zhiyi.im.client.PendingClientMgr;
 import com.zhiyi.im.config.InstantChatConfig;
+import com.zhiyi.im.metaq.MsgConsumer;
+import com.zhiyi.im.metaq.MsgSender;
 import com.zhiyi.im.protobuf.ChatPkg.PkgC2S;
 import com.zhiyi.im.storage.DbServiceImpl;
 
@@ -94,6 +96,16 @@ public class ChatServer {
 		// Add cronjob to scan pending(unauthorized) connection
 		PendingClientMgr.getInstance().scan();
 		logger.error("pending connection scanner is running...");
+		
+		// Init rocketmq sender.
+		MsgSender msgSender = MsgSender.getInstance();
+		msgSender.setNameServer("");		// TODO: fill name server.
+		msgSender.init();
+		
+		// Init rocketmq  consumer.
+		MsgConsumer msgConsumer = MsgConsumer.getInstance();
+		msgConsumer.setNameServer("");  // TODO: fill name server.
+		msgConsumer.init();
 		
 		new ChatServer(port).run();
 	}

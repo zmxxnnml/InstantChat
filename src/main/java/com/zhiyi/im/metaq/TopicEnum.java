@@ -3,10 +3,8 @@ package com.zhiyi.im.metaq;
 import org.apache.commons.lang3.StringUtils;
 
 public enum TopicEnum {
-    TEST_APP("TEST", "TEST", "测试应用"),
-    MAIN_APP("MAIN_APP", "MAIN_APP", "主客"),
-    MSGPROVIDER_ASYNCQUEUE("Archery_MSGProvider_AsyncQueue_1", "DEFAULT_TAGS", "异步处理消息发送队列"),
-    NOTIFY_CONNECTORSERVER("Archery_NOTIFY_CONNECTORSERVER", "NOTIFY", "通知连接服务器，新的消息体");
+    TEST("TEST", "TEST", "测试应用"),
+    NOTIFYASYNCQUEUE("NotifyAsyncQueue", "DEFAULT_TAGS", "异步处理消息发送队列");
 
     private String topic;
 
@@ -30,16 +28,13 @@ public enum TopicEnum {
         this.tags = tags;
     }
 
-
     public String getDesc() {
         return desc;
     }
 
-
     public void setDesc(String desc) {
         this.desc = desc;
     }
-
 
     private TopicEnum(String topic, String tags, String desc) {
         this.topic = topic;
@@ -69,6 +64,5 @@ public enum TopicEnum {
         String[] tags = desc.split(",");
         return findTopicEnum(tags[0], tags[1]);
     }
-
 
 }
