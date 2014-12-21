@@ -14,4 +14,7 @@ public interface ApplicationServerTransporter {
 	public void sendNotificationToClient(Long uid, String deviceId, PushMsg msg)
 			throws InternalException, DeviceNotExistingException, UserNotExistingException;
 	
+	public void sendApnsNotificationToClient(Long uid, String deviceId, PushMsg msg)
+			throws InternalException, UserNotExistingException, DeviceNotExistingException;
+	
 }

@@ -34,4 +34,10 @@ public class DebugApplicationServerTransporter implements
 		// do nothing.
 	}
 
+	@Override
+	public void sendApnsNotificationToClient(Long uid, String deviceId,
+			PushMsg msg) {
+		// do nothing.
+	}
+
 }

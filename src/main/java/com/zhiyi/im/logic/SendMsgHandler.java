@@ -83,17 +83,16 @@ public class SendMsgHandler extends BaseHandler {
 		if (chatMsg.hasToUid()) {
 			msgNotify.setToUid(chatMsg.getToUid());
 		}
-		
 		MsgSender.getInstance().sendMessage(msgNotify,
 				TopicEnum.NOTIFYASYNCQUEUE.getTopic(), TopicEnum.NOTIFYASYNCQUEUE.getTags());
 		
-		// Send notification to target client.
+		// Send notification to target client only for ios app.
 		try {
 			ApplicationServerTransporter transporter  =
 					ApplicationServerTransporterFactory.getTransporter(
 					InstantChatConfig.getInstance().getApplicationServerType());
 			 // TODO: talk about what to send later.
-			transporter.sendNotificationToClient(
+			transporter.sendApnsNotificationToClient(
 					chatMsg.getToUid(), chatMsg.getToDeviceId(), null);
 		} catch (InternalException e) {
 			logger.warn("Send notificaiton failed  by internal error: " + e);

@@ -37,6 +37,8 @@ public class DefaultApplicationServerTransporter implements ApplicationServerTra
 	
 	private static final String APP_PUSH_URI = ""; // TODO: fill it later
 	
+	private static final String APNS_PUSH_URI = "";  // TODO: fill it later.
+	
 	private static final Logger logger =
 			Logger.getLogger(DefaultApplicationServerTransporter.class);
 	
@@ -132,6 +134,24 @@ public class DefaultApplicationServerTransporter implements ApplicationServerTra
 				}
 			}
 		}
+	}
+
+	@Override
+	public void sendApnsNotificationToClient(Long uid, String deviceId, PushMsg msg)
+			throws InternalException, UserNotExistingException, DeviceNotExistingException {
+		List<NameValuePair> postData = new ArrayList<NameValuePair>();
+		postData.add(new BasicNameValuePair("uid", uid.toString()));
+		postData.add(new BasicNameValuePair("device_id", deviceId));
+		postData.add(new BasicNameValuePair("msg", JSON.toJSONString(msg)));
+		
+	        String respJsonData = communicateWithApplicationServ(APNS_PUSH_URI, postData);
+	        PushResp pushResp = (PushResp)JSON.parse(respJsonData);
+			if (pushResp.getCode() == TransErrorCode.USER_NOT_EXISTING.toInteger()) {
+				throw new UserNotExistingException();
+			}
+			if (pushResp.getCode() == TransErrorCode.USER_NOT_EXISTING.toInteger()) {
+				throw new DeviceNotExistingException();
+			}
 	}
 	
 }
