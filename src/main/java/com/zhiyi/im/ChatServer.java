@@ -81,6 +81,7 @@ public class ChatServer {
 		int port;
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);
+			InstantChatConfig.getInstance().setServerPort(port);
 		} else {
 			port = InstantChatConfig.getInstance().getServerPort();  
 		}
@@ -99,12 +100,12 @@ public class ChatServer {
 		
 		// Init rocketmq sender.
 		MsgSender msgSender = MsgSender.getInstance();
-		msgSender.setNameServer("");		// TODO: fill name server.
+		msgSender.setNameServer(InstantChatConfig.getInstance().getRocketmqNameServer());
 		msgSender.init();
 		
 		// Init rocketmq  consumer.
 		MsgConsumer msgConsumer = MsgConsumer.getInstance();
-		msgConsumer.setNameServer("");  // TODO: fill name server.
+		msgConsumer.setNameServer(InstantChatConfig.getInstance().getRocketmqNameServer());
 		msgConsumer.init();
 		
 		new ChatServer(port).run();

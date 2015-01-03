@@ -6,10 +6,10 @@ import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.message.MessageExt;
+import com.zhiyi.im.config.InstantChatConfig;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public abstract class BaseConsumer implements MessageListenerConcurrently {
 
-    private final static Logger log = LoggerFactory.getLogger(BaseConsumer.class);
+    private final static Logger logger = Logger.getLogger(BaseConsumer.class);
 
     protected DefaultMQPushConsumer consumer;
     
@@ -75,10 +75,12 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
         consumer.setConsumeThreadMax(maxConsumeThread);
 
         try {
-            consumer.setInstanceName("DEFAULT_CONSUMER-" +
-            		InetAddress.getLocalHost().getHostName() + "_" + topicEnum.getTopic());
+        	// Indentify different consumers by instance name.
+            consumer.setInstanceName(
+            		"CONSUMER-" + InetAddress.getLocalHost().getHostName() + "-"
+            		+ InstantChatConfig.getInstance().getServerPort() + "-" + topicEnum.getTopic());
         } catch (UnknownHostException e) {
-            log.error("getHostName error", e);
+            logger.error("getHostName error", e);
         }
 
         if (StringUtils.isBlank(subExpression)) {
@@ -90,17 +92,17 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
             consumer.registerMessageListener(this);
             consumer.start();
         } catch (MQClientException e) {
-            log.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
         }
         
-        log.info("consumer start! ns={},topic={},subExpression={},group={}",
-        		nameServer, topicEnum.getTopic(), subExpression, group);
+        logger.info("Consumer start success! ns=" + nameServer + ",topic=" 
+        		+ topicEnum.getTopic() + ",subExpression=" + subExpression +",group=" + group);
     }
 
     public void destroy() {
         if (consumer != null) {
             consumer.shutdown();
-            log.info("consumer shutdown! topic=" + 
+            logger.info("consumer shutdown! topic=" + 
             		topicEnum.getTopic() + ",subExpression=" + subExpression + ",group=" + group);
         }
     }
@@ -114,10 +116,10 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
     @Override
     public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                     ConsumeConcurrentlyContext context) {
-        log.info("receive_message:" + msgs.toString());
+        logger.info("receive_message:" + msgs.toString());
         
         if (msgs == null || msgs.size() < 1) {
-            log.error("receive empty msg!");
+            logger.error("receive empty msg!");
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         }
 
@@ -153,7 +155,7 @@ public abstract class BaseConsumer implements MessageListenerConcurrently {
         try {
             return HessianUtils.decode(msg.getBody());
         } catch (IOException e) {
-            log.error("Deserialized error!" + e.getMessage(), e);
+            logger.error("Deserialized error!" + e.getMessage(), e);
             return null;
         }
     }

@@ -25,13 +25,15 @@ public class InstantChatConfig {
 	
 	private static final String CONN_UNACTIVE__DEADLINE_KEY = "inst.connectionUnactiveDeadline";
 	
-	private static final String APPLICATION_SERVER_URL_KEY = "inst.applicationServerUrl";
-	
 	private static final String SESSION_SCAN_INTERVAL_KEY = "inst.sessionScanInterval";
 	
 	private static final String MAX_LOGIC_THREAD_NUM_KEY = "inst.maxLogicThreadNum";
 	
+	private static final String APPLICATION_SERVER_URL_KEY = "inst.applicationServerUrl";
+	
 	private static final String APPLICATION_SERVER_TYPE_KEY = "inst.applicationServerType";
+	
+	private static final String ROCKETMQ_NAME_SERVER_KEY = "inst.rocketmq";
 	
 	// Mongodb server address.
 	private String mongoDbAddr = "localhost";
@@ -61,6 +63,8 @@ public class InstantChatConfig {
 	
 	// The type{DEBUG/REAL} of application server which our server connects to.
 	private ApplicationServerType applicationServerType = ApplicationServerType.DEBUG;
+	
+	private String rocketmqNameServer = "";
 	
 	private InstantChatConfig() {
 		reloadConfig();
@@ -97,11 +101,11 @@ public class InstantChatConfig {
 			}
 		}
 		
-		String globalConfigPath = "com/zhiyi/InstantChat/config/IntantChat-dev.properties";
+		String globalConfigPath = "IntantChat-dev.properties";
 		if (deploy == "prod") {
-			globalConfigPath = "com/zhiyi/InstantChat/config/IntantChat-prod.properties";
+			globalConfigPath = "IntantChat-prod.properties";
 		} else if (deploy == "local") {
-			globalConfigPath = "com/zhiyi/InstantChat/config/IntantChat-local.properties";
+			globalConfigPath = "IntantChat-local.properties";
 		}
 		
 		Properties instantChatProperties = new Properties();
@@ -165,6 +169,12 @@ public class InstantChatConfig {
 				if (applicationServerTypeVal != null) {
 					Integer typeVal = Integer.parseInt(applicationServerTypeVal);
 					applicationServerType = ApplicationServerType.convertToEnum(typeVal);
+				}
+				
+				String rocketmqNameServerVal = instantChatProperties
+						.getProperty(ROCKETMQ_NAME_SERVER_KEY);
+				if (rocketmqNameServerVal != null) {
+					setRocketmqNameServer(rocketmqNameServerVal);
 				}
 			} catch (IOException e) {
 				logger.error("Load global properties failed!", e);
@@ -244,6 +254,14 @@ public class InstantChatConfig {
 
 	public void setApplicationServerType(ApplicationServerType applicationServerType) {
 		this.applicationServerType = applicationServerType;
+	}
+
+	public String getRocketmqNameServer() {
+		return rocketmqNameServer;
+	}
+
+	public void setRocketmqNameServer(String rocketmqNameServer) {
+		this.rocketmqNameServer = rocketmqNameServer;
 	}
 	
 }
